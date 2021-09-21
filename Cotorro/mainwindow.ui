@@ -11,12 +11,221 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Cotorro</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
-  <widget class="QMenuBar" name="menubar"/>
+  <property name="windowIcon">
+   <iconset resource="app-resources.qrc">
+    <normaloff>:/icons/assets/icons/cotorro.ico</normaloff>:/icons/assets/icons/cotorro.ico</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_6">
+    <item>
+     <widget class="QSplitter" name="mainSplitter">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="opaqueResize">
+       <bool>true</bool>
+      </property>
+      <property name="childrenCollapsible">
+       <bool>false</bool>
+      </property>
+      <widget class="QWidget" name="layoutWidget">
+       <layout class="QVBoxLayout" name="layout_storytellingSection" stretch="0">
+        <property name="spacing">
+         <number>3</number>
+        </property>
+        <property name="sizeConstraint">
+         <enum>QLayout::SetMaximumSize</enum>
+        </property>
+        <property name="leftMargin">
+         <number>5</number>
+        </property>
+        <item>
+         <widget class="QGroupBox" name="group_storySection">
+          <property name="minimumSize">
+           <size>
+            <width>160</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>300</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>Story Sections</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <item>
+                <spacer name="horizontalSpacer">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton">
+                 <property name="text">
+                  <string>Create</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_2">
+                 <property name="text">
+                  <string>Remove</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QListWidget" name="listWidget">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>1600000</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="layoutWidget">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QSplitter" name="splitter">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="childrenCollapsible">
+           <bool>false</bool>
+          </property>
+          <widget class="QGroupBox" name="ground_audioSync">
+           <property name="title">
+            <string>Audio Sync Tool</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/images/assets/images/cotorro_banner.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QGroupBox" name="group_content">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>300</height>
+            </size>
+           </property>
+           <property name="title">
+            <string>Content</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QPlainTextEdit" name="plainTextStory">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="group_logger">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>120</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>Logger</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <widget class="QPlainTextEdit" name="plainTextLogger">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="app-resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
