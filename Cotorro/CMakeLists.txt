@@ -19,6 +19,7 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+        app-resources.qrc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -55,3 +56,4 @@ set_target_properties(Cotorro PROPERTIES
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(Cotorro)
 endif()
+
