@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "cotorro.h"
 
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
@@ -9,6 +10,10 @@ MainWindow::MainWindow(QWidget *parent)
 
   setCentralWidget(ui->mainSplitter);
 
+  // Create Cotorro's module.
+  Cotorro::Start(this);
+
+  // Initialize
   init();
 }
 
@@ -20,14 +25,16 @@ MainWindow::~MainWindow()
 void
 MainWindow::init()
 {
-  // Setup Logger Widget
+  // Initialize Cotorro's module.
+  Cotorro::Instance()->init();
 
+  // Init Logger Widget
   QPalette p = ui->pText_logger->palette();
   p.setColor(QPalette::Base, Qt::black);
   p.setColor(QPalette::Text, Qt::white);
   ui->pText_logger->setPalette(p);
 
-  ui->pText_logger->setPlainText("Hello");
+
 
   return;
 }

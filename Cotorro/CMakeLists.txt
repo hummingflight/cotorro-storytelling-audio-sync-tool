@@ -20,6 +20,9 @@ set(PROJECT_SOURCES
         mainwindow.h
         mainwindow.ui
         app-resources.qrc
+
+        cotorro.h
+        cotorro.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
