@@ -2,16 +2,33 @@
 #include "./ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+  : QMainWindow(parent)
+  , ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
+  ui->setupUi(this);
 
-    setCentralWidget(ui->mainSplitter);
+  setCentralWidget(ui->mainSplitter);
+
+  init();
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+  delete ui;
+}
+
+void
+MainWindow::init()
+{
+  // Setup Logger Widget
+
+  QPalette p = ui->pText_logger->palette();
+  p.setColor(QPalette::Base, Qt::black);
+  p.setColor(QPalette::Text, Qt::white);
+  ui->pText_logger->setPalette(p);
+
+  ui->pText_logger->setPlainText("Hello");
+
+  return;
 }
 

@@ -157,7 +157,7 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
             <item>
-             <widget class="QPlainTextEdit" name="plainTextStory">
+             <widget class="QPlainTextEdit" name="pText_textStory">
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
@@ -186,7 +186,7 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
-            <widget class="QPlainTextEdit" name="plainTextLogger">
+            <widget class="QPlainTextEdit" name="pText_logger">
              <property name="readOnly">
               <bool>true</bool>
              </property>
