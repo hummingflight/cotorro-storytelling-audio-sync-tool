@@ -21,8 +21,8 @@ set(PROJECT_SOURCES
         mainwindow.ui
         app-resources.qrc
 
-        cotorro.h
-        cotorro.cpp
+        cotorro.h cotorro.cpp
+        cotorroutilities.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

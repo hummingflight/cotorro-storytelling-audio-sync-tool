@@ -1,6 +1,9 @@
+#include "mainwindow.h"
 #include "cotorro.h"
 
-Cotorro::Cotorro(QObject *parent) : QObject(parent)
+Cotorro::Cotorro(QObject *parent) :
+  QObject(parent),
+  _pMainWindow(nullptr)
 {
 
 }
@@ -24,8 +27,36 @@ Cotorro::Instance()
   return Cotorro::_Instance();
 }
 
-void Cotorro::init()
+void
+Cotorro::Log(const eLOGTYPE::E &_type, const QString &_msg)
 {
+  Cotorro* pCotorro = Cotorro::Instance();
+  if(pCotorro == nullptr) {
+    return;
+  }
+
+  QString msgType;
+  switch (_type) {
+    case eLOGTYPE::kMessage:
+      msgType = "";
+    break;
+
+    case eLOGTYPE::kWarning:
+      msgType = "|Warning| ";
+    break;
+
+    case eLOGTYPE::kError:
+      msgType = "|Error| ";
+    break;
+  }
+
+  QPlainTextEdit* pLoggerWidget = pCotorro->_pMainWindow->getLoggerTextWidget();
+  pLoggerWidget->appendPlainText(msgType + _msg);
+}
+
+void Cotorro::init(MainWindow* _pMain)
+{
+  this->_pMainWindow = _pMain;
   return;
 }
 

@@ -2,6 +2,12 @@
 #define COTORRO_H
 
 #include <QObject>
+#include <QString>
+#include <QPlainTextEdit>
+
+#include "cotorroutilities.h"
+
+class MainWindow;
 
 /**
  * @brief Cotorro's service locator.
@@ -25,10 +31,19 @@ public:
   Instance();
 
   /**
+   * @brief Send a message to the logger.
+   *
+   * @param Message type.
+   * @param Message content.
+   */
+  static void
+  Log(const eLOGTYPE::E& _type, const QString& _msg);
+
+  /**
    * @brief Initialize the module.
    */
   void
-  init();
+  init(MainWindow* _pMainWindow);
 
   /**
    * @brief Safely destroys the module.
@@ -60,6 +75,11 @@ private:
    */
   void
   _onStart();
+
+  /**
+   * @brief Main Window pointer.
+   */
+  MainWindow* _pMainWindow;
 
 };
 

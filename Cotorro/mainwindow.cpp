@@ -22,11 +22,17 @@ MainWindow::~MainWindow()
   delete ui;
 }
 
+QPlainTextEdit*
+MainWindow::getLoggerTextWidget()
+{
+  return ui->pText_logger;
+}
+
 void
 MainWindow::init()
 {
   // Initialize Cotorro's module.
-  Cotorro::Instance()->init();
+  Cotorro::Instance()->init(this);
 
   // Init Logger Widget
   QPalette p = ui->pText_logger->palette();
@@ -34,7 +40,9 @@ MainWindow::init()
   p.setColor(QPalette::Text, Qt::white);
   ui->pText_logger->setPalette(p);
 
-
+  Cotorro::Log(eLOGTYPE::kMessage, "This is a message");
+  Cotorro::Log(eLOGTYPE::kWarning, "This is a warning");
+  Cotorro::Log(eLOGTYPE::kError, "This is an error");
 
   return;
 }
