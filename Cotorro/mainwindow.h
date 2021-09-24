@@ -14,8 +14,15 @@ class MainWindow : public QMainWindow
 
 public:
 
+  /**
+   * @brief MainWindow
+   * @param parent
+   */
   MainWindow(QWidget *parent = nullptr);
 
+  /**
+   *
+   */
   ~MainWindow();
 
   /**
@@ -27,8 +34,15 @@ public:
   getLoggerTextWidget();
 
 private:
+
+    /**
+     * @brief ui
+     */
     Ui::MainWindow *ui;
 
+    /**
+     * @brief init
+     */
     void
     init();
 
