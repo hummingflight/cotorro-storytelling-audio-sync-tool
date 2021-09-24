@@ -35,23 +35,23 @@ Cotorro::Log(const eLOGTYPE::E &_type, const QString &_msg)
     return;
   }
 
-  QString msgType;
+  QString msgStyle = "<span style=\" color:#ffffff;\" >";
   switch (_type) {
     case eLOGTYPE::kMessage:
-      msgType = "";
+      msgStyle = "<span style=\" color:#ffffff;\" >";
     break;
 
     case eLOGTYPE::kWarning:
-      msgType = "|Warning| ";
+      msgStyle = "<span style=\" color:#ffff00;\" >";
     break;
 
     case eLOGTYPE::kError:
-      msgType = "|Error| ";
+      msgStyle = "<span style=\" color:#ff0000;\" >";
     break;
   }
 
   QPlainTextEdit* pLoggerWidget = pCotorro->_pMainWindow->getLoggerTextWidget();
-  pLoggerWidget->appendPlainText(msgType + _msg);
+  pLoggerWidget->appendHtml(msgStyle + _msg + "</span>");
 }
 
 void Cotorro::init(MainWindow* _pMain)
