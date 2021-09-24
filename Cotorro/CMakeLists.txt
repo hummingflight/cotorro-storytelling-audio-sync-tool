@@ -23,6 +23,7 @@ set(PROJECT_SOURCES
 
         cotorro.h cotorro.cpp
         cotorroutilities.h
+        ctProject.h ctProject.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

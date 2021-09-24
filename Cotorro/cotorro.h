@@ -6,8 +6,11 @@
 #include <QPlainTextEdit>
 
 #include "cotorroutilities.h"
+#include "ctProject.h"
 
 class MainWindow;
+
+namespace ct {
 
 /**
  * @brief Cotorro's service locator.
@@ -16,7 +19,7 @@ class Cotorro : public QObject
 {
   Q_OBJECT
 
-public:  
+public:
 
   /**
    * @brief Start the Cotorro module
@@ -81,6 +84,13 @@ private:
    */
   MainWindow* _pMainWindow;
 
+  /**
+   * @brief Application project.
+   */
+  Project _m_project;
+
 };
+
+}
 
 #endif // COTORRO_H

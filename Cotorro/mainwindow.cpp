@@ -2,6 +2,8 @@
 #include "./ui_mainwindow.h"
 #include "cotorro.h"
 
+using ct::Cotorro;
+
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
   , ui(new Ui::MainWindow)
@@ -40,10 +42,7 @@ MainWindow::init()
   p.setColor(QPalette::Text, Qt::white);
   ui->pText_logger->setPalette(p);
 
-  Cotorro::Log(eLOGTYPE::kMessage, "This is a message");
-  Cotorro::Log(eLOGTYPE::kWarning, "This is a warning");
-  Cotorro::Log(eLOGTYPE::kError, "This is an error");
-
+  Cotorro::Log(eLOGTYPE::kMessage, "Application initialized.");
   return;
 }
 

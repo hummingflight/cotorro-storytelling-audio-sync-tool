@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "cotorro.h"
 
+namespace ct {
+
 Cotorro::Cotorro(QObject *parent) :
   QObject(parent),
   _pMainWindow(nullptr)
@@ -56,7 +58,10 @@ Cotorro::Log(const eLOGTYPE::E &_type, const QString &_msg)
 
 void Cotorro::init(MainWindow* _pMain)
 {
-  this->_pMainWindow = _pMain;
+  _pMainWindow = _pMain;
+
+  _m_project.init();
+
   return;
 }
 
@@ -76,4 +81,6 @@ void
 Cotorro::_onStart()
 {
   // TODO
+}
+
 }
