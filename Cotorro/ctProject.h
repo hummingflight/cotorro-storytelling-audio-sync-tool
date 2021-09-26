@@ -3,10 +3,12 @@
 
 #include <QObject>
 
+#include "ctStorySectionManager.h"
+
 namespace ct {
 
 /**
- * @brief The ctProject class
+ * @brief The Project class
  */
 class Project : public QObject
 {
@@ -37,6 +39,14 @@ public:
   void
   dirty();
 
+  /**
+   * @brief Indicates if the project is dirty.
+   *
+   * @return True if it is.
+   */
+  bool
+  isDirty();
+
 signals:
 
 private:
@@ -52,6 +62,12 @@ private:
   */
   bool
   _m_isDirty;
+
+  /**
+   * @brief Story Section Manager.
+   */
+  StorySectionManager
+  _m_storySectionManager;
 
 };
 

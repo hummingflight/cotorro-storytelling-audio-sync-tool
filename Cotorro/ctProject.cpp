@@ -13,6 +13,8 @@ Project::Project(QObject *parent) :
 void
 ct::Project::init()
 {
+  _m_storySectionManager.init();
+
   clear();
 
   return;
@@ -21,6 +23,8 @@ ct::Project::init()
 void
 ct::Project::clear()
 {
+  _m_storySectionManager.clear();
+
   _m_name = "";
   _m_isDirty = true;
 
@@ -34,6 +38,11 @@ void Project::dirty()
   }
 
   return;
+}
+
+bool Project::isDirty()
+{
+  return _m_isDirty;
 }
 
 }

@@ -24,6 +24,7 @@ set(PROJECT_SOURCES
         cotorro.h cotorro.cpp
         cotorroutilities.h
         ctProject.h ctProject.cpp
+        ctStorySectionManager.h ctStorySectionManager.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
