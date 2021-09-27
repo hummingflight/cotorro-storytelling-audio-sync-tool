@@ -49,6 +49,14 @@ public:
   init(MainWindow* _pMainWindow);
 
   /**
+   * @brief Get the project.
+   *
+   * @return Project.
+   */
+  Project&
+  getProject();
+
+  /**
    * @brief Safely destroys the module.
    */
   void

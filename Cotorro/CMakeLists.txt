@@ -19,6 +19,11 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+
+        newProjectDialog.h
+        newProjectDialog.cpp
+        newProjectDialog.ui
+
         app-resources.qrc
 
         cotorro.h cotorro.cpp

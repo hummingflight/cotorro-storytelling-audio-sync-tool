@@ -33,6 +33,9 @@ public:
   QPlainTextEdit*
   getLoggerTextWidget();
 
+private slots:
+  void on_actionNew_triggered();
+
 private:
 
     /**

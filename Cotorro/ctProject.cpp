@@ -1,5 +1,7 @@
 #include "ctProject.h"
 
+#include "cotorro.h"
+
 namespace ct {
 
 Project::Project(QObject *parent) :
@@ -8,6 +10,19 @@ Project::Project(QObject *parent) :
   _m_isDirty(false)
 {
   return;
+}
+
+const QString&
+Project::ProjectExtension()
+{
+  static const QString _PROJECT_EXTENSION = ".cotorro";
+  return _PROJECT_EXTENSION;
+}
+
+eOPRESULT::E
+Project::SetupProjectFolder(const QString &_path, const QString &_projectName)
+{
+  return eOPRESULT::kOk;
 }
 
 void
@@ -26,7 +41,7 @@ ct::Project::clear()
   _m_storySectionManager.clear();
 
   _m_name = "";
-  _m_isDirty = true;
+  _m_isDirty = false;
 
   return;
 }

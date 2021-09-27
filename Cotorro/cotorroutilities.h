@@ -9,4 +9,13 @@ enum E {
 };
 }
 
+namespace eOPRESULT {
+enum E {
+  kOk = 0,
+  kFail,
+  kDirectoryNotReadable,
+  kDirectoryDoesntExists
+};
+}
+
 #endif // COTORROUTILITIES_H

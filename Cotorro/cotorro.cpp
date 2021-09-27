@@ -65,6 +65,12 @@ void Cotorro::init(MainWindow* _pMain)
   return;
 }
 
+Project&
+Cotorro::getProject()
+{
+  return _m_project;
+}
+
 void Cotorro::destroy()
 {
   return;

@@ -1,8 +1,15 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+
+#include <QFileDialog>
+
+#include "newProjectDialog.h"
+
 #include "cotorro.h"
+#include "ctProject.h"
 
 using ct::Cotorro;
+using ct::Project;
 
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
@@ -43,6 +50,23 @@ MainWindow::init()
   ui->pText_logger->setPalette(p);
 
   Cotorro::Log(eLOGTYPE::kMessage, "Application initialized.");
+  return;
+}
+
+
+void
+MainWindow::on_actionNew_triggered()
+{
+  Project& project = Cotorro::Instance()->getProject();
+  if(project.isDirty()) {
+    // TODO Do you want to save the actual project?
+  }
+
+  NewProjectDialog dialog(this);
+  if(dialog.exec()) {
+    Cotorro::Log(eLOGTYPE::kMessage, "New project accepted");
+  }
+
   return;
 }
 
