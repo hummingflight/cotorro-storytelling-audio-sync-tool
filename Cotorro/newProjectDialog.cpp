@@ -4,6 +4,13 @@
 #include <QFileDialog>
 #include <QRegularExpression>
 #include <QRegularExpressionValidator>
+#include <QMessageBox>
+#include <QFile>
+#include <QXmlStreamWriter>
+
+#include "ctProject.h"
+
+using ct::Project;
 
 NewProjectDialog::NewProjectDialog(QWidget *parent) :
   QDialog(parent),
@@ -92,11 +99,117 @@ NewProjectDialog::updateAcceptButton()
   return;
 }
 
+eOPRESULT::E
+NewProjectDialog::setupProjectFolder
+  (
+    const QString& _projPath,
+    const QString& _projName
+  )
+{
+
+  QDir projectDir(_projPath);
+  if(!projectDir.exists()) {
+    return eOPRESULT::kDirectoryDoesntExists;
+  }
+
+  if(!projectDir.isReadable()) {
+    return eOPRESULT::kDirectoryNotReadable;
+  }
+
+  eOPRESULT::E opRes = createAssetFolder(projectDir);
+  if(opRes != eOPRESULT::kOk) {
+    return opRes;
+  }
+
+  QString projNameExt = _projName + Project::ProjectExtension();
+  opRes = createProjectFile(projectDir, projNameExt);
+  if(opRes != eOPRESULT::kOk) {
+    return opRes;
+  }
+
+  return eOPRESULT::kOk;
+}
+
+eOPRESULT::E
+NewProjectDialog::createAssetFolder(const QDir &_projDir)
+{
+  QString assetFolderName = "assets";
+  if(_projDir.exists(assetFolderName)) {
+    return eOPRESULT::kOk;
+  }
+
+  if(!_projDir.mkdir(assetFolderName)) {
+    return eOPRESULT::kFail;
+  }
+
+  return eOPRESULT::kOk;
+}
+
+eOPRESULT::E
+NewProjectDialog::createProjectFile
+  (
+    const QDir &_projPath,
+    const QString &_projName
+  )
+{
+  QString filePath = _projPath.path() + QDir::separator() + _projName;
+  QFile projFile(filePath);
+
+  if(!projFile.open(QIODevice::ReadWrite)) {
+    return eOPRESULT::kFail;
+  }
+
+  QXmlStreamWriter stream(&projFile);
+  stream.setAutoFormatting(true);
+  stream.writeStartDocument();
+  stream.writeStartElement("Project");
+
+  // Application and Organization information.
+  stream.writeAttribute("application", QApplication::applicationDisplayName());
+  stream.writeAttribute("organization", QApplication::organizationName());
+  stream.writeAttribute("website", QApplication::organizationDomain());
+  stream.writeAttribute("version", QApplication::applicationVersion());
+  stream.writeAttribute("assetsFolderName", "assets");
+
+  // Project elements.
+  stream.writeEmptyElement("StorySections");
+
+  stream.writeEndElement();
+  stream.writeEndDocument();
+
+  projFile.flush();
+  projFile.close();
+
+  return eOPRESULT::kOk;
+}
+
 
 void
 NewProjectDialog::on_btn_accept_clicked()
 {
-  accept();
+  eOPRESULT::E result = this->setupProjectFolder
+    (
+        ui->line_projectPath->text(),
+        ui->line_projectName->text()
+    );
+
+  if(result != eOPRESULT::kOk) {
+    QMessageBox errorMsg
+      (
+          QMessageBox::Icon::Critical,
+          "Project creation failed",
+          "Something went wrong during the project's preparation.",
+          QMessageBox::Close,
+          this
+      );
+
+    errorMsg.exec();
+  }
+  else {
+    accept();
+  }
+
+  return;
 }
 
 

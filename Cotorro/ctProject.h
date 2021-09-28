@@ -29,19 +29,7 @@ public:
    * @return File extension.
    */
   static const QString&
-  ProjectExtension();
-
-  /**
-   * @brief Prepares the project folder when a new project
-   * is being created.
-   *
-   * @param _path Project's path.
-   * @param _projectName Project's name.
-   *
-   * @return Operation result.
-   */
-  static eOPRESULT::E
-  SetupProjectFolder(const QString& _path, const QString& _projectName);
+  ProjectExtension();  
 
   /**
    * @brief Initialize the class.

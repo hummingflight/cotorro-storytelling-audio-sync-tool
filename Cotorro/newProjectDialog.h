@@ -2,6 +2,9 @@
 #define NEWPROJECTDIALOG_H
 
 #include <QDialog>
+#include <QDir>
+
+#include "cotorroutilities.h"
 
 namespace Ui {
 class NewProjectDialog;
@@ -80,6 +83,33 @@ private:
    */
   void
   updateAcceptButton();
+
+  /**
+   * @brief Setup the project's folder.
+   */
+  eOPRESULT::E
+  setupProjectFolder(const QString& _projPath, const QString& _projName);
+
+  /**
+   * @brief Create the asset's folder.
+   *
+   * @param _projPath Project's path.
+   *
+   * @return Operation result.
+   */
+  eOPRESULT::E
+  createAssetFolder(const QDir& _projPath);
+
+  /**
+   * @brief Creates the project's file.
+   *
+   * @param _projPath Project's path.
+   * @param _projName Project's name.
+   *
+   * @return  Operation result.
+   */
+  eOPRESULT::E
+  createProjectFile(const QDir& _projPath, const QString& _projName);
 
   /**
    * @brief ui

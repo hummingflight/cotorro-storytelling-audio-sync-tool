@@ -19,12 +19,6 @@ Project::ProjectExtension()
   return _PROJECT_EXTENSION;
 }
 
-eOPRESULT::E
-Project::SetupProjectFolder(const QString &_path, const QString &_projectName)
-{
-  return eOPRESULT::kOk;
-}
-
 void
 ct::Project::init()
 {
