@@ -54,23 +54,6 @@ MainWindow::init()
   return;
 }
 
-
-void
-MainWindow::on_actionNew_triggered()
-{
-  Project& project = Cotorro::Instance()->getProject();
-  if(project.isDirty()) {
-    // TODO Do you want to save the actual project?
-  }
-
-  NewProjectDialog dialog(this);
-  if(dialog.exec()) {
-    openProject(dialog.projectFullPath);
-  }
-
-  return;
-}
-
 void
 MainWindow::openProject(const QString &_path)
 {
@@ -89,6 +72,96 @@ MainWindow::openProject(const QString &_path)
       );
 
     errorMsg.exec();
+  }
+
+  return;
+}
+
+void
+MainWindow::saveProject()
+{
+  Project& project = Cotorro::Instance()->getProject();
+  eOPRESULT::E res = project.save();
+  if(res != eOPRESULT::kOk) {
+    QMessageBox errorMsg
+      (
+          QMessageBox::Icon::Critical,
+          "Save Error",
+          "Something went wrong. The project couldn't be saved.",
+          QMessageBox::Close,
+          this
+      );
+
+    errorMsg.exec();
+  }
+
+  return;
+}
+
+void
+MainWindow::checkDirt()
+{
+  Project& project = Cotorro::Instance()->getProject();
+  if(project.isDirty()) {
+
+    QMessageBox warnMsg
+      (
+          QMessageBox::Icon::Warning,
+          "Save current project",
+          "Do you want to save the current project?",
+          QMessageBox::Yes | QMessageBox::No,
+          this
+      );
+
+    if(warnMsg.exec()) {
+      saveProject();
+    }
+  }
+
+  return;
+}
+
+void
+MainWindow::on_actionNew_triggered()
+{
+  checkDirt();
+
+  NewProjectDialog dialog(this);
+  if(dialog.exec()) {
+    openProject(dialog.projectFullPath);
+  }
+
+  return;
+}
+
+void
+MainWindow::on_actionOpen_triggered()
+{
+  checkDirt();
+
+  QFileDialog dialog(this, tr("Select project file"), QDir::home().path());
+  dialog.setFileMode(QFileDialog::FileMode::ExistingFile);
+  dialog.setNameFilter(tr("Cotorro Projects (*.cotorro)"));
+
+  if(!dialog.exec())
+  {
+    return;
+  }
+
+  QList<QString> allSelected = dialog.selectedFiles();
+  if(allSelected.size() <= 0) {
+    return;
+  }
+
+  openProject(allSelected[0]);
+}
+
+void
+MainWindow::on_actionSave_triggered()
+{
+  Project& project = Cotorro::Instance()->getProject();
+  if(project.isDirty()) {
+    saveProject();
   }
 
   return;

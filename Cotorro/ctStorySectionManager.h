@@ -41,7 +41,7 @@ public:
    * @return Operation result.
    */
   eOPRESULT::E
-  open(const QXmlStreamReader& _reader);
+  open(QXmlStreamReader& _reader);
 
   /**
    * @brief Save infromation in the file.
@@ -51,7 +51,7 @@ public:
    * @return Operation result.
    */
   eOPRESULT::E
-  save(const QXmlStreamWriter& _writer);
+  save(QXmlStreamWriter& _writer);
 
   /**
    * @brief clear

@@ -8,8 +8,10 @@
 #include <QFile>
 #include <QXmlStreamWriter>
 
+#include "cotorro.h"
 #include "ctProject.h"
 
+using ct::Cotorro;
 using ct::Project;
 
 NewProjectDialog::NewProjectDialog(QWidget *parent) :
@@ -126,7 +128,17 @@ NewProjectDialog::setupProjectFolder
   projectFileName = _projName + "." + Project::ProjectExtension();
   projectFullPath = _projDir + QDir::separator() + projectFileName;
 
-  opRes = createProjectFile(projectFullPath);
+  // Create File.
+  QFile projectFile(projectFullPath);
+  if(!projectFile.open(QFile::ReadWrite)) {
+    return eOPRESULT::kFail;
+  }
+  projectFile.close();
+
+  // Save File.
+  Project& project = Cotorro::Instance()->getProject();
+  project.clear();
+  opRes = project.save(projectFullPath);
   if(opRes != eOPRESULT::kOk) {
     return opRes;
   }

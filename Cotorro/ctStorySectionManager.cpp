@@ -20,18 +20,15 @@ StorySectionManager::init()
 }
 
 eOPRESULT::E
-StorySectionManager::open(const QXmlStreamReader &_reader)
+StorySectionManager::open(QXmlStreamReader &_reader)
 {
-
-
-
   return eOPRESULT::kOk;
 }
 
 eOPRESULT::E
-StorySectionManager::save(const QXmlStreamWriter &_writer)
+StorySectionManager::save(QXmlStreamWriter &_writer)
 {
-
+  _writer.writeEmptyElement("StorySections");
   return eOPRESULT::kOk;
 }
 

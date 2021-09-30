@@ -16,6 +16,7 @@ enum E {
   kDirectoryNotReadable,
   kDirectoryDoesntExists,
   kFileNotReadable,
+  kFileNotWritable,
   kFileDoesntExists,
   kIncompatibleObject
 };

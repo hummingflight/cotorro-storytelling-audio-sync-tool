@@ -39,6 +39,12 @@ private slots:
   void
   on_actionNew_triggered();
 
+  void
+  on_actionOpen_triggered();
+
+  void
+  on_actionSave_triggered();
+
 private:
 
   /**
@@ -48,6 +54,19 @@ private:
    */
   void
   openProject(const QString& _path);
+
+  /**
+   * @brief Save project.
+   */
+  void
+  saveProject();
+
+  /**
+   * @brief Check if the project is dirty and
+   * ask to the user if he wants to save it.
+   */
+  void
+  checkDirt();
 
   /**
    * @brief ui

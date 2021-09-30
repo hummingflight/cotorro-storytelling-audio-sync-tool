@@ -56,6 +56,14 @@ public:
   save();
 
   /**
+   * @brief Save project in the given path.
+   *
+   * @return Operation result.
+   */
+  eOPRESULT::E
+  save(const QString& _m_path);
+
+  /**
    * @brief Clears the project.
    */
   void
@@ -92,10 +100,16 @@ private:
   _m_fileName;
 
   /**
-   * @brief Project's path.
+   * @brief Project's file's full path.
    */
   QString
-  _m_projectPath;
+  _m_fileFullPath;
+
+  /**
+   * @brief Project's directory.
+   */
+  QString
+  _m_projectDirectory;
 
   /**
    * @brief _m_assetsFolderName

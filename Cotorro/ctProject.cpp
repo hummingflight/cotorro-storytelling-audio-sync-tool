@@ -1,5 +1,6 @@
 #include "ctProject.h"
 
+#include <QApplication>
 #include <QFile>
 #include <QChar>
 
@@ -11,7 +12,8 @@ Project::Project(QObject *parent) :
   QObject(parent),
   _m_name(""),
   _m_fileName(""),
-  _m_projectPath(""),
+  _m_fileFullPath(""),
+  _m_projectDirectory(""),
   _m_assetsFolderName(""),
   _m_isDirty(false)
 {
@@ -29,9 +31,7 @@ void
 ct::Project::init()
 {
   _m_storySectionManager.init();
-
   clear();
-
   return;
 }
 
@@ -66,7 +66,8 @@ Project::open(const QString &_projectFilePath)
 
   _m_name = projectInfo.fileName();
   _m_fileName = projectInfo.fileName();
-  _m_projectPath = projectInfo.filePath();
+  _m_fileFullPath = _projectFilePath;
+  _m_projectDirectory = projectInfo.filePath();
 
   // Read and save information from file.
   QXmlStreamReader reader(&projFile);
@@ -117,16 +118,74 @@ Project::open(const QString &_projectFilePath)
     return eOPRESULT::kFail;
   }
 
-  // Project was open succesfully
-  Cotorro::Log(eLOGTYPE::kMessage,"Project was open successfully.");
-  Cotorro::Log(eLOGTYPE::kMessage,"Project path: " + _m_projectPath);
+  // Project was succesfully opened
+  Cotorro::Log(eLOGTYPE::kMessage,"Project was successfully opened.");
+  Cotorro::Log(eLOGTYPE::kMessage,"Project path: " + _m_fileFullPath);
 
   return eOPRESULT::kOk;
 }
 
-eOPRESULT::E Project::save()
+eOPRESULT::E
+Project::save()
 {
-  // TODO.
+  return save(_m_fileFullPath);
+}
+
+eOPRESULT::E
+Project::save(const QString& _m_path)
+{
+  QFileInfo projectInfo(_m_path);
+
+  if(!projectInfo.exists()) {
+    return eOPRESULT::kFileDoesntExists;
+  }
+
+  if(!projectInfo.isFile()) {
+    return eOPRESULT::kIncompatibleObject;
+  }
+
+  if(!projectInfo.isReadable()) {
+    return eOPRESULT::kFileNotReadable;
+  }
+
+  if(!projectInfo.isWritable()) {
+    return eOPRESULT::kFileNotWritable;
+  }
+
+  if(projectInfo.suffix() != Project::ProjectExtension()) {
+    return eOPRESULT::kIncompatibleObject;
+  }
+
+  QFile projFile(_m_path);
+  if(!projFile.open(QFile::ReadWrite)) {
+    return eOPRESULT::kFail;
+  }
+
+  QXmlStreamWriter stream(&projFile);
+  stream.setAutoFormatting(true);
+  stream.writeStartDocument();
+  stream.writeStartElement("Project");
+
+  // Application and Organization information.
+  stream.writeAttribute("application", QApplication::applicationDisplayName());
+  stream.writeAttribute("organization", QApplication::organizationName());
+  stream.writeAttribute("website", QApplication::organizationDomain());
+  stream.writeAttribute("version", QApplication::applicationVersion());
+  stream.writeAttribute("assetsFolderName", "assets");
+
+  _m_storySectionManager.save(stream);
+
+  stream.writeEndElement();
+  stream.writeEndDocument();
+
+  projFile.flush();
+  projFile.close();
+
+  _m_isDirty = false;
+
+  // Project was succesfully saved
+  Cotorro::Log(eLOGTYPE::kMessage,"Project was successfully saved.");
+  Cotorro::Log(eLOGTYPE::kMessage,"Project path: " + _m_path);
 
   return eOPRESULT::kOk;
 }
@@ -138,7 +197,8 @@ ct::Project::clear()
 
   _m_name = "";
   _m_fileName = "";
-  _m_projectPath = "";
+  _m_fileFullPath = "";
+  _m_projectDirectory = "";
   _m_assetsFolderName = "";
   _m_isDirty = false;
 
