@@ -19,6 +19,22 @@ StorySectionManager::init()
   return;
 }
 
+eOPRESULT::E
+StorySectionManager::open(const QXmlStreamReader &_reader)
+{
+
+
+
+  return eOPRESULT::kOk;
+}
+
+eOPRESULT::E
+StorySectionManager::save(const QXmlStreamWriter &_writer)
+{
+
+  return eOPRESULT::kOk;
+}
+
 void
 StorySectionManager::clear()
 {

@@ -32,13 +32,25 @@ public:
    * @brief Project's path.
    */
   QString
-  projectPath;
+  projectDirectory;
 
   /**
    * @brief Project's name.
    */
   QString
   projectName;
+
+  /**
+   * @brief Project's file's name.
+   */
+  QString
+  projectFileName;
+
+  /**
+   * @brief Project's full path.
+   */
+  QString
+  projectFullPath;
 
 private slots:
 
@@ -69,12 +81,12 @@ private slots:
   updateProjectName();
 
   /**
-   * @brief Updates the project's path.
+   * @brief Updates the project's directory.
    *
-   * @param _name Project's path.
+   * @param _name Project's directory.
    */
   void
-  updateProjectPath();
+  updateProjectDirectory();
 
 private:
 
@@ -103,13 +115,12 @@ private:
   /**
    * @brief Creates the project's file.
    *
-   * @param _projPath Project's path.
-   * @param _projName Project's name.
+   * @param _projPath Project's file path.
    *
    * @return  Operation result.
    */
   eOPRESULT::E
-  createProjectFile(const QDir& _projPath, const QString& _projName);
+  createProjectFile(const QString& _path);
 
   /**
    * @brief ui

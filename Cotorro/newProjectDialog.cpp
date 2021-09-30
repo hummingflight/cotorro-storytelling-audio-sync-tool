@@ -14,8 +14,10 @@ using ct::Project;
 
 NewProjectDialog::NewProjectDialog(QWidget *parent) :
   QDialog(parent),
-  projectPath(""),
+  projectDirectory(""),
   projectName(""),
+  projectFileName(""),
+  projectFullPath(""),
   ui(new Ui::NewProjectDialog)
 {
   ui->setupUi(this);
@@ -24,7 +26,7 @@ NewProjectDialog::NewProjectDialog(QWidget *parent) :
 
   // Connections
   connect(ui->line_projectName, &QLineEdit::textChanged, this, &NewProjectDialog::updateProjectName);
-  connect(ui->line_projectPath, &QLineEdit::textChanged, this, &NewProjectDialog::updateProjectPath);
+  connect(ui->line_projectPath, &QLineEdit::textChanged, this, &NewProjectDialog::updateProjectDirectory);
 
   // FileName regular validator.
   // Source: https://richjenks.com/filename-regex/
@@ -63,9 +65,9 @@ NewProjectDialog::on_pushButton_clicked()
 }
 
 void
-NewProjectDialog::updateProjectPath()
+NewProjectDialog::updateProjectDirectory()
 {
-  projectPath = ui->line_projectPath->text();
+  projectDirectory = ui->line_projectPath->text();
   updateAcceptButton();
   return;
 }
@@ -102,12 +104,12 @@ NewProjectDialog::updateAcceptButton()
 eOPRESULT::E
 NewProjectDialog::setupProjectFolder
   (
-    const QString& _projPath,
+    const QString& _projDir,
     const QString& _projName
   )
 {
 
-  QDir projectDir(_projPath);
+  QDir projectDir(_projDir);
   if(!projectDir.exists()) {
     return eOPRESULT::kDirectoryDoesntExists;
   }
@@ -121,8 +123,10 @@ NewProjectDialog::setupProjectFolder
     return opRes;
   }
 
-  QString projNameExt = _projName + Project::ProjectExtension();
-  opRes = createProjectFile(projectDir, projNameExt);
+  projectFileName = _projName + "." + Project::ProjectExtension();
+  projectFullPath = _projDir + QDir::separator() + projectFileName;
+
+  opRes = createProjectFile(projectFullPath);
   if(opRes != eOPRESULT::kOk) {
     return opRes;
   }
@@ -148,12 +152,10 @@ NewProjectDialog::createAssetFolder(const QDir &_projDir)
 eOPRESULT::E
 NewProjectDialog::createProjectFile
   (
-    const QDir &_projPath,
-    const QString &_projName
+    const QString &_projPath
   )
 {
-  QString filePath = _projPath.path() + QDir::separator() + _projName;
-  QFile projFile(filePath);
+  QFile projFile(_projPath);
 
   if(!projFile.open(QIODevice::ReadWrite)) {
     return eOPRESULT::kFail;

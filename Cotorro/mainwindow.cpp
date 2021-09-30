@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 
 #include <QFileDialog>
+#include <QMessageBox>
 
 #include "newProjectDialog.h"
 
@@ -64,7 +65,30 @@ MainWindow::on_actionNew_triggered()
 
   NewProjectDialog dialog(this);
   if(dialog.exec()) {
-    Cotorro::Log(eLOGTYPE::kMessage, "New project accepted");
+    openProject(dialog.projectFullPath);
+  }
+
+  return;
+}
+
+void
+MainWindow::openProject(const QString &_path)
+{
+  Project& project = Cotorro::Instance()->getProject();
+  project.clear();
+
+  eOPRESULT::E res = project.open(_path);
+  if(res != eOPRESULT::kOk) {
+    QMessageBox errorMsg
+      (
+          QMessageBox::Icon::Critical,
+          "Project creation failed",
+          "Something went wrong during the project's preparation.",
+          QMessageBox::Close,
+          this
+      );
+
+    errorMsg.exec();
   }
 
   return;

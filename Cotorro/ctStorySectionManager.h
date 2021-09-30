@@ -3,6 +3,10 @@
 
 #include <QObject>
 #include <QMap>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+
+#include "cotorroutilities.h"
 
 namespace ct {
 
@@ -28,6 +32,26 @@ public:
    */
   void
   init();
+
+  /**
+   * @brief Open information from file.
+   *
+   * @param _reader XML stream reader.
+   *
+   * @return Operation result.
+   */
+  eOPRESULT::E
+  open(const QXmlStreamReader& _reader);
+
+  /**
+   * @brief Save infromation in the file.
+   *
+   * @param _writer XML stream writer.
+   *
+   * @return Operation result.
+   */
+  eOPRESULT::E
+  save(const QXmlStreamWriter& _writer);
 
   /**
    * @brief clear

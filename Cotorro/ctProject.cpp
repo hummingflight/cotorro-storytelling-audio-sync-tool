@@ -1,5 +1,8 @@
 #include "ctProject.h"
 
+#include <QFile>
+#include <QChar>
+
 #include "cotorro.h"
 
 namespace ct {
@@ -7,6 +10,9 @@ namespace ct {
 Project::Project(QObject *parent) :
   QObject(parent),
   _m_name(""),
+  _m_fileName(""),
+  _m_projectPath(""),
+  _m_assetsFolderName(""),
   _m_isDirty(false)
 {
   return;
@@ -15,7 +21,7 @@ Project::Project(QObject *parent) :
 const QString&
 Project::ProjectExtension()
 {
-  static const QString _PROJECT_EXTENSION = ".cotorro";
+  static const QString _PROJECT_EXTENSION = "cotorro";
   return _PROJECT_EXTENSION;
 }
 
@@ -29,18 +35,118 @@ ct::Project::init()
   return;
 }
 
+eOPRESULT::E
+Project::open(const QString &_projectFilePath)
+{
+  QFileInfo projectInfo(_projectFilePath);
+
+  if(!projectInfo.exists()) {
+    return eOPRESULT::kFileDoesntExists;
+  }
+
+  if(!projectInfo.isFile()) {
+    return eOPRESULT::kIncompatibleObject;
+  }
+
+  if(!projectInfo.isReadable()) {
+    return eOPRESULT::kFileNotReadable;
+  }
+
+  if(projectInfo.suffix() != Project::ProjectExtension()) {
+    return eOPRESULT::kIncompatibleObject;
+  }
+
+  QFile projFile(_projectFilePath);
+  if(!projFile.open(QFile::ReadOnly)) {
+    return eOPRESULT::kFail;
+  }
+
+  // Clear current information.
+  clear();
+
+  _m_name = projectInfo.fileName();
+  _m_fileName = projectInfo.fileName();
+  _m_projectPath = projectInfo.filePath();
+
+  // Read and save information from file.
+  QXmlStreamReader reader(&projFile);
+
+  while(!reader.atEnd()) {
+    QXmlStreamReader::TokenType token = reader.readNext();
+
+    if(token == QXmlStreamReader::StartElement) {
+      if(reader.name().toLatin1() == "Project") {
+          _m_assetsFolderName = reader.attributes().value("assetsFolderName").toString();
+      }
+      else if(reader.name().toLatin1() == "StorySections")  {
+        _m_storySectionManager.open(reader);
+      }
+    }
+  }
+
+  // Close file.
+  projFile.close();
+
+  // Error handling.
+  if(reader.hasError()) {
+
+    QXmlStreamReader::Error errorType = reader.error();
+    switch(errorType) {
+
+    case QXmlStreamReader::NoError:
+      break;
+
+    case QXmlStreamReader::UnexpectedElementError:
+      Cotorro::Log(eLOGTYPE::kError, "| Project | XmlStreamReader: Unexpected element.");
+      break;
+
+    case QXmlStreamReader::CustomError:
+      Cotorro::Log(eLOGTYPE::kError, "| Project | XmlStreamReader: Custom error.");
+      break;
+
+    case QXmlStreamReader::NotWellFormedError:
+      Cotorro::Log(eLOGTYPE::kError, "| Project | XmlStreamReader: Not well formed");
+      break;
+
+    case QXmlStreamReader::PrematureEndOfDocumentError:
+      Cotorro::Log(eLOGTYPE::kError, "| Project | XmlStreamReader: Premature end of document.");
+      break;
+
+    }
+
+    return eOPRESULT::kFail;
+  }
+
+  // Project was open succesfully
+  Cotorro::Log(eLOGTYPE::kMessage,"Project was open successfully.");
+  Cotorro::Log(eLOGTYPE::kMessage,"Project path: " + _m_projectPath);
+
+  return eOPRESULT::kOk;
+}
+
+eOPRESULT::E Project::save()
+{
+  // TODO.
+
+  return eOPRESULT::kOk;
+}
+
 void
 ct::Project::clear()
 {
   _m_storySectionManager.clear();
 
   _m_name = "";
+  _m_fileName = "";
+  _m_projectPath = "";
+  _m_assetsFolderName = "";
   _m_isDirty = false;
 
   return;
 }
 
-void Project::dirty()
+void
+Project::dirty()
 {
   if(!_m_isDirty) {
     _m_isDirty = !_m_isDirty;
@@ -49,7 +155,8 @@ void Project::dirty()
   return;
 }
 
-bool Project::isDirty()
+bool
+Project::isDirty()
 {
   return _m_isDirty;
 }

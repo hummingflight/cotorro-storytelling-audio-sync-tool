@@ -38,6 +38,24 @@ public:
   init();
 
   /**
+   * @brief Open a new project.
+   *
+   * @param _projectFilePath Project's file path.
+   *
+   * @return Opreation result.
+   */
+  eOPRESULT::E
+  open(const QString& _projectFilePath);
+
+  /**
+   * @brief Save project.
+   *
+   * @return Operation result.
+   */
+  eOPRESULT::E
+  save();
+
+  /**
    * @brief Clears the project.
    */
   void
@@ -62,13 +80,31 @@ signals:
 private:
 
   /**
-   * Project's name.
+   * @brief Project's name.
    */
   QString
   _m_name;
 
   /**
-   * Indicates if the project is dirty.
+   * @brief Project's file's name.
+   */
+  QString
+  _m_fileName;
+
+  /**
+   * @brief Project's path.
+   */
+  QString
+  _m_projectPath;
+
+  /**
+   * @brief _m_assetsFolderName
+   */
+  QString
+  _m_assetsFolderName;
+
+  /**
+   * @brief Indicates if the project is dirty.
   */
   bool
   _m_isDirty;

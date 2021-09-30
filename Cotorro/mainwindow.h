@@ -15,7 +15,8 @@ class MainWindow : public QMainWindow
 public:
 
   /**
-   * @brief MainWindow
+   * @brief Constructor.
+   *
    * @param parent
    */
   MainWindow(QWidget *parent = nullptr);
@@ -34,20 +35,30 @@ public:
   getLoggerTextWidget();
 
 private slots:
-  void on_actionNew_triggered();
+
+  void
+  on_actionNew_triggered();
 
 private:
 
-    /**
-     * @brief ui
-     */
-    Ui::MainWindow *ui;
+  /**
+   * @brief Open a new project.
+   *
+   * @param _path Project File's path.
+   */
+  void
+  openProject(const QString& _path);
 
-    /**
-     * @brief init
-     */
-    void
-    init();
+  /**
+   * @brief ui
+   */
+  Ui::MainWindow *ui;
+
+  /**
+   * @brief init
+   */
+  void
+  init();
 
 };
 #endif // MAINWINDOW_H

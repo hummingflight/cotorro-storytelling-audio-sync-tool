@@ -14,7 +14,10 @@ enum E {
   kOk = 0,
   kFail,
   kDirectoryNotReadable,
-  kDirectoryDoesntExists
+  kDirectoryDoesntExists,
+  kFileNotReadable,
+  kFileDoesntExists,
+  kIncompatibleObject
 };
 }
 
