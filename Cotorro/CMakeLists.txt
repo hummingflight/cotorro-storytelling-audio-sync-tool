@@ -24,6 +24,10 @@ set(PROJECT_SOURCES
         newProjectDialog.cpp
         newProjectDialog.ui
 
+        diaCreateSection.h
+        diaCreateSection.cpp
+        diaCreateSection.ui
+
         app-resources.qrc
 
         cotorro.h cotorro.cpp
