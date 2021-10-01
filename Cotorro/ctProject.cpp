@@ -69,6 +69,9 @@ Project::open(const QString &_projectFilePath)
   _m_fileFullPath = _projectFilePath;
   _m_projectDirectory = projectInfo.filePath();
 
+  // Set current path.
+  QDir::setCurrent(_m_projectDirectory);
+
   // Read and save information from file.
   QXmlStreamReader reader(&projFile);
 
