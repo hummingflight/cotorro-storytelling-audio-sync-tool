@@ -1,6 +1,6 @@
 #include "ctStorySectionManager.h"
 
-#include "cotorro.h"
+#include "ctCotorro.h"
 #include "ctStorySection.h"
 
 namespace ct {

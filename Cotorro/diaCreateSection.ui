@@ -34,7 +34,11 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QComboBox" name="comboAudio"/>
+      <widget class="QComboBox" name="comboAudio">
+       <property name="editable">
+        <bool>false</bool>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btnPlayAudio">

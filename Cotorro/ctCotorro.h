@@ -5,10 +5,10 @@
 #include <QString>
 #include <QPlainTextEdit>
 
-#include "cotorroutilities.h"
+#include "ctCotorroUtilities.h"
 #include "ctProject.h"
 
-class MainWindow;
+class Editor;
 
 namespace ct {
 
@@ -46,7 +46,7 @@ public:
    * @brief Initialize the module.
    */
   void
-  init(MainWindow* _pMainWindow);
+  init(Editor* _pMainWindow);
 
   /**
    * @brief Get the project.
@@ -90,12 +90,14 @@ private:
   /**
    * @brief Main Window pointer.
    */
-  MainWindow* _pMainWindow;
+  Editor*
+  _pEditorWindow;
 
   /**
    * @brief Application project.
    */
-  Project _m_project;
+  Project
+  _m_project;
 
 };
 

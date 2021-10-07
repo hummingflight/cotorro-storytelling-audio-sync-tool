@@ -6,7 +6,7 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 
-#include "cotorroutilities.h"
+#include "ctCotorroUtilities.h"
 
 namespace ct {
 

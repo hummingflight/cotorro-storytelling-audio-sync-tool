@@ -1,20 +1,21 @@
-#include "mainwindow.h"
-#include "./ui_mainwindow.h"
+#include "diaEditor.h"
+#include "ui_diaEditor.h"
 
 #include <QFileDialog>
 #include <QMessageBox>
 
-#include "newProjectDialog.h"
+#include "diaNewProject.h"
+#include "diaCreateSection.h"
 
-#include "cotorro.h"
+#include "ctCotorro.h"
 #include "ctProject.h"
 
 using ct::Cotorro;
 using ct::Project;
 
-MainWindow::MainWindow(QWidget *parent)
+Editor::Editor(QWidget *parent)
   : QMainWindow(parent)
-  , ui(new Ui::MainWindow)
+  , ui(new Ui::Editor)
 {
   ui->setupUi(this);
 
@@ -27,22 +28,25 @@ MainWindow::MainWindow(QWidget *parent)
   init();
 }
 
-MainWindow::~MainWindow()
+Editor::~Editor()
 {
   delete ui;
 }
 
 QPlainTextEdit*
-MainWindow::getLoggerTextWidget()
+Editor::getLoggerTextWidget()
 {
   return ui->pText_logger;
 }
 
 void
-MainWindow::init()
+Editor::init()
 {
   // Initialize Cotorro's module.
   Cotorro::Instance()->init(this);
+
+  // Connections
+  connect(ui->btn_addSection, &QPushButton::clicked, this, &Editor::on_actionAddSection_triggered);
 
   // Init Logger Widget
   QPalette p = ui->pText_logger->palette();
@@ -50,18 +54,18 @@ MainWindow::init()
   p.setColor(QPalette::Text, Qt::white);
   ui->pText_logger->setPalette(p);
 
-  Cotorro::Log(eLOGTYPE::kMessage, "Application initialized.");
+  Cotorro::Log(ct::eLOGTYPE::kMessage, "Application initialized.");
   return;
 }
 
 void
-MainWindow::openProject(const QString &_path)
+Editor::openProject(const QString &_path)
 {
   Project& project = Cotorro::Instance()->getProject();
   project.clear();
 
-  eOPRESULT::E res = project.open(_path);
-  if(res != eOPRESULT::kOk) {
+  ct::eOPRESULT::E res = project.open(_path);
+  if(res != ct::eOPRESULT::kOk) {
     QMessageBox errorMsg
       (
           QMessageBox::Icon::Critical,
@@ -78,11 +82,11 @@ MainWindow::openProject(const QString &_path)
 }
 
 void
-MainWindow::saveProject()
+Editor::saveProject()
 {
   Project& project = Cotorro::Instance()->getProject();
-  eOPRESULT::E res = project.save();
-  if(res != eOPRESULT::kOk) {
+  ct::eOPRESULT::E res = project.save();
+  if(res != ct::eOPRESULT::kOk) {
     QMessageBox errorMsg
       (
           QMessageBox::Icon::Critical,
@@ -99,7 +103,7 @@ MainWindow::saveProject()
 }
 
 void
-MainWindow::checkDirt()
+Editor::checkDirt()
 {
   Project& project = Cotorro::Instance()->getProject();
   if(project.isDirty()) {
@@ -122,11 +126,11 @@ MainWindow::checkDirt()
 }
 
 void
-MainWindow::on_actionNew_triggered()
+Editor::on_actionNew_triggered()
 {
   checkDirt();
 
-  NewProjectDialog dialog(this);
+  DiaNewProject dialog(this);
   if(dialog.exec()) {
     openProject(dialog.projectFullPath);
   }
@@ -135,7 +139,7 @@ MainWindow::on_actionNew_triggered()
 }
 
 void
-MainWindow::on_actionOpen_triggered()
+Editor::on_actionOpen_triggered()
 {
   checkDirt();
 
@@ -157,7 +161,7 @@ MainWindow::on_actionOpen_triggered()
 }
 
 void
-MainWindow::on_actionSave_triggered()
+Editor::on_actionSave_triggered()
 {
   Project& project = Cotorro::Instance()->getProject();
   if(project.isDirty()) {
@@ -167,3 +171,14 @@ MainWindow::on_actionSave_triggered()
   return;
 }
 
+
+void
+Editor::on_actionAddSection_triggered()
+{
+  DiaCreateSection dia(this);
+  if(dia.exec()) {
+    // TODO.
+  }
+
+  return;
+}

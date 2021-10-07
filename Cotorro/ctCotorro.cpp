@@ -1,11 +1,11 @@
-#include "mainwindow.h"
-#include "cotorro.h"
+#include "diaEditor.h"
+#include "ctCotorro.h"
 
 namespace ct {
 
 Cotorro::Cotorro(QObject *parent) :
   QObject(parent),
-  _pMainWindow(nullptr)
+  _pEditorWindow(nullptr)
 {
 
 }
@@ -52,16 +52,16 @@ Cotorro::Log(const eLOGTYPE::E &_type, const QString &_msg)
     break;
   }
 
-  QPlainTextEdit* pLoggerWidget = pCotorro->_pMainWindow->getLoggerTextWidget();
+  QPlainTextEdit* pLoggerWidget = pCotorro->_pEditorWindow->getLoggerTextWidget();
   pLoggerWidget->appendHtml(msgStyle + _msg + "</span>");
 }
 
-void Cotorro::init(MainWindow* _pMain)
+void
+Cotorro::init(Editor* _pMain)
 {
-  _pMainWindow = _pMain;
+  _pEditorWindow = _pMain;
 
   _m_project.init();
-
   return;
 }
 

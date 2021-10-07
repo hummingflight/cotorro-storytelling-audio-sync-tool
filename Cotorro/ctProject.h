@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QDir>
 
-#include "cotorroutilities.h"
+#include "ctCotorroUtilities.h"
 #include "ctStorySectionManager.h"
 
 namespace ct {
@@ -83,6 +83,22 @@ public:
   bool
   isDirty();
 
+  /**
+   * @brief Get Project's directory.
+   *
+   * @return Project's directory.
+   */
+  QString
+  getProjectDirectory();
+
+  /**
+   * @brief Get Asset's directory.
+   *
+   * @return Asset's directory.
+   */
+  QString
+  getAssetsDirectory();
+
 signals:
 
 private:
@@ -112,10 +128,16 @@ private:
   _m_projectDirectory;
 
   /**
-   * @brief _m_assetsFolderName
+   * @brief Asset's folder's name.
    */
   QString
   _m_assetsFolderName;
+
+  /**
+   * @brief Asset's directory.
+   */
+  QString
+  _m_assetsDirectory;
 
   /**
    * @brief Indicates if the project is dirty.

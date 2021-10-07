@@ -1,5 +1,5 @@
-#include "newProjectDialog.h"
-#include "ui_newProjectDialog.h"
+#include "diaNewProject.h"
+#include "ui_diaNewProject.h"
 
 #include <QFileDialog>
 #include <QRegularExpression>
@@ -8,27 +8,27 @@
 #include <QFile>
 #include <QXmlStreamWriter>
 
-#include "cotorro.h"
+#include "ctCotorro.h"
 #include "ctProject.h"
 
 using ct::Cotorro;
 using ct::Project;
 
-NewProjectDialog::NewProjectDialog(QWidget *parent) :
+DiaNewProject::DiaNewProject(QWidget *parent) :
   QDialog(parent),
   projectDirectory(""),
   projectName(""),
   projectFileName(""),
   projectFullPath(""),
-  ui(new Ui::NewProjectDialog)
+  ui(new Ui::DiaNewProject)
 {
   ui->setupUi(this);
 
   setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
 
   // Connections
-  connect(ui->line_projectName, &QLineEdit::textChanged, this, &NewProjectDialog::updateProjectName);
-  connect(ui->line_projectPath, &QLineEdit::textChanged, this, &NewProjectDialog::updateProjectDirectory);
+  connect(ui->line_projectName, &QLineEdit::textChanged, this, &DiaNewProject::updateProjectName);
+  connect(ui->line_projectPath, &QLineEdit::textChanged, this, &DiaNewProject::updateProjectDirectory);
 
   // FileName regular validator.
   // Source: https://richjenks.com/filename-regex/
@@ -40,13 +40,13 @@ NewProjectDialog::NewProjectDialog(QWidget *parent) :
   return;
 }
 
-NewProjectDialog::~NewProjectDialog()
+DiaNewProject::~DiaNewProject()
 {
   delete ui;
 }
 
 void
-NewProjectDialog::on_pushButton_clicked()
+DiaNewProject::on_pushButton_clicked()
 {
   QFileDialog dialog(this, "Select project's directory");
   dialog.setFileMode(QFileDialog::FileMode::Directory);
@@ -67,7 +67,7 @@ NewProjectDialog::on_pushButton_clicked()
 }
 
 void
-NewProjectDialog::updateProjectDirectory()
+DiaNewProject::updateProjectDirectory()
 {
   projectDirectory = ui->line_projectPath->text();
   updateAcceptButton();
@@ -75,7 +75,7 @@ NewProjectDialog::updateProjectDirectory()
 }
 
 void
-NewProjectDialog::updateProjectName()
+DiaNewProject::updateProjectName()
 {
   projectName = ui->line_projectName->text();
   updateAcceptButton();
@@ -83,7 +83,7 @@ NewProjectDialog::updateProjectName()
 }
 
 void
-NewProjectDialog::updateAcceptButton()
+DiaNewProject::updateAcceptButton()
 {
   if(ui->line_projectName->hasAcceptableInput() && ui->line_projectPath->text() != "")
   {
@@ -103,8 +103,8 @@ NewProjectDialog::updateAcceptButton()
   return;
 }
 
-eOPRESULT::E
-NewProjectDialog::setupProjectFolder
+ct::eOPRESULT::E
+DiaNewProject::setupProjectFolder
   (
     const QString& _projDir,
     const QString& _projName
@@ -113,15 +113,15 @@ NewProjectDialog::setupProjectFolder
 
   QDir projectDir(_projDir);
   if(!projectDir.exists()) {
-    return eOPRESULT::kDirectoryDoesntExists;
+    return ct::eOPRESULT::kDirectoryDoesntExists;
   }
 
   if(!projectDir.isReadable()) {
-    return eOPRESULT::kDirectoryNotReadable;
+    return ct::eOPRESULT::kDirectoryNotReadable;
   }
 
-  eOPRESULT::E opRes = createAssetFolder(projectDir);
-  if(opRes != eOPRESULT::kOk) {
+  ct::eOPRESULT::E opRes = createAssetFolder(projectDir);
+  if(opRes != ct::eOPRESULT::kOk) {
     return opRes;
   }
 
@@ -131,7 +131,7 @@ NewProjectDialog::setupProjectFolder
   // Create File.
   QFile projectFile(projectFullPath);
   if(!projectFile.open(QFile::ReadWrite)) {
-    return eOPRESULT::kFail;
+    return ct::eOPRESULT::kFail;
   }
   projectFile.close();
 
@@ -139,30 +139,30 @@ NewProjectDialog::setupProjectFolder
   Project& project = Cotorro::Instance()->getProject();
   project.clear();
   opRes = project.save(projectFullPath);
-  if(opRes != eOPRESULT::kOk) {
+  if(opRes != ct::eOPRESULT::kOk) {
     return opRes;
   }
 
-  return eOPRESULT::kOk;
+  return ct::eOPRESULT::kOk;
 }
 
-eOPRESULT::E
-NewProjectDialog::createAssetFolder(const QDir &_projDir)
+ct::eOPRESULT::E
+DiaNewProject::createAssetFolder(const QDir &_projDir)
 {
   QString assetFolderName = "assets";
   if(_projDir.exists(assetFolderName)) {
-    return eOPRESULT::kOk;
+    return ct::eOPRESULT::kOk;
   }
 
   if(!_projDir.mkdir(assetFolderName)) {
-    return eOPRESULT::kFail;
+    return ct::eOPRESULT::kFail;
   }
 
-  return eOPRESULT::kOk;
+  return ct::eOPRESULT::kOk;
 }
 
-eOPRESULT::E
-NewProjectDialog::createProjectFile
+ct::eOPRESULT::E
+DiaNewProject::createProjectFile
   (
     const QString &_projPath
   )
@@ -170,7 +170,7 @@ NewProjectDialog::createProjectFile
   QFile projFile(_projPath);
 
   if(!projFile.open(QIODevice::ReadWrite)) {
-    return eOPRESULT::kFail;
+    return ct::eOPRESULT::kFail;
   }
 
   QXmlStreamWriter stream(&projFile);
@@ -194,20 +194,20 @@ NewProjectDialog::createProjectFile
   projFile.flush();
   projFile.close();
 
-  return eOPRESULT::kOk;
+  return ct::eOPRESULT::kOk;
 }
 
 
 void
-NewProjectDialog::on_btn_accept_clicked()
+DiaNewProject::on_btn_accept_clicked()
 {
-  eOPRESULT::E result = this->setupProjectFolder
+  ct::eOPRESULT::E result = this->setupProjectFolder
     (
         ui->line_projectPath->text(),
         ui->line_projectName->text()
     );
 
-  if(result != eOPRESULT::kOk) {
+  if(result != ct::eOPRESULT::kOk) {
     QMessageBox errorMsg
       (
           QMessageBox::Icon::Critical,
@@ -228,7 +228,7 @@ NewProjectDialog::on_btn_accept_clicked()
 
 
 void
-NewProjectDialog::on_btn_cancel_clicked()
+DiaNewProject::on_btn_cancel_clicked()
 {
   reject();
 }

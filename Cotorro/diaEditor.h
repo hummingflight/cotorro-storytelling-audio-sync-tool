@@ -1,30 +1,26 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef EDITOR_H
+#define EDITOR_H
 
 #include <QMainWindow>
 #include <QPlainTextEdit>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui { class Editor; }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
+class Editor : public QMainWindow
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-
   /**
-   * @brief Constructor.
-   *
+   * @brief Editor
    * @param parent
    */
-  MainWindow(QWidget *parent = nullptr);
+  Editor(QWidget *parent = nullptr);
 
-  /**
-   *
-   */
-  ~MainWindow();
+
+  ~Editor();
 
   /**
    * @brief Get the logger plain text edit widget.
@@ -44,6 +40,9 @@ private slots:
 
   void
   on_actionSave_triggered();
+
+  void
+  on_actionAddSection_triggered();
 
 private:
 
@@ -69,15 +68,15 @@ private:
   checkDirt();
 
   /**
-   * @brief ui
-   */
-  Ui::MainWindow *ui;
-
-  /**
    * @brief init
    */
   void
   init();
 
+  /**
+   * @brief ui
+   */
+  Ui::Editor*
+  ui;
 };
-#endif // MAINWINDOW_H
+#endif // EDITOR_H

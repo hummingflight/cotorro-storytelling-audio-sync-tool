@@ -4,7 +4,7 @@
 #include <QFile>
 #include <QChar>
 
-#include "cotorro.h"
+#include "ctCotorro.h"
 
 namespace ct {
 
@@ -15,6 +15,7 @@ Project::Project(QObject *parent) :
   _m_fileFullPath(""),
   _m_projectDirectory(""),
   _m_assetsFolderName(""),
+  _m_assetsDirectory(""),
   _m_isDirty(false)
 {
   return;
@@ -67,7 +68,7 @@ Project::open(const QString &_projectFilePath)
   _m_name = projectInfo.fileName();
   _m_fileName = projectInfo.fileName();
   _m_fileFullPath = _projectFilePath;
-  _m_projectDirectory = projectInfo.filePath();
+  _m_projectDirectory = projectInfo.path();
 
   // Set current path.
   QDir::setCurrent(_m_projectDirectory);
@@ -81,6 +82,7 @@ Project::open(const QString &_projectFilePath)
     if(token == QXmlStreamReader::StartElement) {
       if(reader.name().toLatin1() == "Project") {
           _m_assetsFolderName = reader.attributes().value("assetsFolderName").toString();
+          _m_assetsDirectory = _m_projectDirectory + QDir::separator() + _m_assetsFolderName;
       }
       else if(reader.name().toLatin1() == "StorySections")  {
         _m_storySectionManager.open(reader);
@@ -203,6 +205,7 @@ ct::Project::clear()
   _m_fileFullPath = "";
   _m_projectDirectory = "";
   _m_assetsFolderName = "";
+  _m_assetsDirectory = "";
   _m_isDirty = false;
 
   return;
@@ -222,6 +225,18 @@ bool
 Project::isDirty()
 {
   return _m_isDirty;
+}
+
+QString
+Project::getProjectDirectory()
+{
+  return _m_projectDirectory;
+}
+
+QString
+Project::getAssetsDirectory()
+{
+  return _m_assetsDirectory;
 }
 
 }

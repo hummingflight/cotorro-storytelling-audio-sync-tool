@@ -4,13 +4,13 @@
 #include <QDialog>
 #include <QDir>
 
-#include "cotorroutilities.h"
+#include "ctCotorroUtilities.h"
 
 namespace Ui {
-class NewProjectDialog;
+class DiaNewProject;
 }
 
-class NewProjectDialog : public QDialog
+class DiaNewProject : public QDialog
 {
   Q_OBJECT
 
@@ -21,12 +21,12 @@ public:
    *
    * @param parent
    */
-  explicit NewProjectDialog(QWidget *parent = nullptr);
+  explicit DiaNewProject(QWidget *parent = nullptr);
 
   /**
    * Destructor
    */
-  ~NewProjectDialog();
+  ~DiaNewProject();
 
   /**
    * @brief Project's path.
@@ -99,7 +99,7 @@ private:
   /**
    * @brief Setup the project's folder.
    */
-  eOPRESULT::E
+  ct::eOPRESULT::E
   setupProjectFolder(const QString& _projPath, const QString& _projName);
 
   /**
@@ -109,7 +109,7 @@ private:
    *
    * @return Operation result.
    */
-  eOPRESULT::E
+  ct::eOPRESULT::E
   createAssetFolder(const QDir& _projPath);
 
   /**
@@ -119,13 +119,13 @@ private:
    *
    * @return  Operation result.
    */
-  eOPRESULT::E
+  ct::eOPRESULT::E
   createProjectFile(const QString& _path);
 
   /**
    * @brief ui
    */
-  Ui::NewProjectDialog*
+  Ui::DiaNewProject*
   ui;
 };
 
