@@ -98,6 +98,12 @@ StorySectionManager::get(const QString &_name)
   return section.value();
 }
 
+QStringList
+StorySectionManager::getNames()
+{
+  return _m_hStorySections.keys();
+}
+
 void
 StorySectionManager::remove(const QString &_name)
 {

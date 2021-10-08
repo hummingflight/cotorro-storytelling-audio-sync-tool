@@ -21,7 +21,6 @@ Editor::Editor(QWidget *parent)
   , ui(new Ui::Editor)
 {
   ui->setupUi(this);
-
   setCentralWidget(ui->mainSplitter);
 
   // Create Cotorro's module.
@@ -59,6 +58,31 @@ Editor::init()
 
   Cotorro::Log(ct::eLOGTYPE::kMessage, "Application initialized.");
   return;
+}
+
+void
+Editor::updateStorySectionPanel()
+{
+  clearStorySectionPanel();
+
+  Project& project = Cotorro::Instance()->getProject();
+  StorySectionManager& storySectionManager = project.getStorySectionManager();
+  QStringList aSectionNames = storySectionManager.getNames();
+
+  QStringList::iterator i;
+  QIcon itemIcon(":/icons/assets/icons/document.ico");
+  for(i = aSectionNames.begin(); i != aSectionNames.end(); ++i) {
+    QListWidgetItem* pItem = new QListWidgetItem(*i, ui->list_storySections);
+    pItem->setIcon(itemIcon);
+  }
+
+  return;
+}
+
+void
+Editor::clearStorySectionPanel()
+{
+  ui->list_storySections->clear();
 }
 
 void
@@ -202,6 +226,9 @@ Editor::on_actionAddSection_triggered()
     // Fill Story Section.
     pStorySection->setAudioKey(dia.sectionAudioFileName);
     pStorySection->setContent(dia.sectionContent);
+
+    // Update Story Section panel.
+    updateStorySectionPanel();
   }
 
   return;

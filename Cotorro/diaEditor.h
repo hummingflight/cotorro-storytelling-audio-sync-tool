@@ -74,6 +74,18 @@ private:
   init();
 
   /**
+   * @brief Updates story section's panel.
+   */
+  void
+  updateStorySectionPanel();
+
+  /**
+   * @brief Clears story section's panel.
+   */
+  void
+  clearStorySectionPanel();
+
+  /**
    * @brief ui
    */
   Ui::Editor*

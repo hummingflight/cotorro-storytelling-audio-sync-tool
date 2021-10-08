@@ -99,6 +99,14 @@ public:
   get(const QString& _name);
 
   /**
+   * @brief Get all story sections name.
+   *
+   * @return List with the name of all story sections.
+   */
+  QStringList
+  getNames();
+
+  /**
    * @brief Destroy a story section.
    *
    * @param _name Story section's Name.
