@@ -40,3 +40,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
   app-resources.qrc
+
+LIBS += -L$$PWD/dependencies/sfml/lib
+
+CONFIG(release, debug|release): LIBS += -lsfml-audio -lsfml-system
+CONFIG(debug, debug|release): LIBS += -lsfml-audio-d -lsfml-system-d
+
+INCLUDEPATH += $$PWD/dependencies/sfml/include
+DEPENDPATH += $$PWD/dependencies/sfml/include

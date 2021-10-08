@@ -2,7 +2,9 @@
 #define DIACREATESECTION_H
 
 #include <QDialog>
+#include <SFML/Audio.hpp>
 
+using sf::Music;
 
 namespace Ui {
 class DiaCreateSection;
@@ -53,6 +55,12 @@ private slots:
   void
   onClick_Cancel();
 
+  void
+  onClick_Play();
+
+  void
+  onClick_Stop();
+
 private:
 
   /**
@@ -73,6 +81,12 @@ private:
    */
   Ui::DiaCreateSection*
   ui;
+
+  /**
+   * @brief _m_musicPlayer
+   */
+  Music
+  _m_musicPlayer;
 };
 
 #endif // DIACREATESECTION_H
