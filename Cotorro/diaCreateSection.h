@@ -39,7 +39,7 @@ public:
    * @brief Section's Audio's path.
    */
   QString
-  sectionAudioPath;
+  sectionAudioFileName;
 
   /**
    * @brief Section's content.
@@ -61,6 +61,9 @@ private slots:
   void
   onClick_Stop();
 
+  void
+  onMusicComboCurrentTextChanged();
+
 private:
 
   /**
@@ -75,6 +78,17 @@ private:
   void
   updateAudioCombo();
 
+  /**
+   * @brief Stops music.
+   */
+  void
+  stopMusic();
+
+  /**
+   * @brief Checks the "accept" button availability.
+   */
+  bool
+  checkFields();
 
   /**
    * @brief ui

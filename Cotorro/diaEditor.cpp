@@ -9,9 +9,12 @@
 
 #include "ctCotorro.h"
 #include "ctProject.h"
+#include "ctStorySection.h"
 
 using ct::Cotorro;
 using ct::Project;
+using ct::StorySectionManager;
+using ct::StorySection;
 
 Editor::Editor(QWidget *parent)
   : QMainWindow(parent)
@@ -175,9 +178,30 @@ Editor::on_actionSave_triggered()
 void
 Editor::on_actionAddSection_triggered()
 {
+  // Show Create Section Dialog.
   DiaCreateSection dia(this);
   if(dia.exec()) {
-    // TODO.
+
+    // Create Story Section.
+    Project& project = Cotorro::Instance()->getProject();
+    StorySectionManager& storySectionManager = project.getStorySectionManager();
+    StorySection* pStorySection = storySectionManager.create(dia.sectionName);
+    if(pStorySection == nullptr) {
+      QMessageBox errorMsg
+        (
+            QMessageBox::Icon::Critical,
+            "Error",
+            "Something went wrong. Could not create story section.",
+            QMessageBox::Close,
+            this
+        );
+
+      return;
+    }
+
+    // Fill Story Section.
+    pStorySection->setAudioKey(dia.sectionAudioFileName);
+    pStorySection->setContent(dia.sectionContent);
   }
 
   return;

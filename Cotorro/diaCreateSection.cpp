@@ -2,6 +2,7 @@
 #include "ui_diaCreateSection.h"
 
 #include <QDir>
+#include <QMessageBox>
 
 #include "ctCotorro.h"
 #include "ctProject.h"
@@ -10,11 +11,12 @@ using sf::SoundSource;
 
 using ct::Cotorro;
 using ct::Project;
+using ct::StorySectionManager;
 
 DiaCreateSection::DiaCreateSection(QWidget *parent) :
   QDialog(parent),
   sectionName(""),
-  sectionAudioPath(""),
+  sectionAudioFileName(""),
   sectionContent(""),
   ui(new Ui::DiaCreateSection),
   _m_musicPlayer()
@@ -27,27 +29,40 @@ DiaCreateSection::DiaCreateSection(QWidget *parent) :
 DiaCreateSection::~DiaCreateSection()
 {
   delete ui;
-  onClick_Stop();
-
+  stopMusic();
   return;
 }
 
 void
 DiaCreateSection::onClick_Create()
 {
-  // TODO
-  accept();
+  stopMusic();
+
+  if(checkFields()) {
+    sectionName = ui->lineName->text();
+    sectionAudioFileName = ui->comboAudio->currentText();
+    sectionContent = ui->txtContent->toPlainText();
+
+    accept();
+  }
+
+  return;
 }
 
 void
 DiaCreateSection::onClick_Cancel()
 {
+  stopMusic();
   reject();
+
+  return;
 }
 
 void
 DiaCreateSection::onClick_Play()
 {
+  stopMusic();
+
   QString selectedFile = ui->comboAudio->currentText();
   if(selectedFile == "") {
     return;
@@ -63,12 +78,7 @@ DiaCreateSection::onClick_Play()
   if(!fileInfo.isReadable()) {
     // TODO Not readeable.
     return;
-  }
-
-   SoundSource::Status status = _m_musicPlayer.getStatus();
-   if(status == SoundSource::Status::Playing) {
-     _m_musicPlayer.stop();
-   }
+  }   
 
    if(!_m_musicPlayer.openFromFile(fileInfo.filePath().toStdString())) {
      // TODO Couldn't open file.
@@ -83,11 +93,14 @@ DiaCreateSection::onClick_Play()
 void
 DiaCreateSection::onClick_Stop()
 {
-  SoundSource::Status status = _m_musicPlayer.getStatus();
-  if(status == SoundSource::Status::Playing) {
-    _m_musicPlayer.stop();
-  }
+  stopMusic();
+  return;
+}
 
+void
+DiaCreateSection::onMusicComboCurrentTextChanged()
+{
+  stopMusic();
   return;
 }
 
@@ -96,13 +109,20 @@ DiaCreateSection::init()
 {
   setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
 
+  // Section's name validator
+  QRegularExpression rx("[a-zA-Z0-9_]+$");
+  QValidator* validator = new QRegularExpressionValidator(rx, this);
+  ui->lineName->setValidator(validator);
+
   // Connections
   connect(ui->btnCreate, &QPushButton::clicked, this, &DiaCreateSection::onClick_Create);
   connect(ui->btnCancel, &QPushButton::clicked, this, &DiaCreateSection::onClick_Cancel);
   connect(ui->btnPlayAudio, &QPushButton::clicked, this, &DiaCreateSection::onClick_Play);
   connect(ui->btnStopAudio, &QPushButton::clicked, this, &DiaCreateSection::onClick_Stop);
+  connect(ui->comboAudio, &QComboBox::currentTextChanged, this, &DiaCreateSection::onMusicComboCurrentTextChanged);
 
   updateAudioCombo();
+
   return;
 }
 
@@ -129,6 +149,69 @@ DiaCreateSection::updateAudioCombo()
   ui->comboAudio->insertItems(0, aFiles);
 
   return;
+}
+
+void
+DiaCreateSection::stopMusic()
+{
+  SoundSource::Status status = _m_musicPlayer.getStatus();
+  if(status == SoundSource::Status::Playing) {
+    _m_musicPlayer.stop();
+  }
+
+  return;
+}
+
+bool
+DiaCreateSection::checkFields()
+{
+  if(!ui->lineName->hasAcceptableInput() || ui->lineName->text().isEmpty()) {
+    QMessageBox errorBox(this);
+    errorBox.setText(tr("Name has invalid characters."));
+    errorBox.setInformativeText(tr("Use only alphanumeric characters. Spaces are not allowed."));
+    errorBox.setStandardButtons(QMessageBox::Ok);
+    errorBox.setIcon(QMessageBox::Warning);
+
+    errorBox.exec();
+    return false;
+  }
+
+  if(ui->txtContent->toPlainText().isEmpty()) {
+    QMessageBox errorBox(this);
+    errorBox.setText(tr("Content is empty."));
+    errorBox.setInformativeText(tr("Add the story section's content."));
+    errorBox.setStandardButtons(QMessageBox::Ok);
+    errorBox.setIcon(QMessageBox::Warning);
+
+    errorBox.exec();
+    return false;
+  }
+
+  if(ui->comboAudio->currentText().isEmpty()) {
+    QMessageBox errorBox(this);
+    errorBox.setText(tr("No audio selected."));
+    errorBox.setInformativeText(tr("Select an audio file of the combo box."));
+    errorBox.setStandardButtons(QMessageBox::Ok);
+    errorBox.setIcon(QMessageBox::Warning);
+
+    errorBox.exec();
+    return false;
+  }
+
+  Project& project = Cotorro::Instance()->getProject();
+  StorySectionManager& storySectionManager = project.getStorySectionManager();
+  if(storySectionManager.has(ui->lineName->text())) {
+    QMessageBox errorBox(this);
+    errorBox.setText(tr("A story section with that name already exists."));
+    errorBox.setInformativeText(tr("Write another name."));
+    errorBox.setStandardButtons(QMessageBox::Ok);
+    errorBox.setIcon(QMessageBox::Warning);
+
+    errorBox.exec();
+    return false;
+  }
+
+  return true;
 }
 
 

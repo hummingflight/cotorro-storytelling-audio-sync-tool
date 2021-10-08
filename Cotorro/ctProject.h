@@ -99,6 +99,14 @@ public:
   QString
   getAssetsDirectory();
 
+  /**
+   * @brief Get the story section manager.
+   *
+   * @return Story section manager.
+   */
+  StorySectionManager&
+  getStorySectionManager();
+
 signals:
 
 private:

@@ -239,5 +239,11 @@ Project::getAssetsDirectory()
   return _m_assetsDirectory;
 }
 
+StorySectionManager&
+Project::getStorySectionManager()
+{
+  return _m_storySectionManager;
+}
+
 }
 
