@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QPlainTextEdit>
+#include <QListWidgetItem>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Editor; }
@@ -46,6 +47,12 @@ private slots:
 
   void
   onStoryManagerChanged();
+
+  void
+  onStorySectionDoubleClicked(QListWidgetItem *item);
+
+  void
+  on_actionRemoveSection_triggered();
 
 private:
 

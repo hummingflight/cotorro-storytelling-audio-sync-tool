@@ -7,7 +7,8 @@ namespace ct {
 
 StorySectionManager::StorySectionManager(QObject *parent) :
   QObject(parent),
-  _m_hStorySections()
+  _m_hStorySections(),
+  _m_pActiveSection(nullptr)
 {
   return;
 }
@@ -151,6 +152,9 @@ StorySectionManager::clear()
   qDeleteAll(_m_hStorySections);
   _m_hStorySections.clear();
 
+  // Set active section to null.
+  setActiveSection(nullptr);
+
   // Emit signal.
   emit sectionsChanged();
 
@@ -199,6 +203,7 @@ StorySectionManager::rename(const QString &_name, const QString &_newName)
   }
 
   _m_hStorySections.remove(_name);
+  section.value()->setName(_newName);
   _m_hStorySections.insert(_newName, section.value());
 
   // Dirts project.
@@ -237,6 +242,7 @@ StorySectionManager::getNames()
 void
 StorySectionManager::remove(const QString &_name)
 {
+  // Find section.
   QMap<QString, StorySection*>::iterator section = _m_hStorySections.find(_name);
   if(section == _m_hStorySections.end()) {
 
@@ -249,8 +255,20 @@ StorySectionManager::remove(const QString &_name)
     return;
   }
 
+  StorySection* pSection = section.value();
+
+  // Remove section from the map.
   _m_hStorySections.remove(_name);
-  delete section.value();
+
+  // Check active section.
+  if(_m_pActiveSection != nullptr) {
+    if(pSection->getName() == _m_pActiveSection->getName()) {
+      setActiveSectionToNull();
+    }
+  }
+
+  // Delete section.
+  delete pSection;
 
   // Dirts project.
   Cotorro::Instance()->getProject().dirty();
@@ -259,6 +277,36 @@ StorySectionManager::remove(const QString &_name)
   emit sectionsChanged();
 
   return;
+}
+
+void
+StorySectionManager::setActiveSectionByName(const QString &_name)
+{
+  if(!has(_name)) {
+    Cotorro::Log(
+          eLOGTYPE::kError,
+          tr("| StorySectionManager | No story section was found: ").append(_name)
+    );
+
+    return;
+  }
+
+  // Set active section.
+  setActiveSection(get(_name));
+
+  return;
+}
+
+void
+StorySectionManager::setActiveSectionToNull()
+{
+  setActiveSection(nullptr);
+}
+
+bool
+StorySectionManager::hasActiveSection()
+{
+  return _m_pActiveSection != nullptr;
 }
 
 qint32
@@ -289,6 +337,42 @@ StorySectionManager::add(StorySection *_pStorySection)
   Cotorro::Instance()->getProject().dirty();
 
   return eOPRESULT::kOk;
+}
+
+void
+StorySectionManager::setActiveSection(StorySection *_pStorySection)
+{
+  // Check if they are the same.
+  if(_m_pActiveSection != nullptr && _pStorySection != nullptr) {
+    if(_pStorySection->getUuid() == _m_pActiveSection->getUuid()){
+      return;
+    }
+  }
+  else if(_m_pActiveSection == nullptr && _pStorySection == nullptr) {
+    return;
+  }
+
+  // Set active section.
+  _m_pActiveSection = _pStorySection;
+
+  // Logs.
+  if(_m_pActiveSection != nullptr) {
+    Cotorro::Log(
+          eLOGTYPE::kMessage,
+          tr("| StorySectionManager | Active Section: ").append(_m_pActiveSection->getName())
+    );
+  }
+  else {
+    Cotorro::Log(
+          eLOGTYPE::kMessage,
+          tr("| StorySectionManager | Active Section: undefined.")
+    );
+  }
+
+  // Emit signals.
+  emit activeSectionChanged(_pStorySection);
+
+  return;
 }
 
 }

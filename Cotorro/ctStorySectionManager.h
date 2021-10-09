@@ -115,6 +115,37 @@ public:
   remove(const QString& _name);
 
   /**
+   * @brief Sets the active section by its name.
+   *
+   * @param _name Story section name.
+   */
+  void
+  setActiveSectionByName(const QString& _name);
+
+  /**
+   * @brief Set active section to nullptr.
+   */
+  void
+  setActiveSectionToNull();
+
+  /**
+   * @brief Indicates if has an active story section.
+   *
+   * @return True if it has an active story section.
+   */
+  bool
+  hasActiveSection();
+
+  /**
+   * @brief Get the active section.
+   *
+   * @return Returns the active section. Returns undefined
+   * if no section is selected.
+   */
+  StorySection*
+  getActiveSection();
+
+  /**
    * @brief Get the number of story sections.
    *
    * @return The number of story sections.
@@ -125,10 +156,16 @@ public:
 signals:
 
   /**
-   * @brief Called when one or more sections have changed.
+   * @brief Emitted when one or more sections have changed.
    */
   void
   sectionsChanged();
+
+  /**
+   * @brief Emitted when the active section has changed.
+   */
+  void
+  activeSectionChanged(ct::StorySection* _pStorySection);
 
 private:
 
@@ -143,10 +180,24 @@ private:
   add(StorySection* _pStorySection);
 
   /**
+   * @brief Sets the active story section.
+   *
+   * @param _pStorySection Pointer to the active story section.
+   */
+  void
+  setActiveSection(StorySection* _pStorySection);
+
+  /**
    * @brief Map of story sections.
    */
   QMap<QString, StorySection*>
   _m_hStorySections;
+
+  /**
+   * @brief Pointer to the active section.
+   * */
+  StorySection*
+  _m_pActiveSection;
 
 };
 

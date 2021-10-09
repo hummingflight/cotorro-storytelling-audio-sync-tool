@@ -54,6 +54,8 @@ Editor::init()
 
   // Connections
   connect(ui->btn_addSection, &QPushButton::clicked, this, &Editor::on_actionAddSection_triggered);
+  connect(ui->btn_removeSection, &QPushButton::clicked, this, &Editor::on_actionRemoveSection_triggered);
+  connect(ui->list_storySections, &QListWidget::itemDoubleClicked, this, &Editor::onStorySectionDoubleClicked);
   connect(&storySectionManager, &StorySectionManager::sectionsChanged, this, &Editor::onStoryManagerChanged);
 
   // Init Logger Widget
@@ -113,7 +115,7 @@ Editor::openProject(const QString &_path)
           QMessageBox::Icon::Information,
           tr("Project opened"),
           tr("The project was successfully opened."),
-          QMessageBox::Close,
+          QMessageBox::Ok,
           this
       );
 
@@ -144,7 +146,7 @@ Editor::saveProject()
           QMessageBox::Icon::Information,
           tr("Project saved"),
           tr("The project was successfully saved."),
-          QMessageBox::Close,
+          QMessageBox::Ok,
           this
       );
 
@@ -237,13 +239,13 @@ Editor::on_actionAddSection_triggered()
     StorySection* pStorySection = storySectionManager.create(dia.sectionName);
     if(pStorySection == nullptr) {
       QMessageBox errorMsg
-        (
-            QMessageBox::Icon::Critical,
-            tr("Error"),
-            tr("Something went wrong. Could not create story section."),
-            QMessageBox::Close,
-            this
-        );
+      (
+        QMessageBox::Icon::Critical,
+        tr("Error"),
+        tr("Something went wrong. Could not create story section."),
+        QMessageBox::Close,
+        this
+      );
 
       return;
     }
@@ -265,3 +267,61 @@ Editor::onStoryManagerChanged()
   updateStorySectionPanel();
   return;
 }
+
+void
+Editor::onStorySectionDoubleClicked(QListWidgetItem *item)
+{
+  Project& project = Cotorro::Instance()->getProject();
+  StorySectionManager& storySectionManager = project.getStorySectionManager();
+
+  if(item != nullptr) {
+    storySectionManager.setActiveSectionByName(item->text());
+  }
+  else {
+    storySectionManager.setActiveSectionToNull();
+  }
+
+  return;
+}
+
+void
+Editor::on_actionRemoveSection_triggered()
+{
+  QListWidgetItem* pItem = ui->list_storySections->currentItem();
+  if(pItem == nullptr) {
+    return;
+  }
+
+  Project& project = Cotorro::Instance()->getProject();
+  StorySectionManager& storySectionManager = project.getStorySectionManager();
+
+  if(storySectionManager.has(pItem->text())) {
+
+    QMessageBox infoMsg
+    (
+      QMessageBox::Icon::Warning,
+      tr("Warning"),
+      tr("Are you sure to remove story section with name: ").append(pItem->text()),
+      QMessageBox::Yes | QMessageBox::No,
+      this
+    );
+
+    if(infoMsg.exec()) {
+      storySectionManager.remove(pItem->text());
+
+      QMessageBox removeMsg
+      (
+        QMessageBox::Icon::Information,
+        tr("Section removed"),
+        tr("Story section was removed"),
+        QMessageBox::Ok,
+        this
+      );
+
+      removeMsg.exec();
+    }
+  }
+
+  return;
+}
+

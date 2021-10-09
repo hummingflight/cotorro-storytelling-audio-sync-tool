@@ -207,7 +207,7 @@ Cotorro::saveProject(const QString &_m_path)
 
   // Open File.
   QFile projFile(_m_path);
-  if(!projFile.open(QFile::ReadWrite)) {
+  if(!projFile.open(QFile::WriteOnly)) {
     return eOPRESULT::kFail;
   }
 
