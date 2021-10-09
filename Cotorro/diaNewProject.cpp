@@ -136,9 +136,7 @@ DiaNewProject::setupProjectFolder
   projectFile.close();
 
   // Save File.
-  Project& project = Cotorro::Instance()->getProject();
-  project.clear();
-  opRes = project.save(projectFullPath);
+  opRes = Cotorro::Instance()->saveProject(projectFullPath);
   if(opRes != ct::eOPRESULT::kOk) {
     return opRes;
   }

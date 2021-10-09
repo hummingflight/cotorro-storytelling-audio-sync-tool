@@ -9,7 +9,7 @@ StorySectionManager::StorySectionManager(QObject *parent) :
   QObject(parent),
   _m_hStorySections()
 {
-
+  return;
 }
 
 void
@@ -22,14 +22,123 @@ StorySectionManager::init()
 eOPRESULT::E
 StorySectionManager::open(QXmlStreamReader &_reader)
 {
-  return eOPRESULT::kOk;
+  eOPRESULT::E result = eOPRESULT::kOk;
+
+  // Clear any previous information.
+  clear();
+
+  // Get attributes
+  QXmlStreamAttributes attributes = _reader.attributes();
+
+  // Check that all attributes exists.
+  if(!attributes.hasAttribute("size")) {
+
+    // Error log.
+    Cotorro::Log(
+      eLOGTYPE::kError,
+      tr("| StorySectionManager | One or more attributes were not found in the XML.")
+    );
+
+    return result;
+  }
+
+  // Get the size of elements.
+  qsizetype size = attributes.value("size").toUInt();
+
+  // Skip all the process in case the number of sections is equal or lower than zero.
+  if(size <= 0) {
+
+    // Reach the end of the element.
+    while(!_reader.atEnd()) {
+      QXmlStreamReader::TokenType token = _reader.readNext();
+      if(token == QXmlStreamReader::EndElement) {
+        return result;
+      }
+    }
+
+    // Return failure if the end of the document is reached.
+    return eOPRESULT::kFail;
+  }
+
+  // Iterates over each section until it find the end of the element
+  // or reach the end of the document.
+  QXmlStreamReader::TokenType token = QXmlStreamReader::StartElement;
+  while(!_reader.atEnd() && token != QXmlStreamReader::EndElement) {
+
+    // Next token.
+    token = _reader.readNext();
+
+    // Load story section.
+    if(token == QXmlStreamReader::StartElement) {
+
+      // Check element's name.
+      if(_reader.name().toLatin1() == "StorySection") {
+
+        // Create Story section.
+        StorySection* storySection = new StorySection(this);
+        result = storySection->init(_reader);
+
+        // Check result.
+        if(result != eOPRESULT::kOk) {
+
+          // Error log.
+          Cotorro::Log(
+            eLOGTYPE::kError,
+            tr("| StorySectionManager | Something went wrong during loading. Couldn't load Story Section Manager.")
+          );
+
+          return result;
+        }
+
+        // Attem to add story section.
+        result = add(storySection);
+        if(result != eOPRESULT::kOk) {
+
+          // Delete story section.
+          delete storySection;
+
+          // Error log.
+          Cotorro::Log(
+            eLOGTYPE::kError,
+            tr("| StorySectionManager | Something went wrong during loading. Couldn't load Story Section Manager.")
+          );
+
+          return result;
+        }
+      }
+    }
+  }
+
+  return result;
 }
 
 eOPRESULT::E
 StorySectionManager::save(QXmlStreamWriter &_writer)
 {
-  _writer.writeEmptyElement("StorySections");
-  return eOPRESULT::kOk;
+  _writer.writeStartElement(tr("StorySections"));
+
+  // Save the size of story sections.
+  _writer.writeAttribute(tr("size"), QString::number(_m_hStorySections.size()));
+
+  // Save each story section.
+  eOPRESULT::E result = eOPRESULT::kOk;
+  QMap<QString, StorySection*>::iterator it;
+  for(it = _m_hStorySections.begin(); it != _m_hStorySections.end(); ++it) {
+
+    // Save story section item.
+    result = it.value()->save(_writer);
+
+    // Check result.
+    if(result != eOPRESULT::kOk) {
+      _writer.writeEndElement();
+
+      return result;
+    }
+  }
+
+  _writer.writeEndElement();
+
+  return result;
 }
 
 void
@@ -53,6 +162,10 @@ StorySectionManager::create(const QString &_name)
   pSection->init(_name);
 
   _m_hStorySections.insert(_name, pSection);
+
+  // Dirts project.
+  Cotorro::Instance()->getProject().dirty();
+
   return pSection;
 }
 
@@ -76,6 +189,9 @@ StorySectionManager::rename(const QString &_name, const QString &_newName)
 
   _m_hStorySections.remove(_name);
   _m_hStorySections.insert(_newName, section.value());
+
+  // Dirts project.
+  Cotorro::Instance()->getProject().dirty();
 
   return;
 }
@@ -109,12 +225,21 @@ StorySectionManager::remove(const QString &_name)
 {
   QMap<QString, StorySection*>::iterator section = _m_hStorySections.find(_name);
   if(section == _m_hStorySections.end()) {
-    Cotorro::Log(eLOGTYPE::kError, "| StorySectionManager | Story section with name: " + _name + " not found.");
+
+    // Error log.
+    Cotorro::Log(
+      eLOGTYPE::kError,
+      "| StorySectionManager | Story section with name: " + _name + " not found."
+    );
+
     return;
   }
 
   _m_hStorySections.remove(_name);
   delete section.value();
+
+  // Dirts project.
+  Cotorro::Instance()->getProject().dirty();
 
   return;
 }
@@ -123,6 +248,30 @@ qint32
 StorySectionManager::size()
 {
   return _m_hStorySections.size();
+}
+
+eOPRESULT::E
+StorySectionManager::add(StorySection *_pStorySection)
+{
+  // Check if name already exists.
+  if(has(_pStorySection->getName())) {
+
+    // Error log.
+    Cotorro::Log(
+      eLOGTYPE::kError,
+      "| StorySectionManager | A section with name: " + _pStorySection->getName() + " already exists."
+    );
+
+    return eOPRESULT::kFail;
+  }
+
+  // Add story section into the map.
+  _m_hStorySections.insert(_pStorySection->getName(), _pStorySection);
+
+  // Dirts project.
+  Cotorro::Instance()->getProject().dirty();
+
+  return eOPRESULT::kOk;
 }
 
 }

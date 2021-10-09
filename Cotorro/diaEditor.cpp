@@ -56,7 +56,7 @@ Editor::init()
   p.setColor(QPalette::Text, Qt::white);
   ui->pText_logger->setPalette(p);
 
-  Cotorro::Log(ct::eLOGTYPE::kMessage, "Application initialized.");
+  Cotorro::Log(ct::eLOGTYPE::kMessage, tr("Application initialized."));
   return;
 }
 
@@ -70,7 +70,7 @@ Editor::updateStorySectionPanel()
   QStringList aSectionNames = storySectionManager.getNames();
 
   QStringList::iterator i;
-  QIcon itemIcon(":/icons/assets/icons/document.ico");
+  QIcon itemIcon(tr(":/icons/assets/icons/document.ico"));
   for(i = aSectionNames.begin(); i != aSectionNames.end(); ++i) {
     QListWidgetItem* pItem = new QListWidgetItem(*i, ui->list_storySections);
     pItem->setIcon(itemIcon);
@@ -86,44 +86,73 @@ Editor::clearStorySectionPanel()
 }
 
 void
+Editor::updateEditor()
+{
+  updateStorySectionPanel();
+  return;
+}
+
+void
 Editor::openProject(const QString &_path)
 {
-  Project& project = Cotorro::Instance()->getProject();
-  project.clear();
-
-  ct::eOPRESULT::E res = project.open(_path);
+  ct::eOPRESULT::E res = Cotorro::Instance()->openProject(_path);
   if(res != ct::eOPRESULT::kOk) {
     QMessageBox errorMsg
       (
           QMessageBox::Icon::Critical,
-          "Project creation failed",
-          "Something went wrong during the project's preparation.",
+          tr("Project creation failed"),
+          tr("Something went wrong during the project's preparation."),
           QMessageBox::Close,
           this
       );
 
     errorMsg.exec();
   }
+  else {
+    QMessageBox infoMsg
+      (
+          QMessageBox::Icon::Information,
+          tr("Project opened"),
+          tr("The project was successfully opened."),
+          QMessageBox::Close,
+          this
+      );
 
+    infoMsg.exec();
+  }
+
+  // Updates editor.
+  updateEditor();
   return;
 }
 
 void
 Editor::saveProject()
 {
-  Project& project = Cotorro::Instance()->getProject();
-  ct::eOPRESULT::E res = project.save();
+  ct::eOPRESULT::E res = Cotorro::Instance()->saveProject();
   if(res != ct::eOPRESULT::kOk) {
     QMessageBox errorMsg
       (
           QMessageBox::Icon::Critical,
-          "Save Error",
-          "Something went wrong. The project couldn't be saved.",
+          tr("Save Error"),
+          tr("Something went wrong. The project couldn't be saved."),
           QMessageBox::Close,
           this
       );
 
     errorMsg.exec();
+  }
+  else {
+    QMessageBox infoMsg
+      (
+          QMessageBox::Icon::Information,
+          tr("Project saved"),
+          tr("The project was successfully saved."),
+          QMessageBox::Close,
+          this
+      );
+
+    infoMsg.exec();
   }
 
   return;
@@ -138,8 +167,8 @@ Editor::checkDirt()
     QMessageBox warnMsg
       (
           QMessageBox::Icon::Warning,
-          "Save current project",
-          "Do you want to save the current project?",
+          tr("Save current project"),
+          tr("Do you want to save the current project?"),
           QMessageBox::Yes | QMessageBox::No,
           this
       );
@@ -214,8 +243,8 @@ Editor::on_actionAddSection_triggered()
       QMessageBox errorMsg
         (
             QMessageBox::Icon::Critical,
-            "Error",
-            "Something went wrong. Could not create story section.",
+            tr("Error"),
+            tr("Something went wrong. Could not create story section."),
             QMessageBox::Close,
             this
         );

@@ -86,6 +86,12 @@ private:
   clearStorySectionPanel();
 
   /**
+   * @brief Updates editor.
+   */
+  void
+  updateEditor();
+
+  /**
    * @brief ui
    */
   Ui::Editor*

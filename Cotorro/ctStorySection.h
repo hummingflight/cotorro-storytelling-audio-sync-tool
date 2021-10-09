@@ -2,6 +2,10 @@
 #define STORYSECTION_H
 
 #include <QObject>
+#include <QXmlStreamWriter>
+#include <QXmlStreamReader>
+
+#include <ctCotorroUtilities.h>
 
 namespace ct {
 
@@ -14,24 +18,36 @@ class StorySection : public QObject
 public:
 
   /**
-   * @brief StorySection
-   * @param parent
+   * @brief StorySection Create an empty story section.
+   *
+   * @param parent Parent.
    */
   explicit StorySection(QObject *parent = nullptr);
 
   /**
-   * @brief Initialize.
+   * @brief Initialize the story section. Sets the uuid.
    */
   void
   init();
 
   /**
-   * @brief Initialize
+   * @brief Initialize the story section. Sets the uuid and name.
    *
    * @param _name Section's name.
    */
   void
   init(const QString& _name);
+
+  /**
+   * @brief Initiale the story section. Fill the story section with
+   * the information comming from the XML Stream Reader.
+   *
+   * @param _reader XML Stream Reader.
+   *
+   * @return Operation result.
+   */
+  eOPRESULT::E
+  init(QXmlStreamReader& _reader);
 
   /**
    * @brief Get the name.
@@ -88,6 +104,16 @@ public:
    */
   void
   setContent(const QString& _content);
+
+  /**
+   * @brief Save infromation in the file.
+   *
+   * @param _writer XML stream writer.
+   *
+   * @return Operation result.
+   */
+  eOPRESULT::E
+  save(QXmlStreamWriter& _writer);
 
 signals:
 

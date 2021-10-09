@@ -49,6 +49,34 @@ public:
   init(Editor* _pMainWindow);
 
   /**
+   * @brief Attemps to open a project.
+   *
+   * @param _projectFilePath Project's file path.
+   *
+   * @return Result.
+   */
+  eOPRESULT::E
+  openProject(const QString &_projectFilePath);
+
+  /**
+   * @brief Attemps to save the project.
+   *
+   * @return Result.
+   */
+  eOPRESULT::E
+  saveProject();
+
+  /**
+   * @brief Attemps to save the project in the given path.
+   *
+   * @param _m_path Path.
+   *
+   * @return Result.
+   */
+  eOPRESULT::E
+  saveProject(const QString& _m_path);
+
+  /**
    * @brief Get the project.
    *
    * @return Project.

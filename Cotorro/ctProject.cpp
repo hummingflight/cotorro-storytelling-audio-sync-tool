@@ -37,162 +37,103 @@ ct::Project::init()
 }
 
 eOPRESULT::E
-Project::open(const QString &_projectFilePath)
+Project::open
+(
+  QXmlStreamReader& _reader,
+  const QString& _name,
+  const QString& _fileName,
+  const QString& _fileFullPath,
+  const QString& _projectDirectory
+)
 {
-  QFileInfo projectInfo(_projectFilePath);
-
-  if(!projectInfo.exists()) {
-    return eOPRESULT::kFileDoesntExists;
-  }
-
-  if(!projectInfo.isFile()) {
-    return eOPRESULT::kIncompatibleObject;
-  }
-
-  if(!projectInfo.isReadable()) {
-    return eOPRESULT::kFileNotReadable;
-  }
-
-  if(projectInfo.suffix() != Project::ProjectExtension()) {
-    return eOPRESULT::kIncompatibleObject;
-  }
-
-  QFile projFile(_projectFilePath);
-  if(!projFile.open(QFile::ReadOnly)) {
-    return eOPRESULT::kFail;
-  }
-
-  // Clear current information.
+  // Clears current information.
   clear();
 
-  _m_name = projectInfo.fileName();
-  _m_fileName = projectInfo.fileName();
-  _m_fileFullPath = _projectFilePath;
-  _m_projectDirectory = projectInfo.path();
+  // Checks that all attributes exists.
+  QXmlStreamAttributes attritbutes = _reader.attributes();
+  if(!attritbutes.hasAttribute("assetsFolderName")) {
 
-  // Set current path.
-  QDir::setCurrent(_m_projectDirectory);
+    Cotorro::Log
+    (
+      eLOGTYPE::kError,
+      tr("| Project | One or more attributes were not found in the XML.")
+    );
 
-  // Read and save information from file.
-  QXmlStreamReader reader(&projFile);
-
-  while(!reader.atEnd()) {
-    QXmlStreamReader::TokenType token = reader.readNext();
-
-    if(token == QXmlStreamReader::StartElement) {
-      if(reader.name().toLatin1() == "Project") {
-          _m_assetsFolderName = reader.attributes().value("assetsFolderName").toString();
-          _m_assetsDirectory = _m_projectDirectory + QDir::separator() + _m_assetsFolderName;
-      }
-      else if(reader.name().toLatin1() == "StorySections")  {
-        _m_storySectionManager.open(reader);
-      }
-    }
+    return eOPRESULT::kIncompatibleObject;
   }
 
-  // Close file.
-  projFile.close();
+  // Save information.
+  _m_name = _name;
+  _m_fileName = _fileName;
+  _m_fileFullPath = _fileFullPath;
+  _m_projectDirectory = _projectDirectory;
+  _m_assetsFolderName = attritbutes.value("assetsFolderName").toString();
+  _m_assetsDirectory = _m_projectDirectory + QDir::separator() + _m_assetsFolderName;
 
-  // Error handling.
-  if(reader.hasError()) {
+  // Iterates until it reach the end of the element or the end of the document.
+  eOPRESULT::E result = eOPRESULT::kOk;
+  QXmlStreamReader::TokenType token = QXmlStreamReader::StartElement;
+  while(!_reader.atEnd() && token != QXmlStreamReader::EndElement) {
 
-    QXmlStreamReader::Error errorType = reader.error();
-    switch(errorType) {
+    // Next token.
+    QXmlStreamReader::TokenType token = _reader.readNext();
 
-    case QXmlStreamReader::NoError:
-      break;
+    if(token == QXmlStreamReader::StartElement) {
+      if(_reader.name().toLatin1() == "StorySections")  {
 
-    case QXmlStreamReader::UnexpectedElementError:
-      Cotorro::Log(eLOGTYPE::kError, "| Project | XmlStreamReader: Unexpected element.");
-      break;
+        // Load story section manager.
+        result = _m_storySectionManager.open(_reader);
 
-    case QXmlStreamReader::CustomError:
-      Cotorro::Log(eLOGTYPE::kError, "| Project | XmlStreamReader: Custom error.");
-      break;
-
-    case QXmlStreamReader::NotWellFormedError:
-      Cotorro::Log(eLOGTYPE::kError, "| Project | XmlStreamReader: Not well formed");
-      break;
-
-    case QXmlStreamReader::PrematureEndOfDocumentError:
-      Cotorro::Log(eLOGTYPE::kError, "| Project | XmlStreamReader: Premature end of document.");
-      break;
-
+        // Check result.
+        if(result != eOPRESULT::kOk) {
+          return result;
+        }
+      }
     }
-
-    return eOPRESULT::kFail;
   }
 
   // Project was succesfully opened
   Cotorro::Log(eLOGTYPE::kMessage,"Project was successfully opened.");
   Cotorro::Log(eLOGTYPE::kMessage,"Project path: " + _m_fileFullPath);
 
-  return eOPRESULT::kOk;
+  return result;
 }
 
 eOPRESULT::E
-Project::save()
+Project::save(QXmlStreamWriter& _writer)
 {
-  return save(_m_fileFullPath);
-}
+  eOPRESULT::E result = eOPRESULT::kOk;
 
-eOPRESULT::E
-Project::save(const QString& _m_path)
-{
-  QFileInfo projectInfo(_m_path);
-
-  if(!projectInfo.exists()) {
-    return eOPRESULT::kFileDoesntExists;
-  }
-
-  if(!projectInfo.isFile()) {
-    return eOPRESULT::kIncompatibleObject;
-  }
-
-  if(!projectInfo.isReadable()) {
-    return eOPRESULT::kFileNotReadable;
-  }
-
-  if(!projectInfo.isWritable()) {
-    return eOPRESULT::kFileNotWritable;
-  }
-
-  if(projectInfo.suffix() != Project::ProjectExtension()) {
-    return eOPRESULT::kIncompatibleObject;
-  }
-
-  QFile projFile(_m_path);
-  if(!projFile.open(QFile::ReadWrite)) {
-    return eOPRESULT::kFail;
-  }
-
-  QXmlStreamWriter stream(&projFile);
-  stream.setAutoFormatting(true);
-  stream.writeStartDocument();
-  stream.writeStartElement("Project");
+  // Start project's element.
+  _writer.writeStartElement(tr("Project"));
 
   // Application and Organization information.
-  stream.writeAttribute("application", QApplication::applicationDisplayName());
-  stream.writeAttribute("organization", QApplication::organizationName());
-  stream.writeAttribute("website", QApplication::organizationDomain());
-  stream.writeAttribute("version", QApplication::applicationVersion());
-  stream.writeAttribute("assetsFolderName", "assets");
+  _writer.writeAttribute(tr("application"), QApplication::applicationDisplayName());
+  _writer.writeAttribute(tr("organization"), QApplication::organizationName());
+  _writer.writeAttribute(tr("website"), QApplication::organizationDomain());
+  _writer.writeAttribute(tr("version"), QApplication::applicationVersion());
+  _writer.writeAttribute(tr("assetsFolderName"), "assets");
 
-  _m_storySectionManager.save(stream);
+  // Save story section manager.
+  result = _m_storySectionManager.save(_writer);
 
-  stream.writeEndElement();
-  stream.writeEndDocument();
+  // End project's element.
+  _writer.writeEndElement();
 
-  projFile.flush();
-  projFile.close();
+  // Check result.
+  if(result == eOPRESULT::kOk) {
+
+    // Project was succesfully saved
+    Cotorro::Log (
+      eLOGTYPE::kMessage,
+      tr("Project was successfully saved.")
+    );
+
+  }
 
   _m_isDirty = false;
 
-  // Project was succesfully saved
-  Cotorro::Log(eLOGTYPE::kMessage,"Project was successfully saved.");
-  Cotorro::Log(eLOGTYPE::kMessage,"Project path: " + _m_path);
-
-  return eOPRESULT::kOk;
+  return result;
 }
 
 void
@@ -237,6 +178,12 @@ QString
 Project::getAssetsDirectory()
 {
   return _m_assetsDirectory;
+}
+
+QString
+Project::getProjectFileFullPath()
+{
+  return _m_fileFullPath;
 }
 
 StorySectionManager&

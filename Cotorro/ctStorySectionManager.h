@@ -127,6 +127,16 @@ signals:
 private:
 
   /**
+   * @brief Attemps to add the story section.
+   *
+   * @param _pStorySection Pointer to the story section.
+   *
+   * @return Result.
+   */
+  eOPRESULT::E
+  add(StorySection* _pStorySection);
+
+  /**
    * @brief Map of story sections.
    */
   QMap<QString, StorySection*>

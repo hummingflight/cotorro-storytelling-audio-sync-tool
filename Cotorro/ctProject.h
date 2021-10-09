@@ -45,7 +45,14 @@ public:
    * @return Opreation result.
    */
   eOPRESULT::E
-  open(const QString& _projectFilePath);
+  open
+  (
+    QXmlStreamReader& _reader,
+    const QString& _name,
+    const QString& _fileName,
+    const QString& _fileFullPath,
+    const QString& _projectDirectory
+  );
 
   /**
    * @brief Save project.
@@ -53,15 +60,7 @@ public:
    * @return Operation result.
    */
   eOPRESULT::E
-  save();
-
-  /**
-   * @brief Save project in the given path.
-   *
-   * @return Operation result.
-   */
-  eOPRESULT::E
-  save(const QString& _m_path);
+  save(QXmlStreamWriter& _writer);
 
   /**
    * @brief Clears the project.
@@ -98,6 +97,14 @@ public:
    */
   QString
   getAssetsDirectory();
+
+  /**
+   * @brief Get project's file's full path.
+   *
+   * @return Project's file's full path.
+   */
+  QString
+  getProjectFileFullPath();
 
   /**
    * @brief Get the story section manager.
