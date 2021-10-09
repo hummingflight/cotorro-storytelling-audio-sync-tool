@@ -44,6 +44,9 @@ private slots:
   void
   on_actionAddSection_triggered();
 
+  void
+  onStoryManagerChanged();
+
 private:
 
   /**
@@ -84,12 +87,6 @@ private:
    */
   void
   clearStorySectionPanel();
-
-  /**
-   * @brief Updates editor.
-   */
-  void
-  updateEditor();
 
   /**
    * @brief ui

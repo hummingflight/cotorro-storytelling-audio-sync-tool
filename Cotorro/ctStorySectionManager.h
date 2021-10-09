@@ -124,6 +124,12 @@ public:
 
 signals:
 
+  /**
+   * @brief Called when one or more sections have changed.
+   */
+  void
+  sectionsChanged();
+
 private:
 
   /**

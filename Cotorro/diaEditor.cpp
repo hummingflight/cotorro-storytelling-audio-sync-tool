@@ -45,10 +45,16 @@ void
 Editor::init()
 {
   // Initialize Cotorro's module.
-  Cotorro::Instance()->init(this);
+  Cotorro* pCotorro = Cotorro::Instance();
+  pCotorro->init(this);
+
+  Project& project = pCotorro->getProject();
+
+  StorySectionManager& storySectionManager = project.getStorySectionManager();
 
   // Connections
   connect(ui->btn_addSection, &QPushButton::clicked, this, &Editor::on_actionAddSection_triggered);
+  connect(&storySectionManager, &StorySectionManager::sectionsChanged, this, &Editor::onStoryManagerChanged);
 
   // Init Logger Widget
   QPalette p = ui->pText_logger->palette();
@@ -86,13 +92,6 @@ Editor::clearStorySectionPanel()
 }
 
 void
-Editor::updateEditor()
-{
-  updateStorySectionPanel();
-  return;
-}
-
-void
 Editor::openProject(const QString &_path)
 {
   ct::eOPRESULT::E res = Cotorro::Instance()->openProject(_path);
@@ -120,9 +119,6 @@ Editor::openProject(const QString &_path)
 
     infoMsg.exec();
   }
-
-  // Updates editor.
-  updateEditor();
   return;
 }
 
@@ -260,5 +256,12 @@ Editor::on_actionAddSection_triggered()
     updateStorySectionPanel();
   }
 
+  return;
+}
+
+void
+Editor::onStoryManagerChanged()
+{
+  updateStorySectionPanel();
   return;
 }

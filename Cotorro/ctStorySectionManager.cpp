@@ -109,6 +109,9 @@ StorySectionManager::open(QXmlStreamReader &_reader)
     }
   }
 
+  // Emit signal.
+  emit sectionsChanged();
+
   return result;
 }
 
@@ -144,8 +147,13 @@ StorySectionManager::save(QXmlStreamWriter &_writer)
 void
 StorySectionManager::clear()
 {
+  // Destroys story sections.
   qDeleteAll(_m_hStorySections);
   _m_hStorySections.clear();
+
+  // Emit signal.
+  emit sectionsChanged();
+
   return;
 }
 
@@ -165,6 +173,9 @@ StorySectionManager::create(const QString &_name)
 
   // Dirts project.
   Cotorro::Instance()->getProject().dirty();
+
+  // Emit signal.
+  emit sectionsChanged();
 
   return pSection;
 }
@@ -192,6 +203,9 @@ StorySectionManager::rename(const QString &_name, const QString &_newName)
 
   // Dirts project.
   Cotorro::Instance()->getProject().dirty();
+
+  // Emit signal.
+  emit sectionsChanged();
 
   return;
 }
@@ -240,6 +254,9 @@ StorySectionManager::remove(const QString &_name)
 
   // Dirts project.
   Cotorro::Instance()->getProject().dirty();
+
+  // Emit signal.
+  emit sectionsChanged();
 
   return;
 }
