@@ -12,6 +12,7 @@ using sf::SoundSource;
 using ct::Cotorro;
 using ct::Project;
 using ct::StorySectionManager;
+using ct::eLOGTYPE::E;
 
 DiaCreateSection::DiaCreateSection(QWidget *parent) :
   QDialog(parent),
@@ -72,16 +73,26 @@ DiaCreateSection::onClick_Play()
   QFileInfo fileInfo(project.getAssetsDirectory() + QDir::separator() + selectedFile);
 
   if(!fileInfo.exists()) {
+    Cotorro::Log(
+      ct::eLOGTYPE::kError,
+      tr("| Create Section | File doesn't exists: ").append(fileInfo.filePath())
+    );
     return;
   }
 
   if(!fileInfo.isReadable()) {
-    // TODO Not readeable.
+    Cotorro::Log(
+      ct::eLOGTYPE::kError,
+      tr("| Create Section | Couldn't read sound file: ").append(fileInfo.filePath())
+    );
     return;
   }   
 
-   if(!_m_musicPlayer.openFromFile(fileInfo.filePath().toStdString())) {
-     // TODO Couldn't open file.
+   if(!_m_musicPlayer.openFromFile(fileInfo.filePath().toStdString().c_str())) {
+     Cotorro::Log(
+       ct::eLOGTYPE::kError,
+       tr("| Create Section | Couldn't open sound file: ").append(fileInfo.filePath())
+     );
      return;
    }
 

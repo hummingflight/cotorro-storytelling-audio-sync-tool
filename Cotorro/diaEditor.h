@@ -9,6 +9,10 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class Editor; }
 QT_END_NAMESPACE
 
+namespace ct {
+  class StorySection;
+}
+
 class Editor : public QMainWindow
 {
   Q_OBJECT
@@ -54,6 +58,12 @@ private slots:
   void
   on_actionRemoveSection_triggered();
 
+  void
+  onRenameButtonClick();
+
+  void
+  onActiveSectionChanged(ct::StorySection* _pActiveSection);
+
 private:
 
   /**
@@ -90,10 +100,22 @@ private:
   updateStorySectionPanel();
 
   /**
+   * @brief Updates story section editor panel.
+   */
+  void
+  updateEditorPanel(ct::StorySection* _pStorySection);
+
+  /**
    * @brief Clears story section's panel.
    */
   void
   clearStorySectionPanel();
+
+  /**
+   * @brief Clears story section editor panel.
+   */
+  void
+  clearEditorPanel();
 
   /**
    * @brief ui

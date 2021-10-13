@@ -166,7 +166,11 @@ StorySectionManager::create(const QString &_name)
 {
   if(has(_name))
   {
-    Cotorro::Log(eLOGTYPE::kError, "| StorySectionManager | A section with name: " + _name + " already exists.");
+    Cotorro::Log(
+     eLOGTYPE::kError,
+     tr("| StorySectionManager | A section with name: %1 already exists.").arg(_name)
+    );
+
     return nullptr;
   }
 
@@ -181,6 +185,11 @@ StorySectionManager::create(const QString &_name)
   // Emit signal.
   emit sectionsChanged();
 
+  Cotorro::Log(
+    eLOGTYPE::kMessage,
+    tr("| StorySectionManager | Section created : %1").arg(_name)
+  );
+
   return pSection;
 }
 
@@ -193,24 +202,39 @@ StorySectionManager::rename(const QString &_name, const QString &_newName)
 
   QMap<QString, StorySection*>::iterator section = _m_hStorySections.find(_name);
   if(section == _m_hStorySections.end()) {
-    Cotorro::Log(eLOGTYPE::kError, "| StorySectionManager | Story section with name: " + _name + " not found.");
+    Cotorro::Log(
+      eLOGTYPE::kError,
+      tr("| StorySectionManager | Story section with name: %1 not found.").arg(_name)
+    );
+
     return;
   }
 
   if(has(_newName)) {
-    Cotorro::Log(eLOGTYPE::kError, "| StorySectionManager | A section with name: " + _name + " already exists.");
+    Cotorro::Log(
+      eLOGTYPE::kError,
+      tr("| StorySectionManager | A section with name: %1 already exists.").arg(_newName)
+    );
     return;
   }
 
+  StorySection* pStorySection = section.value();
+
   _m_hStorySections.remove(_name);
-  section.value()->setName(_newName);
-  _m_hStorySections.insert(_newName, section.value());
+  pStorySection->setName(_newName);
+  _m_hStorySections.insert(_newName, pStorySection);
 
   // Dirts project.
   Cotorro::Instance()->getProject().dirty();
 
   // Emit signal.
   emit sectionsChanged();
+
+  Cotorro::Log(
+    eLOGTYPE::kMessage,
+    tr("| StorySectionManager | Section renamed from : %1 to %2")
+        .arg(_name, _newName)
+  );
 
   return;
 }
@@ -226,7 +250,11 @@ StorySectionManager::get(const QString &_name)
 {
   QMap<QString, StorySection*>::iterator section = _m_hStorySections.find(_name);
   if(section == _m_hStorySections.end()) {
-    Cotorro::Log(eLOGTYPE::kError, "| StorySectionManager | Story section with name: " + _name + " not found.");
+    Cotorro::Log(
+      eLOGTYPE::kError,
+      tr("| StorySectionManager | Story section with name: %1 not found.").arg(_name)
+    );
+
     return nullptr;
   }
 
@@ -249,7 +277,7 @@ StorySectionManager::remove(const QString &_name)
     // Error log.
     Cotorro::Log(
       eLOGTYPE::kError,
-      "| StorySectionManager | Story section with name: " + _name + " not found."
+      tr("| StorySectionManager | Story section with name: not found.").arg(_name)
     );
 
     return;
@@ -285,7 +313,7 @@ StorySectionManager::setActiveSectionByName(const QString &_name)
   if(!has(_name)) {
     Cotorro::Log(
           eLOGTYPE::kError,
-          tr("| StorySectionManager | No story section was found: ").append(_name)
+          tr("| StorySectionManager | No story section was found: %1").arg(_name)
     );
 
     return;
@@ -309,6 +337,12 @@ StorySectionManager::hasActiveSection()
   return _m_pActiveSection != nullptr;
 }
 
+StorySection*
+StorySectionManager::getActiveSection()
+{
+  return _m_pActiveSection;
+}
+
 qint32
 StorySectionManager::size()
 {
@@ -324,7 +358,7 @@ StorySectionManager::add(StorySection *_pStorySection)
     // Error log.
     Cotorro::Log(
       eLOGTYPE::kError,
-      "| StorySectionManager | A section with name: " + _pStorySection->getName() + " already exists."
+      tr("| StorySectionManager | A section with name: %1 already exists.").arg(_pStorySection->getName())
     );
 
     return eOPRESULT::kFail;
@@ -359,7 +393,7 @@ StorySectionManager::setActiveSection(StorySection *_pStorySection)
   if(_m_pActiveSection != nullptr) {
     Cotorro::Log(
           eLOGTYPE::kMessage,
-          tr("| StorySectionManager | Active Section: ").append(_m_pActiveSection->getName())
+          tr("| StorySectionManager | Active Section: %1").arg(_m_pActiveSection->getName())
     );
   }
   else {

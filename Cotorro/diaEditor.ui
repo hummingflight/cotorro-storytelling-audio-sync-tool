@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>675</width>
     <height>600</height>
    </rect>
   </property>
@@ -84,6 +84,13 @@
                 </widget>
                </item>
                <item>
+                <widget class="QPushButton" name="pushButton_4">
+                 <property name="text">
+                  <string>PushButton</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
                 <widget class="QPushButton" name="btn_removeSection">
                  <property name="text">
                   <string>Remove</string>
@@ -136,6 +143,87 @@
             <string>Audio Sync Tool</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <item>
+               <widget class="QLineEdit" name="lineSectionName"/>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btnRename">
+                <property name="text">
+                 <string>Rename</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <item>
+               <spacer name="horizontalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="lblVolumen">
+                <property name="text">
+                 <string>volumen:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSlider" name="horizontalSlider">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton">
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="app-resources.qrc">
+                  <normaloff>:/icons/assets/icons/player_play.ico</normaloff>:/icons/assets/icons/player_play.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_2">
+                <property name="icon">
+                 <iconset resource="app-resources.qrc">
+                  <normaloff>:/icons/assets/icons/player_pause.ico</normaloff>:/icons/assets/icons/player_pause.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_3">
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="app-resources.qrc">
+                  <normaloff>:/icons/assets/icons/player_stop.ico</normaloff>:/icons/assets/icons/player_stop.ico</iconset>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
             <item>
              <widget class="QLabel" name="label">
               <property name="text">
@@ -206,7 +294,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>675</width>
      <height>20</height>
     </rect>
    </property>

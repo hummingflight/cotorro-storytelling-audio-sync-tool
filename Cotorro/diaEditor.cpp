@@ -57,12 +57,19 @@ Editor::init()
   connect(ui->btn_removeSection, &QPushButton::clicked, this, &Editor::on_actionRemoveSection_triggered);
   connect(ui->list_storySections, &QListWidget::itemDoubleClicked, this, &Editor::onStorySectionDoubleClicked);
   connect(&storySectionManager, &StorySectionManager::sectionsChanged, this, &Editor::onStoryManagerChanged);
+  connect(&storySectionManager, &StorySectionManager::activeSectionChanged, this, &Editor::onActiveSectionChanged);
+  connect(ui->btnRename, &QPushButton::clicked, this, &Editor::onRenameButtonClick);
 
   // Init Logger Widget
   QPalette p = ui->pText_logger->palette();
   p.setColor(QPalette::Base, Qt::black);
   p.setColor(QPalette::Text, Qt::white);
   ui->pText_logger->setPalette(p);
+
+  // Validator for section's name line widget
+  QRegularExpression rx("[a-zA-Z0-9_]+$");
+  QValidator* validator = new QRegularExpressionValidator(rx, this);
+  ui->lineSectionName->setValidator(validator);
 
   Cotorro::Log(ct::eLOGTYPE::kMessage, tr("Application initialized."));
   return;
@@ -88,9 +95,31 @@ Editor::updateStorySectionPanel()
 }
 
 void
+Editor::updateEditorPanel(StorySection* _pActiveSection)
+{
+  clearEditorPanel();
+
+  if(_pActiveSection == nullptr) {
+    return;
+  }
+
+  ui->lineSectionName->setText(_pActiveSection->getName());
+
+  return;
+}
+
+void
 Editor::clearStorySectionPanel()
 {
   ui->list_storySections->clear();
+}
+
+void
+Editor::clearEditorPanel()
+{
+  ui->lineSectionName->setText(tr(""));
+
+  return;
 }
 
 void
@@ -171,7 +200,7 @@ Editor::checkDirt()
           this
       );
 
-    if(warnMsg.exec()) {
+    if(warnMsg.exec() == QMessageBox::Yes) {
       saveProject();
     }
   }
@@ -247,6 +276,8 @@ Editor::on_actionAddSection_triggered()
         this
       );
 
+      errorMsg.exec();
+
       return;
     }
 
@@ -306,7 +337,7 @@ Editor::on_actionRemoveSection_triggered()
       this
     );
 
-    if(infoMsg.exec()) {
+    if(infoMsg.exec() == QMessageBox::Yes) {
       storySectionManager.remove(pItem->text());
 
       QMessageBox removeMsg
@@ -322,6 +353,84 @@ Editor::on_actionRemoveSection_triggered()
     }
   }
 
+  return;
+}
+
+void
+Editor::onRenameButtonClick()
+{
+  Project& project = Cotorro::Instance()->getProject();
+  StorySectionManager& storySectionManager = project.getStorySectionManager();
+
+  if(!storySectionManager.hasActiveSection()) {
+    return;
+  }
+
+  if(!ui->lineSectionName->hasAcceptableInput()) {
+    QMessageBox msgBox
+    (
+      QMessageBox::Icon::Warning,
+      tr("Invalid Name"),
+      tr("Write a valid name."),
+      QMessageBox::Ok,
+      this
+    );
+    msgBox.exec();
+
+    return;
+  }
+
+  QString newName = ui->lineSectionName->text();
+  if(newName.isEmpty()) {
+    QMessageBox msgBox
+    (
+      QMessageBox::Icon::Warning,
+      tr("Invalid Name"),
+      tr("Write a name."),
+      QMessageBox::Ok,
+      this
+    );
+    msgBox.exec();
+
+    return;
+  }
+
+  StorySection* pActiveSection = storySectionManager.getActiveSection();
+  if(pActiveSection == nullptr) {
+    Cotorro::Log(
+      ct::eLOGTYPE::kError,
+      "| Editor | Active story section is nullptr."
+    );
+
+    return;
+  }
+
+  if(pActiveSection->getName() == newName) {
+    return;
+  }
+
+  if(storySectionManager.has(newName)) {
+    QMessageBox msgBox
+    (
+      QMessageBox::Icon::Warning,
+      tr("Invalid Name"),
+      tr("A story section with that name already exists."),
+      QMessageBox::Ok,
+      this
+    );
+    msgBox.exec();
+
+    return;
+  }
+
+  storySectionManager.rename(pActiveSection->getName(), newName);
+  return;
+}
+
+void
+Editor::onActiveSectionChanged(ct::StorySection *_pActiveSection)
+{
+  updateEditorPanel(_pActiveSection);
   return;
 }
 
