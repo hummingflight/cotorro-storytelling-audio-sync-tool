@@ -7,6 +7,7 @@
 
 #include "ctCotorroUtilities.h"
 #include "ctProject.h"
+#include "ctAudioManager.h"
 
 class Editor;
 
@@ -85,6 +86,14 @@ public:
   getProject();
 
   /**
+   * @brief Get audio manager.
+   *
+   * @return Audio manager.
+   */
+  AudioManager&
+  getAudioManager();
+
+  /**
    * @brief Safely destroys the module.
    */
   void
@@ -126,6 +135,12 @@ private:
    */
   Project
   _m_project;
+
+  /**
+   * @brief Audio manager.
+   */
+  AudioManager
+  _m_audioManager;
 
 };
 

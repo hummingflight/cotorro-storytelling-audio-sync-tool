@@ -5,9 +5,11 @@ namespace ct {
 
 Cotorro::Cotorro(QObject *parent) :
   QObject(parent),
-  _pEditorWindow(nullptr)
+  _pEditorWindow(nullptr),
+  _m_project(this),
+  _m_audioManager(this)
 {
-
+  return;
 }
 
 void
@@ -145,19 +147,19 @@ Cotorro::openProject(const QString &_projectFilePath)
       break;
 
     case QXmlStreamReader::UnexpectedElementError:
-      Cotorro::Log(eLOGTYPE::kError, "| Cotorro | XmlStreamReader: Unexpected element.");
+      Cotorro::Log(eLOGTYPE::kError, tr("| Cotorro | XmlStreamReader: Unexpected element."));
       break;
 
     case QXmlStreamReader::CustomError:
-      Cotorro::Log(eLOGTYPE::kError, "| Cotorro | XmlStreamReader: Custom error.");
+      Cotorro::Log(eLOGTYPE::kError, tr("| Cotorro | XmlStreamReader: Custom error."));
       break;
 
     case QXmlStreamReader::NotWellFormedError:
-      Cotorro::Log(eLOGTYPE::kError, "| Cotorro | XmlStreamReader: Not well formed");
+      Cotorro::Log(eLOGTYPE::kError, tr("| Cotorro | XmlStreamReader: Not well formed"));
       break;
 
     case QXmlStreamReader::PrematureEndOfDocumentError:
-      Cotorro::Log(eLOGTYPE::kError, "| Cotorro | XmlStreamReader: Premature end of document.");
+      Cotorro::Log(eLOGTYPE::kError, tr("| Cotorro | XmlStreamReader: Premature end of document."));
       break;
 
     }
@@ -173,6 +175,7 @@ Cotorro::saveProject()
 {
   QString projectFileFullPath = _m_project.getProjectFileFullPath();
   if(projectFileFullPath.isEmpty()) {
+    Cotorro::Log(eLOGTYPE::kError, tr("| Cotorro | Project's path is empty."));
     return eOPRESULT::kFail;
   }
 
@@ -186,28 +189,34 @@ Cotorro::saveProject(const QString &_m_path)
   QFileInfo projectInfo(_m_path);
 
   if(!projectInfo.exists()) {
+    Cotorro::Log(eLOGTYPE::kError, tr("| Cotorro | File doesn't exists: %1.").arg(_m_path));
     return eOPRESULT::kFileDoesntExists;
   }
 
   if(!projectInfo.isFile()) {
+    Cotorro::Log(eLOGTYPE::kError, tr("| Cotorro | Is not a file path: %1.").arg(_m_path));
     return eOPRESULT::kIncompatibleObject;
   }
 
   if(!projectInfo.isReadable()) {
+    Cotorro::Log(eLOGTYPE::kError, tr("| Cotorro | File is not readable: %1.").arg(_m_path));
     return eOPRESULT::kFileNotReadable;
   }
 
   if(!projectInfo.isWritable()) {
+    Cotorro::Log(eLOGTYPE::kError, tr("| Cotorro | File is not writable: %1.").arg(_m_path));
     return eOPRESULT::kFileNotWritable;
   }
 
   if(projectInfo.suffix() != Project::ProjectExtension()) {
+    Cotorro::Log(eLOGTYPE::kError, tr("| Cotorro | Invalid extension: %1.").arg(_m_path));
     return eOPRESULT::kIncompatibleObject;
   }
 
   // Open File.
   QFile projFile(_m_path);
   if(!projFile.open(QFile::WriteOnly)) {
+    Cotorro::Log(eLOGTYPE::kError, tr("| Cotorro | Couldn't open file: %1.").arg(_m_path));
     return eOPRESULT::kFail;
   }
 
@@ -237,6 +246,12 @@ Cotorro::getProject()
   return _m_project;
 }
 
+AudioManager&
+Cotorro::getAudioManager()
+{
+  return _m_audioManager;
+}
+
 void Cotorro::destroy()
 {
   return;
@@ -252,7 +267,10 @@ Cotorro::_Instance()
 void
 Cotorro::_onStart()
 {
-  // TODO
+  _m_project.init();
+  _m_audioManager.init();
+
+  return;
 }
 
 }

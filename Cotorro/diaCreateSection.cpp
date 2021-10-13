@@ -11,6 +11,7 @@ using sf::SoundSource;
 
 using ct::Cotorro;
 using ct::Project;
+using ct::AudioManager;
 using ct::StorySectionManager;
 using ct::eLOGTYPE::E;
 
@@ -19,8 +20,7 @@ DiaCreateSection::DiaCreateSection(QWidget *parent) :
   sectionName(""),
   sectionAudioFileName(""),
   sectionContent(""),
-  ui(new Ui::DiaCreateSection),
-  _m_musicPlayer()
+  ui(new Ui::DiaCreateSection)
 {
   ui->setupUi(this);
   init();
@@ -62,6 +62,7 @@ DiaCreateSection::onClick_Cancel()
 void
 DiaCreateSection::onClick_Play()
 {
+  // Stop current music.
   stopMusic();
 
   QString selectedFile = ui->comboAudio->currentText();
@@ -69,34 +70,8 @@ DiaCreateSection::onClick_Play()
     return;
   }
 
-  Project& project = Cotorro::Instance()->getProject();
-  QFileInfo fileInfo(project.getAssetsDirectory() + QDir::separator() + selectedFile);
-
-  if(!fileInfo.exists()) {
-    Cotorro::Log(
-      ct::eLOGTYPE::kError,
-      tr("| Create Section | File doesn't exists: ").append(fileInfo.filePath())
-    );
-    return;
-  }
-
-  if(!fileInfo.isReadable()) {
-    Cotorro::Log(
-      ct::eLOGTYPE::kError,
-      tr("| Create Section | Couldn't read sound file: ").append(fileInfo.filePath())
-    );
-    return;
-  }   
-
-   if(!_m_musicPlayer.openFromFile(fileInfo.filePath().toStdString().c_str())) {
-     Cotorro::Log(
-       ct::eLOGTYPE::kError,
-       tr("| Create Section | Couldn't open sound file: ").append(fileInfo.filePath())
-     );
-     return;
-   }
-
-   _m_musicPlayer.play();
+  AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
+  audioManager.playFromFile(selectedFile);
 
   return;
 }
@@ -165,11 +140,8 @@ DiaCreateSection::updateAudioCombo()
 void
 DiaCreateSection::stopMusic()
 {
-  SoundSource::Status status = _m_musicPlayer.getStatus();
-  if(status == SoundSource::Status::Playing) {
-    _m_musicPlayer.stop();
-  }
-
+  AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
+  audioManager.stop();
   return;
 }
 
