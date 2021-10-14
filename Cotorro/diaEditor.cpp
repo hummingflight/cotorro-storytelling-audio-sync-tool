@@ -13,6 +13,7 @@
 
 using ct::Cotorro;
 using ct::Project;
+using ct::AudioManager;
 using ct::StorySectionManager;
 using ct::StorySection;
 
@@ -55,10 +56,15 @@ Editor::init()
   // Connections
   connect(ui->btn_addSection, &QPushButton::clicked, this, &Editor::on_actionAddSection_triggered);
   connect(ui->btn_removeSection, &QPushButton::clicked, this, &Editor::on_actionRemoveSection_triggered);
-  connect(ui->list_storySections, &QListWidget::itemDoubleClicked, this, &Editor::onStorySectionDoubleClicked);
+  connect(ui->list_storySections, &QListWidget::itemDoubleClicked, this, &Editor::onStorySectionDoubleClicked);  
+  connect(ui->btnRename, &QPushButton::clicked, this, &Editor::onRenameButtonClick);
+  connect(ui->btnPlaySimulation, &QPushButton::clicked, this, &Editor::onPlaySimulation);
+  connect(ui->btnPauseSimulation, &QPushButton::clicked, this, &Editor::onPauseSimulation);
+  connect(ui->btnStopSimulation, &QPushButton::clicked, this, &Editor::onStopSimulation);
+  connect(ui->sliderVolumen, &QSlider::valueChanged, this, &Editor::onVolumenValueChanged);
+
   connect(&storySectionManager, &StorySectionManager::sectionsChanged, this, &Editor::onStoryManagerChanged);
   connect(&storySectionManager, &StorySectionManager::activeSectionChanged, this, &Editor::onActiveSectionChanged);
-  connect(ui->btnRename, &QPushButton::clicked, this, &Editor::onRenameButtonClick);
 
   // Init Logger Widget
   QPalette p = ui->pText_logger->palette();
@@ -72,6 +78,8 @@ Editor::init()
   ui->lineSectionName->setValidator(validator);
 
   Cotorro::Log(ct::eLOGTYPE::kMessage, tr("Application initialized."));
+
+  clearEditorPanel();
   return;
 }
 
@@ -104,6 +112,7 @@ Editor::updateEditorPanel(StorySection* _pActiveSection)
   }
 
   ui->lineSectionName->setText(_pActiveSection->getName());
+  ui->lblAudioKey->setText(_pActiveSection->getAudioKey());
 
   return;
 }
@@ -118,6 +127,10 @@ void
 Editor::clearEditorPanel()
 {
   ui->lineSectionName->setText(tr(""));
+  ui->lblAudioKey->setText(tr(""));
+
+  AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
+  audioManager.unload();
 
   return;
 }
@@ -258,6 +271,9 @@ Editor::on_actionSave_triggered()
 void
 Editor::on_actionAddSection_triggered()
 {
+  // Stop Simulation
+  onStopSimulation();
+
   // Show Create Section Dialog.
   DiaCreateSection dia(this);
   if(dia.exec()) {
@@ -288,6 +304,12 @@ Editor::on_actionAddSection_triggered()
     // Update Story Section panel.
     updateStorySectionPanel();
   }
+
+  // Unload any audio comming from the previous dialog.
+  // This will force the audio manager to load the active section's
+  // audio again when the user hits the "play" simulation button.
+  AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
+  audioManager.unload();
 
   return;
 }
@@ -431,6 +453,83 @@ void
 Editor::onActiveSectionChanged(ct::StorySection *_pActiveSection)
 {
   updateEditorPanel(_pActiveSection);
+  return;
+}
+
+void
+Editor::onPlaySimulation()
+{
+  AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
+  if(!audioManager.isReady()) {
+
+    Project& project = Cotorro::Instance()->getProject();
+    StorySectionManager& storySectionManager = project.getStorySectionManager();
+
+    if(!storySectionManager.hasActiveSection()) {
+      return;
+    }
+
+    StorySection* pStorySection = storySectionManager.getActiveSection();
+    if(audioManager.loadFromAssets(pStorySection->getAudioKey()) == ct::eOPRESULT::kOk) {
+      audioManager.play();
+    }
+    else {
+      return;
+    }
+  }
+
+  if(audioManager.isPaused() || audioManager.isStopped()) {
+    audioManager.play();
+  }
+
+  return;
+}
+
+void
+Editor::onStopSimulation()
+{
+  AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
+  audioManager.stop();
+  return;
+}
+
+void
+Editor::onPauseSimulation()
+{
+  AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
+  audioManager.pause();
+  return;
+}
+
+void
+Editor::onVolumenValueChanged(qint32 value)
+{
+  AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
+  audioManager.setVolumen(value);
+  return;
+}
+
+
+void
+Editor::on_actionPlaySimulation_triggered()
+{
+  onPlaySimulation();
+  return;
+}
+
+
+void
+Editor::on_actionPauseSimulation_triggered()
+{
+  onPauseSimulation();
+  return;
+}
+
+
+void
+Editor::on_actionStopSimulation_triggered()
+{
+  onStopSimulation();
   return;
 }
 

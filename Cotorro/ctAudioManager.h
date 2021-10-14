@@ -35,14 +35,14 @@ public:
   init();
 
   /**
-   * @brief Play a sound from a file in the asset folder.
+   * @brief Loads a sound from a file in the asset folder.
    *
    * @param _fileName FileName.
    *
    * @return Result.
    */
   eOPRESULT::E
-  playFromFile(const QString& _fileName);
+  loadFromAssets(const QString& _fileName);
 
   /**
    * @brief Stop sound.
@@ -56,6 +56,54 @@ public:
   void
   pause();
 
+  /**
+   * @brief Resume sound.
+   */
+  void
+  play();
+
+  /**
+   * @brief Sets the ready flag to false.
+   */
+  void
+  unload();
+
+  /**
+   * @brief Indicates if the player is paused.
+   * @return
+   */
+  bool
+  isPaused();
+
+  /**
+   * @brief Indicates if the player is playing.
+   * @return
+   */
+  bool
+  isPlaying();
+
+  /**
+   * @brief Indicates if the player is stopped.
+   * @return
+   */
+  bool
+  isStopped();
+
+  /**
+   * @brief Indicates if the player is ready.
+   * @return
+   */
+  bool
+  isReady();
+
+  /**
+   * @brief Sets the volumen.
+   *
+   * @param _value Value.
+   */
+  void
+  setVolumen(const qint32& _value);
+
 signals:
 
 private:
@@ -65,6 +113,12 @@ private:
    */
   Music
   _m_musicPlayer;
+
+  /**
+   * @brief Indicates if the audio manager is ready to play music.
+   */
+  bool
+  _m_isReady;
 
 };
 

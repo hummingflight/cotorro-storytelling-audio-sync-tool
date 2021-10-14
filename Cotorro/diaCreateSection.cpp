@@ -71,7 +71,9 @@ DiaCreateSection::onClick_Play()
   }
 
   AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
-  audioManager.playFromFile(selectedFile);
+  if(audioManager.loadFromAssets(selectedFile) == ct::eOPRESULT::kOk) {
+    audioManager.play();
+  }
 
   return;
 }

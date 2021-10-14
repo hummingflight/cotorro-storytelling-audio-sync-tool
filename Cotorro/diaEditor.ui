@@ -133,11 +133,18 @@
           </property>
           <widget class="QGroupBox" name="ground_audioSync">
            <property name="title">
-            <string>Audio Sync Tool</string>
+            <string>Story Section Editor</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout">
+              <item>
+               <widget class="QLabel" name="label_2">
+                <property name="text">
+                 <string>Name:</string>
+                </property>
+               </widget>
+              </item>
               <item>
                <widget class="QLineEdit" name="lineSectionName"/>
               </item>
@@ -151,9 +158,40 @@
              </layout>
             </item>
             <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_5">
+              <item>
+               <widget class="QLabel" name="label_3">
+                <property name="text">
+                 <string>Audio:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="lblAudioKey">
+                <property name="text">
+                 <string>Audio Name Here</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_3">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
              <layout class="QHBoxLayout" name="horizontalLayout_4">
               <item>
-               <widget class="QPushButton" name="pushButton">
+               <widget class="QPushButton" name="btnPlaySimulation">
                 <property name="text">
                  <string/>
                 </property>
@@ -164,7 +202,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_2">
+               <widget class="QPushButton" name="btnPauseSimulation">
                 <property name="icon">
                  <iconset resource="app-resources.qrc">
                   <normaloff>:/icons/assets/icons/player_pause.ico</normaloff>:/icons/assets/icons/player_pause.ico</iconset>
@@ -172,7 +210,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_3">
+               <widget class="QPushButton" name="btnStopSimulation">
                 <property name="text">
                  <string/>
                 </property>
@@ -190,15 +228,27 @@
                </widget>
               </item>
               <item>
-               <widget class="QSlider" name="horizontalSlider">
+               <widget class="QSlider" name="sliderVolumen">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="maximum">
+                 <number>100</number>
+                </property>
+                <property name="singleStep">
+                 <number>5</number>
+                </property>
+                <property name="value">
+                 <number>100</number>
+                </property>
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="tickInterval">
+                 <number>1</number>
                 </property>
                </widget>
               </item>
@@ -219,6 +269,12 @@
             </item>
             <item>
              <widget class="QLabel" name="label">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="text">
                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/images/assets/images/cotorro_banner.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
@@ -306,8 +362,17 @@
     <addaction name="actionAddSection"/>
     <addaction name="actionRemoveSection"/>
    </widget>
+   <widget class="QMenu" name="menuSimulation">
+    <property name="title">
+     <string>Simulation</string>
+    </property>
+    <addaction name="actionPlaySimulation"/>
+    <addaction name="actionPauseSimulation"/>
+    <addaction name="actionStopSimulation"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuSections"/>
+   <addaction name="menuSimulation"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
@@ -325,6 +390,10 @@
    </attribute>
    <addaction name="actionAddSection"/>
    <addaction name="actionRemoveSection"/>
+   <addaction name="separator"/>
+   <addaction name="actionPlaySimulation"/>
+   <addaction name="actionPauseSimulation"/>
+   <addaction name="actionStopSimulation"/>
   </widget>
   <action name="actionNew">
    <property name="icon">
@@ -385,6 +454,42 @@
    </property>
    <property name="toolTip">
     <string>Remove a story section.</string>
+   </property>
+  </action>
+  <action name="actionPlaySimulation">
+   <property name="icon">
+    <iconset resource="app-resources.qrc">
+     <normaloff>:/icons/assets/icons/player_play.ico</normaloff>:/icons/assets/icons/player_play.ico</iconset>
+   </property>
+   <property name="text">
+    <string>Play Simulation</string>
+   </property>
+   <property name="toolTip">
+    <string>Play simulation.</string>
+   </property>
+  </action>
+  <action name="actionPauseSimulation">
+   <property name="icon">
+    <iconset resource="app-resources.qrc">
+     <normaloff>:/icons/assets/icons/player_pause.ico</normaloff>:/icons/assets/icons/player_pause.ico</iconset>
+   </property>
+   <property name="text">
+    <string>Pause Simulation</string>
+   </property>
+   <property name="toolTip">
+    <string>Pause Simulation.</string>
+   </property>
+  </action>
+  <action name="actionStopSimulation">
+   <property name="icon">
+    <iconset resource="app-resources.qrc">
+     <normaloff>:/icons/assets/icons/player_stop.ico</normaloff>:/icons/assets/icons/player_stop.ico</iconset>
+   </property>
+   <property name="text">
+    <string>Stop Simulation</string>
+   </property>
+   <property name="toolTip">
+    <string>Stop simulation.</string>
    </property>
   </action>
  </widget>

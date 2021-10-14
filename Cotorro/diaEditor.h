@@ -50,19 +50,40 @@ private slots:
   on_actionAddSection_triggered();
 
   void
+  on_actionPlaySimulation_triggered();
+
+  void
+  on_actionPauseSimulation_triggered();
+
+  void
+  on_actionStopSimulation_triggered();
+
+  void
+  on_actionRemoveSection_triggered();
+
+  void
   onStoryManagerChanged();
 
   void
   onStorySectionDoubleClicked(QListWidgetItem *item);
 
   void
-  on_actionRemoveSection_triggered();
-
-  void
   onRenameButtonClick();
 
   void
   onActiveSectionChanged(ct::StorySection* _pActiveSection);
+
+  void
+  onPlaySimulation();
+
+  void
+  onStopSimulation();
+
+  void
+  onPauseSimulation();
+
+  void
+  onVolumenValueChanged(qint32 value);
 
 private:
 

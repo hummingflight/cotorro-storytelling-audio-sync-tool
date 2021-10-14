@@ -6,7 +6,8 @@ namespace ct {
 
 AudioManager::AudioManager(QObject *parent) :
   QObject(parent),
-  _m_musicPlayer()
+  _m_musicPlayer(),
+  _m_isReady(false)
 {
   // TODO
   return;
@@ -20,7 +21,7 @@ AudioManager::init()
 }
 
 eOPRESULT::E
-AudioManager::playFromFile(const QString &_fileName)
+AudioManager::loadFromAssets(const QString &_fileName)
 {
   // Stop current track.
   stop();
@@ -63,14 +64,22 @@ AudioManager::playFromFile(const QString &_fileName)
      return eOPRESULT::kFail;
    }
 
-   _m_musicPlayer.play();
+   _m_isReady = true;
 
+   Cotorro::Log(
+    eLOGTYPE::kMessage,
+    tr("| AudioManager | File loaded: %1 .").arg(fileInfo.filePath())
+   );
    return eOPRESULT::kOk;
 }
 
 void
 AudioManager::stop()
 {
+  if(!_m_isReady) {
+    return;
+  }
+
   if(_m_musicPlayer.getStatus() != Music::Stopped) {
     _m_musicPlayer.stop();
   }
@@ -80,9 +89,70 @@ AudioManager::stop()
 void
 AudioManager::pause()
 {
-  if(_m_musicPlayer.getStatus() != Music::Paused) {
-    _m_musicPlayer.pause();
+  if(!_m_isReady) {
+    return;
   }
+
+  if(_m_musicPlayer.getStatus() != Music::Paused) {
+    _m_musicPlayer.pause();    
+  }
+  return;
+}
+
+void
+AudioManager::play()
+{
+  if(!_m_isReady) {
+    return;
+  }
+
+  if(_m_musicPlayer.getStatus() != Music::Playing) {
+    _m_musicPlayer.play();    
+  }
+  return;
+}
+
+void
+AudioManager::unload()
+{
+  stop();
+
+  if(_m_isReady) {
+    _m_isReady = false;
+    Cotorro::Log(eLOGTYPE::kMessage, tr("| AudioManager | File unloaded."));
+  }
+
+  return;
+}
+
+bool
+AudioManager::isPaused()
+{
+  return _m_musicPlayer.getStatus() == Music::Paused;
+}
+
+bool
+AudioManager::isPlaying()
+{
+  return _m_musicPlayer.getStatus() == Music::Playing;
+}
+
+bool
+AudioManager::isStopped()
+{
+  return _m_musicPlayer.getStatus() == Music::Stopped;
+}
+
+bool
+AudioManager::isReady()
+{
+  return _m_isReady;
+}
+
+void
+AudioManager::setVolumen(const qint32 &_value)
+{
+  _m_musicPlayer.setVolume(static_cast<float>(_value));
   return;
 }
 
