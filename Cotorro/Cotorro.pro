@@ -10,6 +10,8 @@ CONFIG += c++11
 
 SOURCES += \
     ctAudioManager.cpp \
+    ctSfmlCanvas.cpp \
+    ctStorySectionEditorWidget.cpp \
     main.cpp \
     ctCotorro.cpp \
     ctProject.cpp \
@@ -24,7 +26,9 @@ HEADERS += \
     ctCotorro.h\
     ctCotorroUtilities.h \
     ctProject.h \
+    ctSfmlCanvas.h \
     ctStorySection.h \
+    ctStorySectionEditorWidget.h \
     ctStorySectionManager.h \
     diaEditor.h \
     diaNewProject.h \
@@ -45,8 +49,8 @@ RESOURCES += \
 
 LIBS += -L$$PWD/dependencies/sfml/lib
 
-CONFIG(release, debug|release): LIBS += -lsfml-audio -lsfml-system
-CONFIG(debug, debug|release): LIBS += -lsfml-audio-d -lsfml-system-d
+CONFIG(release, debug|release): LIBS += -lsfml-audio -lsfml-system -lsfml-graphics -lsfml-window
+CONFIG(debug, debug|release): LIBS += -lsfml-audio-d -lsfml-system-d -lsfml-graphics-d -lsfml-window-d
 
 INCLUDEPATH += $$PWD/dependencies/sfml/include
 DEPENDPATH += $$PWD/dependencies/sfml/include

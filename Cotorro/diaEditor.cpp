@@ -10,12 +10,14 @@
 #include "ctCotorro.h"
 #include "ctProject.h"
 #include "ctStorySection.h"
+#include "ctStorySectionEditorWidget.h"
 
 using ct::Cotorro;
 using ct::Project;
 using ct::AudioManager;
 using ct::StorySectionManager;
 using ct::StorySection;
+using ct::StorySectionEditorWidget;
 
 Editor::Editor(QWidget *parent)
   : QMainWindow(parent)
@@ -48,6 +50,18 @@ Editor::init()
   // Initialize Cotorro's module.
   Cotorro* pCotorro = Cotorro::Instance();
   pCotorro->init(this);
+
+  // Create SFML Canvas Widget
+  ui->frameStorySectionEditor->show();
+  StorySectionEditorWidget* pStorySectionEditorWidget
+      = new StorySectionEditorWidget(
+          ui->frameStorySectionEditor,
+          QPoint(0,0),
+          QSize(100, 100)
+  );
+  pStorySectionEditorWidget->show();
+  pStorySectionEditorWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
 
   Project& project = pCotorro->getProject();
 
