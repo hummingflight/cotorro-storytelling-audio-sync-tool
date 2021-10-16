@@ -13,6 +13,8 @@ SOURCES += \
     ctFrame.cpp \
     ctSfmlCanvas.cpp \
     ctStorySectionEditorWidget.cpp \
+    ctWaveformEditor.cpp \
+    ctWordsEditor.cpp \
     main.cpp \
     ctCotorro.cpp \
     ctProject.cpp \
@@ -32,6 +34,8 @@ HEADERS += \
     ctStorySection.h \
     ctStorySectionEditorWidget.h \
     ctStorySectionManager.h \
+    ctWaveformEditor.h \
+    ctWordsEditor.h \
     diaEditor.h \
     diaNewProject.h \
     diaCreateSection.h

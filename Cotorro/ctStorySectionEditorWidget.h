@@ -3,6 +3,8 @@
 
 #include "ctSfmlCanvas.h"
 #include "ctFrame.h"
+#include "ctWaveformEditor.h"
+#include "ctWordsEditor.h"
 
 namespace ct {
 
@@ -92,8 +94,14 @@ private:
   /**
    * @brief _m_waveFormFrame
    */
-  Frame
-  _m_waveFormFrame;
+  WaveformEditor
+  _m_waveFormEditor;
+
+  /**
+   * @brief _m_wordsFrame
+   */
+  WordsEditor
+  _m_wordsEditor;
 
 };
 

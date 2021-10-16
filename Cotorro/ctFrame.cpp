@@ -29,7 +29,7 @@ Frame::onUpdate(sf::RenderWindow& _window)
 void
 Frame::onDrawableAreaChanged()
 {
-  _m_frameBorder.setPosition(_m_drawableArea.top, _m_drawableArea.left);
+  _m_frameBorder.setPosition(_m_drawableArea.left, _m_drawableArea.top);
   _m_frameBorder.setSize(sf::Vector2f(_m_drawableArea.width, _m_drawableArea.height));
   return;
 }
@@ -107,8 +107,8 @@ Frame::init()
 void
 Frame::updateDrawableArea()
 {
-  _m_drawableArea.left = _m_position.x + _m_marginTopDown.x;
-  _m_drawableArea.top = _m_position.y + _m_marginLeftRight.x;
+  _m_drawableArea.left = _m_position.x + _m_marginLeftRight.x;
+  _m_drawableArea.top = _m_position.y + _m_marginTopDown.x;
   _m_drawableArea.width = _m_size.x - _m_marginLeftRight.x - _m_marginLeftRight.y;
   _m_drawableArea.height = _m_size.y - _m_marginTopDown.x - _m_marginTopDown.y;
 
