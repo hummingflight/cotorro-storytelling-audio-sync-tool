@@ -2,6 +2,7 @@
 #define STORYSECTIONEDITORWIDGET_H
 
 #include "ctSfmlCanvas.h"
+#include "ctFrame.h"
 
 namespace ct {
 
@@ -37,6 +38,18 @@ protected:
    */
   void
   resizeEvent(QResizeEvent* _event) override;
+
+  /**
+   * @brief Update frames.
+   */
+  void
+  updateFrames();
+
+  /**
+   * @brief Update Frame's transformations.
+   */
+  void
+  updateFramesTransformations();
 
 private:
 
@@ -75,6 +88,12 @@ private:
    */
   sf::View
   _m_view;
+
+  /**
+   * @brief _m_waveFormFrame
+   */
+  Frame
+  _m_waveFormFrame;
 
 };
 

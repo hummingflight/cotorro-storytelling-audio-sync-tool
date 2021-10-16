@@ -23,6 +23,28 @@ StorySectionEditorWidget::resizeEvent(QResizeEvent *_event)
 
   // Resize SFML View.
   resetView();
+
+  // Update frames
+  updateFramesTransformations();
+  return;
+}
+
+void
+StorySectionEditorWidget::updateFrames()
+{
+  _m_waveFormFrame.onUpdate(*this);
+  return;
+}
+
+void
+StorySectionEditorWidget::updateFramesTransformations()
+{
+  quint32 w = width();
+  quint32 h = height();
+
+  _m_waveFormFrame.setPosition(0,0);
+  _m_waveFormFrame.setSize(w, h);
+
   return;
 }
 
@@ -34,6 +56,11 @@ StorySectionEditorWidget::onInit()
   // Set SFML View
   resetView();
 
+  // Init Frames.
+  _m_waveFormFrame.init();
+  _m_waveFormFrame.setMargin(10, 10, 10 ,10);
+
+  // Widget properties.
   QWidget::setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   return;
 }
@@ -41,17 +68,14 @@ StorySectionEditorWidget::onInit()
 void
 StorySectionEditorWidget::onUpdate()
 {
+  // Delta time.
   _m_elapsed += getDeltaTime().asSeconds();
 
+  // Clear canvas.
   sf::RenderWindow::clear(_m_clearColor);
 
-  sf::CircleShape shape(50);
-
-  // set the shape color to green
-  shape.setFillColor(sf::Color(100, 250, 50));
-  shape.setPosition(0,0);
-
-  sf::RenderWindow::draw(shape);
+  // Update Frames.
+  updateFrames();
 
   return;
 }
