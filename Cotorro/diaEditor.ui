@@ -131,7 +131,7 @@
           <property name="childrenCollapsible">
            <bool>false</bool>
           </property>
-          <widget class="QGroupBox" name="ground_audioSync">
+          <widget class="QGroupBox" name="panelStorySectionEditor">
            <property name="title">
             <string>Story Section Editor</string>
            </property>
@@ -268,44 +268,9 @@
              </layout>
             </item>
             <item>
-             <widget class="QFrame" name="frameStorySectionEditor">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QGroupBox" name="group_content">
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>300</height>
-            </size>
-           </property>
-           <property name="title">
-            <string>Content</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_5">
-            <item>
-             <widget class="QPlainTextEdit" name="pText_textStory">
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="readOnly">
-               <bool>true</bool>
+             <widget class="QGroupBox" name="groupSFMLCanvas">
+              <property name="title">
+               <string>Editor</string>
               </property>
              </widget>
             </item>

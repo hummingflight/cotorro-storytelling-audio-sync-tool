@@ -41,6 +41,11 @@ public:
 
 signals:
 
+protected:
+
+  sf::Time
+  getDeltaTime();
+
 private slots:
 
   void
@@ -90,6 +95,18 @@ private:
    */
   bool
   _m_isReady;
+
+  /**
+   * @brief _m_time
+   */
+  sf::Time
+  _m_deltaTime;
+
+  /**
+   * @brief _m_clock
+   */
+  sf::Clock
+  _m_clock;
 
 };
 

@@ -122,22 +122,26 @@ private:
   /**
    * @brief Pretty name.
    */
-  QString _m_name;
+  QString
+  _m_name;
 
   /**
    * @brief Stringified UUID in format in 128 format.
    */
-  QString _m_uuid;
+  QString
+  _m_uuid;
 
   /**
    * @brief Audio identifier.
    */
-  QString _m_audioKey;
+  QString
+  _m_audioKey;
 
   /**
    * @brief Section content.
    */
-  QString _m_content;
+  QString
+  _m_content;
 
 };
 

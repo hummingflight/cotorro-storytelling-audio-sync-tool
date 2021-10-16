@@ -51,21 +51,18 @@ Editor::init()
   Cotorro* pCotorro = Cotorro::Instance();
   pCotorro->init(this);
 
-  // Create SFML Canvas Widget
-  ui->frameStorySectionEditor->show();
+  // Story Section Widget Editor.
   StorySectionEditorWidget* pStorySectionEditorWidget
       = new StorySectionEditorWidget(
-          ui->frameStorySectionEditor,
+          ui->groupSFMLCanvas,
           QPoint(0,0),
           QSize(100, 100)
   );
+
+  QHBoxLayout* pLayout = new QHBoxLayout(ui->groupSFMLCanvas);
+  pLayout->addWidget(pStorySectionEditorWidget);
+
   pStorySectionEditorWidget->show();
-  pStorySectionEditorWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-
-  Project& project = pCotorro->getProject();
-
-  StorySectionManager& storySectionManager = project.getStorySectionManager();
 
   // Connections
   connect(ui->btn_addSection, &QPushButton::clicked, this, &Editor::on_actionAddSection_triggered);
@@ -76,6 +73,9 @@ Editor::init()
   connect(ui->btnPauseSimulation, &QPushButton::clicked, this, &Editor::onPauseSimulation);
   connect(ui->btnStopSimulation, &QPushButton::clicked, this, &Editor::onStopSimulation);
   connect(ui->sliderVolumen, &QSlider::valueChanged, this, &Editor::onVolumenValueChanged);
+
+  Project& project = pCotorro->getProject();
+  StorySectionManager& storySectionManager = project.getStorySectionManager();
 
   connect(&storySectionManager, &StorySectionManager::sectionsChanged, this, &Editor::onStoryManagerChanged);
   connect(&storySectionManager, &StorySectionManager::activeSectionChanged, this, &Editor::onActiveSectionChanged);

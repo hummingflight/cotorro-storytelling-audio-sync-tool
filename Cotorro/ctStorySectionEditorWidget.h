@@ -29,6 +29,15 @@ public:
     const QSize& _size
   );
 
+protected:
+
+  /**
+   * @brief resizeEvent
+   * @param _event
+   */
+  void
+  resizeEvent(QResizeEvent* _event) override;
+
 private:
 
   /**
@@ -42,6 +51,31 @@ private:
    */
   void
   onUpdate() override;
+
+  /**
+   * @brief resetView
+   */
+  void
+  resetView();
+
+  /**
+   * @brief Canvas's clear color.
+   */
+  sf::Color
+  _m_clearColor;
+
+  /**
+   * @brief _m_elapsed
+   */
+  float
+  _m_elapsed;
+
+  /**
+   * @brief _m_view
+   */
+  sf::View
+  _m_view;
+
 };
 
 }

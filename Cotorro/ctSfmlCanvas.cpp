@@ -17,7 +17,8 @@ SfmlCanvas::SfmlCanvas
 ) :
   QWidget(parent),
   _m_timer(),
-  _m_isReady(false)
+  _m_isReady(false),
+  _m_clock()
 {
   // Setup some states to allow direct rendering into the widget
   setAttribute(Qt::WA_PaintOnScreen);
@@ -36,13 +37,21 @@ SfmlCanvas::SfmlCanvas
 
   // Setup the timer
   _m_timer.setInterval(_frameTime);
+  _m_clock.restart();
 
   return;
 }
 
 SfmlCanvas::~SfmlCanvas()
 {
+  _m_timer.stop();
   return;
+}
+
+sf::Time
+SfmlCanvas::getDeltaTime()
+{
+  return _m_deltaTime;
 }
 
 void
@@ -89,6 +98,9 @@ SfmlCanvas::showEvent(QShowEvent*)
 void
 SfmlCanvas::paintEvent(QPaintEvent *)
 {
+  // Delta time.
+  _m_deltaTime = _m_clock.restart();
+
   // Update callback.
   onUpdate();
 
