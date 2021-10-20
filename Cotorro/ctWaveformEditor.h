@@ -1,6 +1,8 @@
 #ifndef WAVEFORMEDITOR_H
 #define WAVEFORMEDITOR_H
 
+#include <SFML/Graphics.hpp>
+
 #include "ctFrame.h"
 
 namespace ct {
@@ -23,6 +25,21 @@ public:
   virtual
   ~WaveformEditor();
 
+  /**
+   * @brief onDrawableAreaChanged
+   */
+  virtual void
+  onDrawableAreaChanged() override;
+
+protected:
+
+private:
+
+  /**
+   * @brief updateTimeline
+   */
+  virtual void
+  updateTimeline();
 };
 
 }

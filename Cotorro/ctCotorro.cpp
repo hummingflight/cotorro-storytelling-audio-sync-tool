@@ -252,6 +252,12 @@ Cotorro::getAudioManager()
   return _m_audioManager;
 }
 
+ResourceManager&
+Cotorro::getResourceManager()
+{
+  return _m_resourceManager;
+}
+
 void Cotorro::destroy()
 {
   return;
@@ -269,6 +275,7 @@ Cotorro::_onStart()
 {
   _m_project.init();
   _m_audioManager.init();
+  _m_resourceManager.init();
 
   return;
 }

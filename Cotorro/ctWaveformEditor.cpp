@@ -13,5 +13,16 @@ WaveformEditor::~WaveformEditor()
 
 }
 
+void WaveformEditor::onDrawableAreaChanged()
+{
+
+}
+
+void
+WaveformEditor::updateTimeline()
+{
+  return;
+}
+
 }
 

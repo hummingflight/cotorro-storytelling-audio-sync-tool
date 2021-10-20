@@ -83,4 +83,8 @@
     <qresource prefix="/images">
         <file>assets/images/cotorro_banner.png</file>
     </qresource>
+    <qresource prefix="/fonts">
+        <file>assets/fonts/arial_narrow_7.ttf</file>
+        <file>assets/fonts/arial.ttf</file>
+    </qresource>
 </RCC>

@@ -94,6 +94,7 @@ Editor::init()
   Cotorro::Log(ct::eLOGTYPE::kMessage, tr("Application initialized."));
 
   clearEditorPanel();
+
   return;
 }
 

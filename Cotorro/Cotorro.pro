@@ -10,9 +10,13 @@ CONFIG += c++11
 
 SOURCES += \
     ctAudioManager.cpp \
+    ctFontResource.cpp \
+    ctFontResourceManager.cpp \
     ctFrame.cpp \
+    ctResourceManager.cpp \
     ctSfmlCanvas.cpp \
     ctStorySectionEditorWidget.cpp \
+    ctTimeLineLine.cpp \
     ctWaveformEditor.cpp \
     ctWordsEditor.cpp \
     main.cpp \
@@ -28,12 +32,16 @@ HEADERS += \
     ctAudioManager.h \
     ctCotorro.h\
     ctCotorroUtilities.h \
+    ctFontResource.h \
+    ctFontResourceManager.h \
     ctFrame.h \
     ctProject.h \
+    ctResourceManager.h \
     ctSfmlCanvas.h \
     ctStorySection.h \
     ctStorySectionEditorWidget.h \
     ctStorySectionManager.h \
+    ctTimeLineLine.h \
     ctWaveformEditor.h \
     ctWordsEditor.h \
     diaEditor.h \

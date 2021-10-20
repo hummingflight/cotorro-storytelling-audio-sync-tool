@@ -5,6 +5,7 @@
 #include "ctFrame.h"
 #include "ctWaveformEditor.h"
 #include "ctWordsEditor.h"
+#include "ctTimeLineLine.h"
 
 namespace ct {
 
@@ -102,6 +103,12 @@ private:
    */
   WordsEditor
   _m_wordsEditor;
+
+  /**
+   * @brief _m_timeLineLine
+   */
+  TimeLineLine
+  _m_timeLineLine;
 
 };
 

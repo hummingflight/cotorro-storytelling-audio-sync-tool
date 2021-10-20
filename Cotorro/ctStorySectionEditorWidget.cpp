@@ -77,6 +77,8 @@ StorySectionEditorWidget::onInit()
 
   // Widget properties.
   QWidget::setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+  _m_timeLineLine.init();
   return;
 }
 
@@ -91,6 +93,8 @@ StorySectionEditorWidget::onUpdate()
 
   // Update Frames.
   updateFrames();
+
+  _m_timeLineLine.update(*this);
 
   return;
 }
