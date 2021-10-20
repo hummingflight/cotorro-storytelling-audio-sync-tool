@@ -3,7 +3,7 @@
 namespace ct {
 
 FontResource::FontResource()
-  : data(nullptr),
+  : data(),
     sfmlFont()
 {
   return;
@@ -17,8 +17,8 @@ FontResource::~FontResource()
 
 void FontResource::destroy()
 {
-  if(data != nullptr) {
-    delete data.data();
+  if(!data.isNull()) {
+    data.clear();
   }
 
   return;

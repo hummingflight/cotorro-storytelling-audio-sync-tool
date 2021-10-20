@@ -6,7 +6,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "ctFontResource.h"
+#include "ctFontResourceManager.h"
 
 namespace ct {
 
@@ -25,11 +25,6 @@ public:
   explicit ResourceManager(QObject *parent = nullptr);
 
   /**
-   *
-   **/
-  ~ResourceManager();
-
-  /**
    * @brief TODO
    */
   void
@@ -42,23 +37,21 @@ public:
   destroy();
 
   /**
-   * @brief TODO
-   *
-   * @param _key
+   * @brief fontResourceManager
    * @return
    */
-  FontResource&
-  getFontData(const QString& _key);
+  FontResourceManager&
+  fontResourceManager();
 
 signals:
 
 private:
 
   /**
-   * @brief _m_fontMap
+   * @brief _m_resourceManager
    */
-  QMap<QString, FontResource*>
-  _m_fontMap;
+  FontResourceManager
+  _m_fontResourceManager;
 
 };
 

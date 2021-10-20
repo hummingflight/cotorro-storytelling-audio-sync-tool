@@ -3,60 +3,32 @@
 
 namespace ct {
 
-ResourceManager::ResourceManager(QObject *parent) : QObject(parent)
+ResourceManager::ResourceManager(QObject *parent) :
+  QObject(parent),
+  _m_fontResourceManager()
 {
-
-}
-
-ResourceManager::~ResourceManager()
-{
-  destroy();
   return;
 }
 
 void
 ResourceManager::init()
 {
-  QFile file(":/fonts/assets/fonts/arial.ttf");
-  if(file.open(QFile::ReadOnly)) {
-
-    FontResource* fontResource = new FontResource();
-    fontResource->data = file.readAll();
-
-    if(!fontResource->sfmlFont.loadFromMemory(fontResource->data.data(), fontResource->data.size())) {
-      // TODO ERROR
-
-      fontResource->destroy();
-      delete fontResource;
-
-      return;
-    }
-
-    _m_fontMap.insert("arial.ttf", fontResource);
-    file.close();
-  }
-
+  _m_fontResourceManager.init();
+  _m_fontResourceManager.load("arial_narrow_7.ttf");
   return;
 }
 
 void
 ResourceManager::destroy()
 {
-  qDeleteAll(_m_fontMap);
-  _m_fontMap.clear();
-
+  _m_fontResourceManager.destroy();
   return;
 }
 
-FontResource&
-ResourceManager::getFontData(const QString &_key)
+FontResourceManager&
+ResourceManager::fontResourceManager()
 {
-  QMap<QString, FontResource*>::iterator it = _m_fontMap.find(_key);
-  if(it == _m_fontMap.end()) {
-    Cotorro::Log(eLOGTYPE::kError, "ERROR");
-  }
-
-  return *it.value();
+  return _m_fontResourceManager;
 }
 
 }

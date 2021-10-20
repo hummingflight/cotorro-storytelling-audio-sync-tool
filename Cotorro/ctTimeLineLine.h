@@ -50,6 +50,12 @@ public:
   void
   update(sf::RenderWindow& _window);
 
+  /**
+   * @brief destroy
+   */
+  void
+  destroy();
+
 private:
 
   /**

@@ -16,9 +16,17 @@ TimeLineLine::TimeLineLine()
 void
 TimeLineLine::init()
 {
-
   ResourceManager& resourceManager = Cotorro::Instance()->getResourceManager();
-  FontResource& fontResource = resourceManager.getFontData("arial.ttf");
+  FontResourceManager& fontManager = resourceManager.fontResourceManager();
+  if(!fontManager.has("arial_narrow_7.ttf")) {
+    Cotorro::Log(
+      eLOGTYPE::kError,
+      QObject::tr("| TimeLineLine | Font was not found: arial_narrow_7.ttf")
+    );
+    return;
+  }
+
+  const FontResource& fontResource = fontManager.get("arial_narrow_7.ttf");
 
   _m_text.setFont(fontResource.sfmlFont);
   _m_text.setString("Hello Wooooooooooooooooooooooooooooorld");
@@ -26,6 +34,7 @@ TimeLineLine::init()
   _m_text.setFillColor(sf::Color::Red);
   _m_text.setPosition(100, 100);
 
+  return;
 }
 
 void
@@ -46,6 +55,5 @@ TimeLineLine::update(sf::RenderWindow &_window)
   _window.draw(_m_text);
   return;
 }
-
 }
 
