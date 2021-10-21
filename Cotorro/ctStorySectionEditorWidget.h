@@ -104,12 +104,6 @@ private:
   WordsEditor
   _m_wordsEditor;
 
-  /**
-   * @brief _m_timeLineLine
-   */
-  TimeLineLine
-  _m_timeLineLine;
-
 };
 
 }

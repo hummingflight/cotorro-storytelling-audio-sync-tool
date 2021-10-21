@@ -26,15 +26,6 @@ public:
   init();
 
   /**
-   * @brief Set Position.
-   *
-   * @param _x
-   * @param _y
-   */
-  void
-  setPosition(const qint32& _x, const qint32& _y);
-
-  /**
    * @brief Set line label.
    *
    * @param _string Line label.
@@ -56,7 +47,41 @@ public:
   void
   destroy();
 
+  /**
+   * @brief setPosition
+   * @param _x
+   * @param _y
+   */
+  void
+  setPosition(const float& _x, const float& _y);
+
+  /**
+   * @brief setHeight
+   *
+   * @param _height
+   */
+  void
+  setHeight(const float& _height);
+
 private:
+
+  /**
+   * @brief Updates line.
+   */
+  void
+  _updateLine();
+
+  /**
+   * @brief Line's height.
+   */
+  float
+  _m_height;
+
+  /**
+   * @brief _m_position
+   */
+  sf::Vector2f
+  _m_position;
 
   /**
    * @brief Line vertices.

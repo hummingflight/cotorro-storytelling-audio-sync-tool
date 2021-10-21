@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "ctFrame.h"
+#include "ctTimeLineLine.h"
 
 namespace ct {
 
@@ -26,20 +27,77 @@ public:
   ~WaveformEditor();
 
   /**
+   * @brief onUpdate
+   * @param _window
+   */
+  virtual void
+  onUpdate(sf::RenderWindow& _window) override;
+
+  /**
    * @brief onDrawableAreaChanged
    */
   virtual void
   onDrawableAreaChanged() override;
+
+  /**
+   * @brief destroy
+   */
+  void
+  destroy();
+
+  /**
+   * @brief _TIME_LINE_LINE_POOL_SIZE
+   */
+  static quint32 _TIME_LINE_LINE_POOL_SIZE;
 
 protected:
 
 private:
 
   /**
-   * @brief updateTimeline
+   * @brief onInit
    */
   virtual void
+  onInit() override;
+
+  /**
+   * @brief updateTimeline
+   */
+  void
   updateTimeline();
+
+  /**
+   * @brief hasAvailableLine
+   * @return
+   */
+  bool
+  hasAvailableLine();
+
+  /**
+   * @brief getAvailableLine
+   * @return
+   */
+  TimeLineLine*
+  getAvailableLine();
+
+  /**
+   * @brief deactiveLine
+   * @param _pTimeLineLine
+   */
+  void
+  deactiveLine(TimeLineLine* _pTimeLineLine);
+
+  /**
+   * @brief _activeTimeLineLines
+   */
+  QList<TimeLineLine*>
+  _m_activeTimeLineLines;
+
+  /**
+   * @brief _deactiveTimeLineLines
+   */
+  QList<TimeLineLine*>
+  _m_deactiveTimeLineLines;
 };
 
 }

@@ -22,7 +22,6 @@ Frame::~Frame()
 void
 Frame::onUpdate(sf::RenderWindow& _window)
 {
-  _window.draw(_m_frameBorder);
   return;
 }
 
