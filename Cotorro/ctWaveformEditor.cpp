@@ -1,6 +1,7 @@
 #include "ctWaveformEditor.h"
 
 #include "ctCotorro.h"
+#include "ctStorySectionEditorWidget.h"
 
 namespace ct {
 
@@ -10,7 +11,8 @@ quint32 WaveformEditor::_TIME_LINE_LINE_POOL_SIZE = 15;
 WaveformEditor::WaveformEditor() :
   Frame(),
   _m_activeTimeLineLines(),
-  _m_deactiveTimeLineLines()
+  _m_deactiveTimeLineLines(),
+  _m_pStorySectionEditorWidget(nullptr)
 {
   return;
 }
@@ -35,9 +37,17 @@ void
 WaveformEditor::onDrawableAreaChanged()
 {
   foreach(TimeLineLine* _line, _m_activeTimeLineLines) {
-    _line->setPosition(_m_drawableArea.left, _m_drawableArea.top);
     _line->setHeight(_m_drawableArea.height);
   }
+}
+
+void WaveformEditor::setStorySectionEditorWidget
+(
+  StorySectionEditorWidget *_pStorySectionEditorWidget
+)
+{
+  this->_m_pStorySectionEditorWidget = _pStorySectionEditorWidget;
+  return;
 }
 
 void
@@ -63,7 +73,11 @@ WaveformEditor::onInit()
     );
   }
 
-  getAvailableLine();
+  for(quint32 ii = 0; ii < 15; ++ii) {
+    if(hasAvailableLine()) {
+      getAvailableLine();
+    }
+  }
 
   return;
 }
@@ -71,14 +85,28 @@ WaveformEditor::onInit()
 void
 WaveformEditor::updateTimeline()
 {
+  if(_m_pStorySectionEditorWidget == nullptr) {
+    return;
+  }
 
+  QTime time(0,0,0);
+  float stepSeconds = 15.0f;
+  float step = _m_pStorySectionEditorWidget->getPixelsPerSecond() * stepSeconds;
+  sf::Vector2f position(_m_drawableArea.left, _m_drawableArea.top);
+  foreach(TimeLineLine* _line, _m_activeTimeLineLines) {
+    _line->setPosition(position.x, position.y);
+    _line->setLabel(time.toString("mm::ss"));
+
+    time = time.addSecs(stepSeconds);
+    position.x += step;
+  }
   return;
 }
 
 bool
 WaveformEditor::hasAvailableLine()
 {
-  return _m_deactiveTimeLineLines.isEmpty();
+  return !_m_deactiveTimeLineLines.isEmpty();
 }
 
 TimeLineLine*

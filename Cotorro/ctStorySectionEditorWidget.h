@@ -33,6 +33,26 @@ public:
     const QSize& _size
   );
 
+  /**
+   * @brief onScaleChanged
+   * @param _scale
+   */
+  void
+  setScale(const float& _scale);
+
+  /**
+   * @brief getPixelsPerSecond
+   */
+  float
+  getPixelsPerSecond();
+
+  /**
+   * @brief getScale
+   * @return
+   */
+  float
+  getScale();
+
 protected:
 
   /**
@@ -52,7 +72,7 @@ protected:
    * @brief Update Frame's transformations.
    */
   void
-  updateFramesTransformations();
+  updateFramesTransformations();  
 
 private:
 
@@ -103,6 +123,23 @@ private:
    */
   WordsEditor
   _m_wordsEditor;
+
+  /**
+   * @brief _m_pixelsPerSecond
+   */
+  float
+  _m_pixelsPerSecond;
+
+  /**
+   * @brief _m_scale
+   */
+  float
+  _m_scale;
+
+  /**
+   * @brief _BASE_PIXEL_PER_SECOND
+   */
+  static float _BASE_PIXEL_PER_SECOND;
 
 };
 

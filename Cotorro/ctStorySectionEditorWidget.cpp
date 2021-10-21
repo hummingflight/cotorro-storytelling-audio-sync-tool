@@ -2,6 +2,8 @@
 
 namespace ct {
 
+float StorySectionEditorWidget::_BASE_PIXEL_PER_SECOND = 10.0f;
+
 StorySectionEditorWidget::StorySectionEditorWidget
 (
   QWidget* _parent,
@@ -12,8 +14,18 @@ StorySectionEditorWidget::StorySectionEditorWidget
   _m_clearColor(148, 148, 148),
   _m_view(sf::Vector2f(0,0), sf::Vector2f(300.0f,200.0f)),
   _m_waveFormEditor(),
-  _m_wordsEditor()
+  _m_wordsEditor(),
+  _m_pixelsPerSecond(0),
+  _m_scale(1)
 {
+  return;
+}
+
+void
+StorySectionEditorWidget::setScale(const float &_scale)
+{
+  _m_scale = _scale;
+  _m_pixelsPerSecond = _scale * StorySectionEditorWidget::_BASE_PIXEL_PER_SECOND;
   return;
 }
 
@@ -46,13 +58,13 @@ StorySectionEditorWidget::updateFramesTransformations()
   quint32 h = height();
 
   sf::Vector2u position(0, 0);
-  quint32 frameH = h * 0.75f;
+  quint32 frameH = h * 0.85f;
 
   _m_waveFormEditor.setPosition(position.x, position.y);
   _m_waveFormEditor.setSize(w, frameH);
 
   position.y += frameH;
-  frameH = h * 0.25f;
+  frameH = h * 0.15f;
 
   _m_wordsEditor.setPosition(position.x, position.y);
   _m_wordsEditor.setSize(w, frameH);
@@ -60,17 +72,32 @@ StorySectionEditorWidget::updateFramesTransformations()
   return;
 }
 
+float
+StorySectionEditorWidget::getPixelsPerSecond()
+{
+  return _m_pixelsPerSecond;
+}
+
+float
+StorySectionEditorWidget::getScale()
+{
+  return _m_scale;
+}
+
 void
 StorySectionEditorWidget::onInit()
 {
-  _m_elapsed = 0;
+  _m_elapsed = 0.0f;
+  setScale(1.0f);
 
   // Set SFML View
   resetView();
 
   // Init Frames.
   _m_waveFormEditor.init();
+  _m_waveFormEditor.setStorySectionEditorWidget(this);
   _m_waveFormEditor.setMargin(10, 10, 10 , 5);
+  _m_waveFormEditor.updateTimeline();
 
   _m_wordsEditor.init();
   _m_wordsEditor.setMargin(10, 5, 10, 10);

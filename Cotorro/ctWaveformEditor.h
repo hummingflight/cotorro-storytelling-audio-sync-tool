@@ -8,6 +8,8 @@
 
 namespace ct {
 
+class StorySectionEditorWidget;
+
 /**
  * @brief The WaveformEditor class
  */
@@ -40,6 +42,19 @@ public:
   onDrawableAreaChanged() override;
 
   /**
+   * @brief setStorySectionEditorWidget
+   * @param _pStorySectionEditorWidget
+   */
+  void
+  setStorySectionEditorWidget(StorySectionEditorWidget* _pStorySectionEditorWidget);
+
+  /**
+   * @brief updateTimeline
+   */
+  void
+  updateTimeline();
+
+  /**
    * @brief destroy
    */
   void
@@ -58,13 +73,7 @@ private:
    * @brief onInit
    */
   virtual void
-  onInit() override;
-
-  /**
-   * @brief updateTimeline
-   */
-  void
-  updateTimeline();
+  onInit() override;  
 
   /**
    * @brief hasAvailableLine
@@ -98,6 +107,12 @@ private:
    */
   QList<TimeLineLine*>
   _m_deactiveTimeLineLines;
+
+  /**
+   * @brief _m_pStorySectionEditorWidget
+   */
+  StorySectionEditorWidget*
+  _m_pStorySectionEditorWidget;
 };
 
 }
