@@ -38,13 +38,6 @@ public:
   setParent(TransformableNode& _transformableNode);
 
   /**
-   * @brief addChild
-   * @param _transformableNode
-   */
-  void
-  addChild(TransformableNode* _transformableNode);
-
-  /**
    * @brief getGlobalTransform
    * @return
    */
@@ -89,12 +82,6 @@ protected:
    */
   sf::Transform
   _m_global;
-
-  /**
-   * @brief _m_hChildren
-   */
-  QMap<QString, TransformableNode*>
-  _m_hChildren;
 
   /**
    * @brief _m_isDirty

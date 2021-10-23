@@ -7,7 +7,6 @@ namespace ct {
 TransformableNode::TransformableNode() :
   _m_uuid(QUuid::createUuid().toString(QUuid::StringFormat::Id128)),
   _m_pParent(nullptr),
-  _m_hChildren(),
   _m_isDirty(true)
 {
   return;
@@ -32,18 +31,6 @@ TransformableNode::setParent(TransformableNode &_transformableNode)
   return;
 }
 
-void
-TransformableNode::addChild(TransformableNode *_transformableNode)
-{
-  QString uuid = _transformableNode->getUuid();
-  if(_m_hChildren.find(uuid) != _m_hChildren.end()) {
-    return;
-  }
-
-  _m_hChildren.insert(uuid, _transformableNode);
-  return;
-}
-
 const sf::Transform&
 TransformableNode::getGlobalTransform()
 {
@@ -61,13 +48,6 @@ void
 TransformableNode::destroy()
 {
   onDestroy();
-
-  foreach(TransformableNode* _object, _m_hChildren) {
-    _object->destroy();
-  }
-
-  qDeleteAll(_m_hChildren);
-  _m_hChildren.clear();
   return;
 }
 
