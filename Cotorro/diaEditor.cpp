@@ -21,7 +21,8 @@ using ct::StorySectionEditorWidget;
 
 Editor::Editor(QWidget *parent)
   : QMainWindow(parent)
-  , ui(new Ui::Editor)
+  , ui(new Ui::Editor),
+    _m_pStorySectionEditorWidget(nullptr)
 {
   ui->setupUi(this);
   setCentralWidget(ui->mainSplitter);
@@ -63,6 +64,7 @@ Editor::init()
   pLayout->addWidget(pStorySectionEditorWidget);
 
   pStorySectionEditorWidget->show();
+  _m_pStorySectionEditorWidget = pStorySectionEditorWidget;
 
   // Connections
   connect(ui->btn_addSection, &QPushButton::clicked, this, &Editor::on_actionAddSection_triggered);
@@ -73,6 +75,7 @@ Editor::init()
   connect(ui->btnPauseSimulation, &QPushButton::clicked, this, &Editor::onPauseSimulation);
   connect(ui->btnStopSimulation, &QPushButton::clicked, this, &Editor::onStopSimulation);
   connect(ui->sliderVolumen, &QSlider::valueChanged, this, &Editor::onVolumenValueChanged);
+  connect(ui->sliderZoom, &QSlider::valueChanged, this, &Editor::onZoomValueChanged);
 
   Project& project = pCotorro->getProject();
   StorySectionManager& storySectionManager = project.getStorySectionManager();
@@ -521,6 +524,15 @@ Editor::onVolumenValueChanged(qint32 value)
 {
   AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
   audioManager.setVolumen(value);
+  return;
+}
+
+void
+Editor::onZoomValueChanged(qint32 value)
+{
+  if(_m_pStorySectionEditorWidget != nullptr) {
+    _m_pStorySectionEditorWidget->setZoom(value * 0.01f);
+  }
   return;
 }
 

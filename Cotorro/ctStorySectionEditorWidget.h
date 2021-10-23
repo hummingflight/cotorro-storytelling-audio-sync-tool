@@ -38,7 +38,7 @@ public:
    * @param _scale
    */
   void
-  setScale(const float& _scale);
+  setZoom(const float& _zoom);
 
   /**
    * @brief getPixelsPerSecond
@@ -50,8 +50,8 @@ public:
    * @brief getScale
    * @return
    */
-  float
-  getScale();
+  const float&
+  getZoom();
 
 protected:
 
@@ -134,12 +134,17 @@ private:
    * @brief _m_scale
    */
   float
-  _m_scale;
+  _m_zoom;
 
   /**
    * @brief _BASE_PIXEL_PER_SECOND
    */
-  static float _BASE_PIXEL_PER_SECOND;
+  static float _MIN_PIXEL_PER_SECOND;
+
+  /**
+   * @brief _MAX_PIXEL_PER_SECOND
+   */
+  static float _MAX_PIXEL_PER_SECOND;
 
 };
 
