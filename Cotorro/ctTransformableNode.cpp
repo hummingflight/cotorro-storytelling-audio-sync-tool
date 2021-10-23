@@ -26,6 +26,13 @@ TransformableNode::onDestroy()
 }
 
 void
+TransformableNode::setParent(TransformableNode &_transformableNode)
+{
+  _m_pParent = &_transformableNode;
+  return;
+}
+
+void
 TransformableNode::addChild(TransformableNode *_transformableNode)
 {
   QString uuid = _transformableNode->getUuid();
@@ -68,7 +75,7 @@ void
 TransformableNode::_updateTransform()
 {
   if(_m_pParent != nullptr) {
-    _m_global.combine(_m_pParent->getGlobalTransform());
+    _m_global = _m_pParent->getGlobalTransform() * getTransform();
   }
   else {
     _m_global = getTransform();

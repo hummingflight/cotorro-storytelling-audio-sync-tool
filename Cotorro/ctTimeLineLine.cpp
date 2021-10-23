@@ -72,17 +72,16 @@ TimeLineLine::update(sf::RenderWindow &_window)
   _m_vertices[1].position.x = 0.0f;
   _m_vertices[1].position.y = _m_height;
 
+  // Transform vertices.
+  _updateTransform();
+  _m_vertices[0].position = _m_global.transformPoint(_m_vertices[0].position);
+  _m_vertices[1].position = _m_global.transformPoint(_m_vertices[1].position);
+
   sf::FloatRect globalBounds = _m_text.getGlobalBounds();
   _m_text.setPosition(
       _m_vertices[1].position.x + 3.0f,
       _m_vertices[1].position.y - globalBounds.height * 2.0f
   );
-
-  // Transform vertices.
-  _updateTransform();
-  _m_vertices[0].position = _m_global.transformPoint(_m_vertices[0].position);
-  _m_vertices[1].position = _m_global.transformPoint(_m_vertices[1].position);
-  _m_text.setPosition(_m_global.transformPoint(_m_text.getPosition()));
 
   // Draw Vertices
   _window.draw(_m_vertices, 2, sf::Lines);

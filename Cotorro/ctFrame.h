@@ -5,6 +5,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "ctTransformableNode.h"
+
 namespace ct {
 
 /**
@@ -141,6 +143,12 @@ protected:
    */
   sf::RectangleShape
   _m_frameBorder;
+
+  /**
+   * @brief _m_frameNode
+   */
+  TransformableNode
+  _m_frameNode;
 };
 
 }

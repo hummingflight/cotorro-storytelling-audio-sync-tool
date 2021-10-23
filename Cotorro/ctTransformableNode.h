@@ -31,6 +31,13 @@ public:
   onDestroy();
 
   /**
+   * @brief setParent
+   * @param _transformableNode
+   */
+  void
+  setParent(TransformableNode& _transformableNode);
+
+  /**
    * @brief addChild
    * @param _transformableNode
    */

@@ -12,7 +12,8 @@ WaveformEditor::WaveformEditor() :
   Frame(),
   _m_activeTimeLineLines(),
   _m_deactiveTimeLineLines(),
-  _m_pStorySectionEditorWidget(nullptr)
+  _m_pStorySectionEditorWidget(nullptr),
+  _m_waveformNode()
 {
   return;
 }
@@ -36,6 +37,8 @@ WaveformEditor::onUpdate(sf::RenderWindow &_window)
 void
 WaveformEditor::onDrawableAreaChanged()
 {
+  Frame::onDrawableAreaChanged();
+
   foreach(TimeLineLine* _line, _m_activeTimeLineLines) {
     _line->setHeight(_m_drawableArea.height);
   }
@@ -64,13 +67,17 @@ WaveformEditor::destroy()
 void
 WaveformEditor::onInit()
 {
+  _m_waveformNode.setParent(_m_frameNode);
+
   // Create pool of time line lines.
   for(quint32 ii = 0; ii < WaveformEditor::_TIME_LINE_LINE_POOL_SIZE; ++ii) {
     TimeLineLine* pTimeLineLine = new TimeLineLine();
     pTimeLineLine->init();
+    pTimeLineLine->setParent(_m_waveformNode);
     _m_deactiveTimeLineLines.push_back(
       pTimeLineLine
     );
+
   }
 
   for(quint32 ii = 0; ii < 15; ++ii) {
@@ -89,16 +96,18 @@ WaveformEditor::updateTimeline()
     return;
   }
 
+  _m_waveformNode.setPosition(0.0f, 0.0f);
+  _m_waveformNode.setScale(_m_pStorySectionEditorWidget->getPixelsPerSecond(), 1.0f);
+
   QTime time(0,0,0);
   float stepSeconds = 15.0f;
-  float step = _m_pStorySectionEditorWidget->getPixelsPerSecond() * stepSeconds;
-  sf::Vector2f position(_m_drawableArea.left, _m_drawableArea.top);
+  sf::Vector2f position(0.0f, 0.0f);
   foreach(TimeLineLine* _line, _m_activeTimeLineLines) {
     _line->setPosition(position.x, position.y);
     _line->setLabel(time.toString("mm::ss"));
 
     time = time.addSecs(stepSeconds);
-    position.x += step;
+    position.x += stepSeconds;
   }
   return;
 }
