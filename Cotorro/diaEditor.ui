@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>675</width>
+    <width>840</width>
     <height>600</height>
    </rect>
   </property>
@@ -223,7 +223,7 @@
               <item>
                <widget class="QLabel" name="lblVolumen">
                 <property name="text">
-                 <string>volumen:</string>
+                 <string>volume:</string>
                 </property>
                </widget>
               </item>
@@ -264,6 +264,26 @@
                  </size>
                 </property>
                </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="label">
+                <property name="text">
+                 <string>zoom:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSlider" name="sliderZoom">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
@@ -311,7 +331,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>675</width>
+     <width>840</width>
      <height>20</height>
     </rect>
    </property>

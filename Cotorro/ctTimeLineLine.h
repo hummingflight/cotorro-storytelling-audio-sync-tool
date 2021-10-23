@@ -1,15 +1,19 @@
 #ifndef TIMELINELINE_H
 #define TIMELINELINE_H
 
-#include <QObject>
 #include <SFML/Graphics.hpp>
+
+#include <QObject>
+
+#include "ctTransformableNode.h"
+
 
 namespace ct {
 
 /**
  * @brief The TimeLineLine class
  */
-class TimeLineLine
+class TimeLineLine : public TransformableNode
 {
 
 public:
@@ -18,6 +22,18 @@ public:
    * @brief Constructor.
    */
   TimeLineLine();
+
+  /**
+   * @brief Destructor.
+   */
+  virtual
+  ~TimeLineLine();
+
+  /**
+   * @brief onDestroy
+   */
+  virtual void
+  onDestroy() override;
 
   /**
    * @brief init
@@ -42,20 +58,6 @@ public:
   update(sf::RenderWindow& _window);
 
   /**
-   * @brief destroy
-   */
-  void
-  destroy();
-
-  /**
-   * @brief setPosition
-   * @param _x
-   * @param _y
-   */
-  void
-  setPosition(const float& _x, const float& _y);
-
-  /**
    * @brief setHeight
    *
    * @param _height
@@ -66,22 +68,10 @@ public:
 private:
 
   /**
-   * @brief Updates line.
-   */
-  void
-  _updateLine();
-
-  /**
    * @brief Line's height.
    */
   float
   _m_height;
-
-  /**
-   * @brief _m_position
-   */
-  sf::Vector2f
-  _m_position;
 
   /**
    * @brief Line vertices.

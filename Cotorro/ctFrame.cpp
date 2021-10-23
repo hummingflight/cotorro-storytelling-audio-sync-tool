@@ -9,7 +9,8 @@ Frame::Frame() :
   _m_size(100, 100),
   _m_minimumSize(100, 100),
   _m_drawableArea(),
-  _m_frameBorder()
+  _m_frameBorder(),
+  _m_frameNode()
 {
   return;
 }
@@ -30,6 +31,7 @@ Frame::onDrawableAreaChanged()
 {
   _m_frameBorder.setPosition(_m_drawableArea.left, _m_drawableArea.top);
   _m_frameBorder.setSize(sf::Vector2f(_m_drawableArea.width, _m_drawableArea.height));
+  _m_frameNode.setPosition(_m_drawableArea.left, _m_drawableArea.top);
   return;
 }
 

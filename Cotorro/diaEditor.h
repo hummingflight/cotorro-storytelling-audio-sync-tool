@@ -11,6 +11,7 @@ QT_END_NAMESPACE
 
 namespace ct {
   class StorySection;
+  class StorySectionEditorWidget;
 }
 
 class Editor : public QMainWindow
@@ -24,7 +25,9 @@ public:
    */
   Editor(QWidget *parent = nullptr);
 
-
+  /**
+   *
+   */
   ~Editor();
 
   /**
@@ -85,6 +88,9 @@ private slots:
   void
   onVolumenValueChanged(qint32 value);
 
+  void
+  onZoomValueChanged(qint32 value);
+
 private:
 
   /**
@@ -143,5 +149,8 @@ private:
    */
   Ui::Editor*
   ui;
+
+  ct::StorySectionEditorWidget*
+  _m_pStorySectionEditorWidget;
 };
 #endif // EDITOR_H

@@ -17,6 +17,7 @@ SOURCES += \
     ctSfmlCanvas.cpp \
     ctStorySectionEditorWidget.cpp \
     ctTimeLineLine.cpp \
+    ctTransformableNode.cpp \
     ctWaveformEditor.cpp \
     ctWordsEditor.cpp \
     main.cpp \
@@ -42,6 +43,7 @@ HEADERS += \
     ctStorySectionEditorWidget.h \
     ctStorySectionManager.h \
     ctTimeLineLine.h \
+    ctTransformableNode.h \
     ctWaveformEditor.h \
     ctWordsEditor.h \
     diaEditor.h \

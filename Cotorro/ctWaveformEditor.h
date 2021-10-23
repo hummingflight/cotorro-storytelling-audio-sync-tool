@@ -113,6 +113,12 @@ private:
    */
   StorySectionEditorWidget*
   _m_pStorySectionEditorWidget;
+
+  /**
+   * @brief _m_waveformNode
+   */
+  TransformableNode
+  _m_waveformNode;
 };
 
 }

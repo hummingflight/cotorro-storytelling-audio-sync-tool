@@ -2,7 +2,9 @@
 
 namespace ct {
 
-float StorySectionEditorWidget::_BASE_PIXEL_PER_SECOND = 10.0f;
+float StorySectionEditorWidget::_MIN_PIXEL_PER_SECOND = 10.0f;
+
+float StorySectionEditorWidget::_MAX_PIXEL_PER_SECOND = 100.0f;
 
 StorySectionEditorWidget::StorySectionEditorWidget
 (
@@ -16,16 +18,19 @@ StorySectionEditorWidget::StorySectionEditorWidget
   _m_waveFormEditor(),
   _m_wordsEditor(),
   _m_pixelsPerSecond(0),
-  _m_scale(1)
+  _m_zoom(0)
 {
   return;
 }
 
 void
-StorySectionEditorWidget::setScale(const float &_scale)
+StorySectionEditorWidget::setZoom(const float &_zoom)
 {
-  _m_scale = _scale;
-  _m_pixelsPerSecond = _scale * StorySectionEditorWidget::_BASE_PIXEL_PER_SECOND;
+  _m_zoom = _zoom;
+  _m_pixelsPerSecond = StorySectionEditorWidget::_MIN_PIXEL_PER_SECOND
+                     + (StorySectionEditorWidget::_MAX_PIXEL_PER_SECOND - StorySectionEditorWidget::_MIN_PIXEL_PER_SECOND)
+                     * _m_zoom;
+  _m_waveFormEditor.updateTimeline();
   return;
 }
 
@@ -78,17 +83,17 @@ StorySectionEditorWidget::getPixelsPerSecond()
   return _m_pixelsPerSecond;
 }
 
-float
-StorySectionEditorWidget::getScale()
+const float&
+StorySectionEditorWidget::getZoom()
 {
-  return _m_scale;
+  return _m_zoom;
 }
 
 void
 StorySectionEditorWidget::onInit()
 {
   _m_elapsed = 0.0f;
-  setScale(1.0f);
+  setZoom(0.0f);
 
   // Set SFML View
   resetView();
