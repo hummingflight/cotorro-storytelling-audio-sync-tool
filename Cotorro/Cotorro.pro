@@ -13,6 +13,7 @@ SOURCES += \
     ctFontResource.cpp \
     ctFontResourceManager.cpp \
     ctFrame.cpp \
+    ctInputManager.cpp \
     ctResourceManager.cpp \
     ctSfmlCanvas.cpp \
     ctStorySectionEditorWidget.cpp \
@@ -36,6 +37,7 @@ HEADERS += \
     ctFontResource.h \
     ctFontResourceManager.h \
     ctFrame.h \
+    ctInputManager.h \
     ctProject.h \
     ctResourceManager.h \
     ctSfmlCanvas.h \
