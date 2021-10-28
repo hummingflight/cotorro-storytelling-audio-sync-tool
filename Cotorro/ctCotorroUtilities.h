@@ -24,6 +24,15 @@ enum E {
 };
 }
 
+namespace eMOUSE_EVENT {
+enum E {
+  kPressed = 0,
+  kReleased,
+  kMoved,
+  kDoubleClicked
+};
+}
+
 }
 
 #endif // COTORROUTILITIES_H

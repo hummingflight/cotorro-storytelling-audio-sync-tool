@@ -3,6 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <QMouseEvent>
+
 #include "ctFrame.h"
 #include "ctTimeLineLine.h"
 
@@ -53,6 +55,30 @@ public:
    */
   void
   updateTimeline();
+
+  /**
+   * @brief onMousePressed
+   */
+  void
+  onMousePressed(QMouseEvent* e);
+
+  /**
+   * @brief onMouseMoved
+   */
+  void
+  onMouseMoved(QMouseEvent* e);
+
+  /**
+   * @brief onMouseReleased
+   */
+  void
+  onMouseReleased(QMouseEvent* e);
+
+  /**
+   * @brief onMouseDoubleClicked
+   */
+  void
+  onMouseDoubleClicked(QMouseEvent* e);
 
   /**
    * @brief destroy

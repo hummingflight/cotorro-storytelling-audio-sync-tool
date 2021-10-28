@@ -1,5 +1,9 @@
 #include "ctStorySectionEditorWidget.h"
 
+#include <QMouseEvent>
+
+#include "ctCotorro.h"
+
 namespace ct {
 
 float StorySectionEditorWidget::_MIN_PIXEL_PER_SECOND = 10.0f;
@@ -17,6 +21,7 @@ StorySectionEditorWidget::StorySectionEditorWidget
   _m_view(sf::Vector2f(0,0), sf::Vector2f(300.0f,200.0f)),
   _m_waveFormEditor(),
   _m_wordsEditor(),
+  _m_waveFormEditorSlider(),
   _m_pixelsPerSecond(0),
   _m_zoom(0)
 {
@@ -53,6 +58,7 @@ StorySectionEditorWidget::updateFrames()
 {
   _m_waveFormEditor.onUpdate(*this);
   _m_wordsEditor.onUpdate(*this);
+  _m_waveFormEditorSlider.onUpdate(*this);
   return;
 }
 
@@ -69,11 +75,49 @@ StorySectionEditorWidget::updateFramesTransformations()
   _m_waveFormEditor.setSize(w, frameH);
 
   position.y += frameH;
-  frameH = h * 0.15f;
+  frameH = h * 0.10f;
 
   _m_wordsEditor.setPosition(position.x, position.y);
   _m_wordsEditor.setSize(w, frameH);
 
+  position.y += frameH;
+  frameH = h * 0.05f;
+
+  _m_waveFormEditorSlider.setPosition(position.x, position.y);
+  _m_waveFormEditorSlider.setSize(w, frameH);
+
+  return;
+}
+
+void
+StorySectionEditorWidget::mousePressEvent(QMouseEvent *e)
+{
+  _m_waveFormEditor.onMousePressed(e);
+  _m_waveFormEditorSlider.onMousePressed(e);
+  return;
+}
+
+void
+StorySectionEditorWidget::mouseMoveEvent(QMouseEvent *e)
+{
+  _m_waveFormEditor.onMouseMoved(e);
+  _m_waveFormEditorSlider.onMouseMoved(e);
+  return;
+}
+
+void
+StorySectionEditorWidget::mouseReleaseEvent(QMouseEvent *e)
+{
+  _m_waveFormEditor.onMouseReleased(e);
+  _m_waveFormEditorSlider.onMouseReleased(e);
+  return;
+}
+
+void
+StorySectionEditorWidget::mouseDoubleClickEvent(QMouseEvent *e)
+{
+  _m_waveFormEditor.onMouseDoubleClicked(e);
+  _m_waveFormEditorSlider.onMouseDoubleClicked(e);
   return;
 }
 
@@ -105,7 +149,11 @@ StorySectionEditorWidget::onInit()
   _m_waveFormEditor.updateTimeline();
 
   _m_wordsEditor.init();
-  _m_wordsEditor.setMargin(10, 5, 10, 10);
+  _m_wordsEditor.setMargin(10, 5, 10, 5);
+
+  _m_waveFormEditorSlider.init();
+  _m_waveFormEditorSlider.setMinimumSize(10, 20);
+  _m_waveFormEditorSlider.setMargin(10, 5, 10, 10);
 
   // Widget properties.
   QWidget::setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

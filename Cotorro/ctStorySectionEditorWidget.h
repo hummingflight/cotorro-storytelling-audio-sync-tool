@@ -4,6 +4,7 @@
 #include "ctSfmlCanvas.h"
 #include "ctFrame.h"
 #include "ctWaveformEditor.h"
+#include "ctWaveformEditorSlider.h"
 #include "ctWordsEditor.h"
 #include "ctTimeLineLine.h"
 
@@ -34,21 +35,23 @@ public:
   );
 
   /**
-   * @brief onScaleChanged
-   * @param _scale
+   * @brief Sets the zoom value. It should be in a range from 0.0 to 1.0.
+   * @param Zoom value.
    */
   void
   setZoom(const float& _zoom);
 
   /**
-   * @brief getPixelsPerSecond
+   * @brief Gets the number of pixels per second. It takes into account the
+   * zoom value.
    */
   float
   getPixelsPerSecond();
 
   /**
-   * @brief getScale
-   * @return
+   * @brief Get the zoom value.
+   *
+   * @return Zoom value.
    */
   const float&
   getZoom();
@@ -63,6 +66,34 @@ protected:
   resizeEvent(QResizeEvent* _event) override;
 
   /**
+   * @brief mousePressEvent
+   * @param e
+   */
+  void
+  mousePressEvent(QMouseEvent* e) override;
+
+  /**
+   * @brief mouseMoveEvent
+   * @param e
+   */
+  void
+  mouseMoveEvent(QMouseEvent* e) override;
+
+  /**
+   * @brief mouseReleaseEvent
+   * @param e
+   */
+  void
+  mouseReleaseEvent(QMouseEvent* e) override;
+
+  /**
+   * @brief mouseDoubleClickEvent
+   * @param e
+   */
+  void
+  mouseDoubleClickEvent(QMouseEvent* e) override;
+
+  /**
    * @brief Update frames.
    */
   void
@@ -72,7 +103,8 @@ protected:
    * @brief Update Frame's transformations.
    */
   void
-  updateFramesTransformations();  
+  updateFramesTransformations();
+
 
 private:
 
@@ -125,6 +157,12 @@ private:
   _m_wordsEditor;
 
   /**
+   * @brief _M_waveFormEditorSlider
+   */
+  WaveformEditorSlider
+  _m_waveFormEditorSlider;
+
+  /**
    * @brief _m_pixelsPerSecond
    */
   float
@@ -137,7 +175,7 @@ private:
   _m_zoom;
 
   /**
-   * @brief _BASE_PIXEL_PER_SECOND
+   * @brief _MIN_PIXEL_PER_SECOND
    */
   static float _MIN_PIXEL_PER_SECOND;
 

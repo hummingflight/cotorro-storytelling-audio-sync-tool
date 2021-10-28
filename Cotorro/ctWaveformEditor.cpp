@@ -5,7 +5,6 @@
 
 namespace ct {
 
-// Static
 quint32 WaveformEditor::_TIME_LINE_LINE_POOL_SIZE = 15;
 
 WaveformEditor::WaveformEditor() :
@@ -109,6 +108,34 @@ WaveformEditor::updateTimeline()
     time = time.addSecs(stepSeconds);
     position.x += stepSeconds;
   }
+  return;
+}
+
+void
+WaveformEditor::onMousePressed(QMouseEvent* e)
+{
+  // TODO
+  return;
+}
+
+void
+WaveformEditor::onMouseMoved(QMouseEvent* e)
+{
+  // TODO
+  return;
+}
+
+void
+WaveformEditor::onMouseReleased(QMouseEvent* e)
+{
+  // TODO
+  return;
+}
+
+void
+WaveformEditor::onMouseDoubleClicked(QMouseEvent* e)
+{
+  // TODO
   return;
 }
 
