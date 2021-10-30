@@ -10,6 +10,7 @@
 
 namespace ct {
 
+class StorySection;
 class StorySectionEditorWidget;
 
 /**
@@ -79,6 +80,13 @@ public:
    */
   void
   onMouseDoubleClicked(QMouseEvent* e);
+
+  /**
+   * @brief onStorySectionChanged
+   * @param _pStorySection
+   */
+  void
+  onStorySectionChanged(StorySection* _pStorySection);
 
   /**
    * @brief destroy

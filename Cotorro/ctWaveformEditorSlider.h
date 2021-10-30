@@ -3,6 +3,7 @@
 
 #include "ctFrame.h"
 #include "ctSliderButton.h"
+#include "ctStorySection.h"
 
 namespace ct {
 
@@ -18,7 +19,7 @@ public:
   /**
    * @brief WaveformEditorSlider
    */
-  WaveformEditorSlider();
+  WaveformEditorSlider(StorySectionEditorWidget* _pStorySectionEditorWidget);
 
   /**
    * @brief ~WaveformEditorSlider
@@ -71,6 +72,19 @@ public:
   onMouseDoubleClicked(QMouseEvent* e);
 
   /**
+   * @brief onStorySectionChanged
+   * @param _pStorySection
+   */
+  void
+  onStorySectionChanged(StorySection* _pStorySection);
+
+  /**
+   * @brief updateSliderProperties
+   */
+  void
+  updateSlider();
+
+  /**
    * @brief destroy
    */
   void
@@ -82,13 +96,19 @@ protected:
    * @brief onInit
    */
   virtual void
-  onInit() override;
+  onInit() override;  
 
   /**
    * @brief _m_button
    */
   SliderButton
   _m_button;
+
+  /**
+   * @brief _m_pStorySectionEditorWidget
+   */
+  StorySectionEditorWidget*
+  _m_pStorySectionEditorWidget;
 };
 
 }

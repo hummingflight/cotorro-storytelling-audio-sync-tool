@@ -2,6 +2,7 @@
 
 #include "ctCotorro.h"
 #include "ctStorySection.h"
+#include "ctAudioManager.h"
 
 namespace ct {
 
@@ -389,8 +390,14 @@ StorySectionManager::setActiveSection(StorySection *_pStorySection)
   // Set active section.
   _m_pActiveSection = _pStorySection;
 
-  // Logs.
   if(_m_pActiveSection != nullptr) {
+
+    // Load audio.
+    AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
+    if(!audioManager.isReady()) {
+      audioManager.loadFromAssets(_m_pActiveSection->getAudioKey());
+    }
+
     Cotorro::Log(
           eLOGTYPE::kMessage,
           tr("| StorySectionManager | Active Section: %1").arg(_m_pActiveSection->getName())

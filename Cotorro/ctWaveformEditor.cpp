@@ -139,6 +139,13 @@ WaveformEditor::onMouseDoubleClicked(QMouseEvent* e)
   return;
 }
 
+void
+WaveformEditor::onStorySectionChanged(StorySection *_pStorySection)
+{
+  // TODO
+  return;
+}
+
 bool
 WaveformEditor::hasAvailableLine()
 {

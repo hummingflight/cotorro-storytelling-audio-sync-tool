@@ -10,6 +10,8 @@
 
 namespace ct {
 
+class StorySection;
+
 /**
  * @brief The StorySectionEditorWidget class
  */
@@ -49,12 +51,27 @@ public:
   getPixelsPerSecond();
 
   /**
+   * @brief Gets the length (in seconds) of the view. It takes into account the
+   * zoom value.
+   * @return
+   */
+  float
+  getViewWidthInSeconds();
+
+  /**
    * @brief Get the zoom value.
    *
    * @return Zoom value.
    */
   const float&
   getZoom();
+
+  /**
+   * @brief getActiveStorySection
+   * @return
+   */
+  StorySection*
+  getActiveStorySection();
 
 protected:
 
@@ -105,6 +122,14 @@ protected:
   void
   updateFramesTransformations();
 
+private slots:
+
+  /**
+   * @brief onActiveSectionChanged
+   * @param _pStorySection
+   */
+  void
+  onActiveSectionChanged(ct::StorySection* _pStorySection);
 
 private:
 
@@ -163,6 +188,12 @@ private:
   _m_waveFormEditorSlider;
 
   /**
+   * @brief _pActiveStorySection
+   */
+  StorySection*
+  _m_pActiveStorySection;
+
+  /**
    * @brief _m_pixelsPerSecond
    */
   float
@@ -183,6 +214,31 @@ private:
    * @brief _MAX_PIXEL_PER_SECOND
    */
   static float _MAX_PIXEL_PER_SECOND;
+
+  /**
+   * @brief _PADDING_TOP
+   */
+  static float _PADDING_TOP;
+
+  /**
+   * @brief _PADDING_BOTTOM
+   */
+  static float _PADDING_BOTTOM;
+
+  /**
+   * @brief _PADDING_LEFT
+   */
+  static float _PADDING_LEFT;
+
+  /**
+   * @brief _PADDING_RIGHT
+   */
+  static float _PADDING_RIGHT;
+
+  /**
+   * @brief _PADDING_BETWEEN
+   */
+  static float _PADDING_BETWEEN;
 
 };
 

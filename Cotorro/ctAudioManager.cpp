@@ -149,6 +149,12 @@ AudioManager::isReady()
   return _m_isReady;
 }
 
+float
+AudioManager::getDuration()
+{
+  return _m_musicPlayer.getDuration().asSeconds();
+}
+
 void
 AudioManager::setVolumen(const qint32 &_value)
 {

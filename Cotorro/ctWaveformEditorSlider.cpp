@@ -1,10 +1,15 @@
 #include "ctWaveformEditorSlider.h"
 
+#include "ctStorySectionEditorWidget.h"
+#include "ctStorySection.h"
+#include "ctCotorro.h"
+
 namespace ct {
 
-WaveformEditorSlider::WaveformEditorSlider() :
+WaveformEditorSlider::WaveformEditorSlider(StorySectionEditorWidget* _pStorySectionEditorWidget) :
   Frame(),
-  _m_button()
+  _m_button(),
+  _m_pStorySectionEditorWidget(_pStorySectionEditorWidget)
 {
   return;
 }
@@ -24,15 +29,14 @@ WaveformEditorSlider::onUpdate(sf::RenderWindow &_window)
 void
 WaveformEditorSlider::onDrawableAreaChanged()
 {
-  _m_button.setHeight(_m_drawableArea.height);
-  _m_button.setWidth(_m_drawableArea.width * 0.5f);
-
+  updateSlider();
   return;
 }
 
 void
 WaveformEditorSlider::setStorySectionEditorWidget(StorySectionEditorWidget *_pStorySectionEditorWidget)
 {
+  _m_pStorySectionEditorWidget = _pStorySectionEditorWidget;
   return;
 }
 
@@ -65,6 +69,13 @@ WaveformEditorSlider::onMouseDoubleClicked(QMouseEvent *e)
 }
 
 void
+WaveformEditorSlider::onStorySectionChanged(StorySection *_pStorySection)
+{
+  updateSlider();
+  return;
+}
+
+void
 WaveformEditorSlider::destroy()
 {
   return;
@@ -74,6 +85,48 @@ void
 WaveformEditorSlider::onInit()
 {
   _m_button.setParent(_m_frameNode);
+  return;
+}
+
+void
+WaveformEditorSlider::updateSlider()
+{
+  if(_m_pStorySectionEditorWidget == nullptr) {
+    Cotorro::Log(
+      eLOGTYPE::kError,
+      QObject::tr("| WaveformEditorSlider | Story section editor widget is not defined.")
+    );
+    return;
+  }
+
+  // Set slider height.
+  _m_button.setHeight(_m_drawableArea.height);
+
+  // Set slider width.
+  StorySection* pActiveSection = _m_pStorySectionEditorWidget->getActiveStorySection();
+  if(pActiveSection == nullptr) {
+    // No Active section: Slider fill all the drawable area.
+    _m_button.setWidth(_m_drawableArea.width);
+  }
+  else {
+
+    float viewWidthInSeconds = _m_pStorySectionEditorWidget->getViewWidthInSeconds();
+
+    AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
+    float trackDuration = audioManager.getDuration();
+    float sliderScale = 1.0f;
+    if(trackDuration > 0.0f) {
+      sliderScale = viewWidthInSeconds / trackDuration;
+
+      // Truncate scale.
+      if(sliderScale > 1.0f) {
+        sliderScale = 1.0f;
+      }
+    }
+
+    _m_button.setWidth(_m_drawableArea.width * sliderScale);
+  }
+
   return;
 }
 
