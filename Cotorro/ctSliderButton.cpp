@@ -1,10 +1,13 @@
 #include "ctSliderButton.h"
+
 #include "ctCotorro.h"
+#include "ctWaveformEditorSlider.h"
 
 namespace ct {
 
 SliderButton::SliderButton() :
-  Button()
+  Button(),
+  _m_pWaveformEditorSlider(nullptr)
 {
   return;
 }
@@ -45,7 +48,12 @@ SliderButton::onMouseDoubleClicked(QMouseEvent *e)
 void
 SliderButton::onMouseMoved(QMouseEvent *e)
 {
-  Cotorro::Log(eLOGTYPE::kMessage, "Mouse Moved!");
+  if(_m_pWaveformEditorSlider == nullptr) {
+    return;
+  }
+
+  float pixelsPerSecond =
+  _m_dragStartPosition =
   return;
 }
 

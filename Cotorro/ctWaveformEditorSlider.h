@@ -79,6 +79,12 @@ public:
   onStorySectionChanged(StorySection* _pStorySection);
 
   /**
+   * @brief onViewportMoved
+   */
+  void
+  onViewportMoved(const float& _newPosition);
+
+  /**
    * @brief updateSliderProperties
    */
   void

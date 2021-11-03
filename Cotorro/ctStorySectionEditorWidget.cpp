@@ -28,7 +28,8 @@ StorySectionEditorWidget::StorySectionEditorWidget
   _m_waveFormEditorSlider(this),
   _m_pActiveStorySection(nullptr),
   _m_pixelsPerSecond(0),
-  _m_zoom(0)
+  _m_zoom(0),
+  _m_viewportTimePosition(0.0f)
 {
   return;
 }
@@ -43,6 +44,8 @@ StorySectionEditorWidget::setZoom(const float &_zoom)
 
   _m_waveFormEditor.updateTimeline();
   _m_waveFormEditorSlider.updateSlider();
+
+  moveViewport(0.0f);
   return;
 }
 
@@ -57,6 +60,9 @@ StorySectionEditorWidget::resizeEvent(QResizeEvent *_event)
 
   // Update frames
   updateFramesTransformations();
+
+  // Update viewport
+  moveViewport(0.0f);
   return;
 }
 
@@ -100,6 +106,12 @@ StorySection*
 StorySectionEditorWidget::getActiveStorySection()
 {
   return _m_pActiveStorySection;
+}
+
+const float&
+StorySectionEditorWidget::getViewportPosition()
+{
+  return _m_viewportTimePosition;
 }
 
 void
@@ -159,6 +171,37 @@ StorySectionEditorWidget::getViewWidthInSeconds()
   }
 
   return (width() - StorySectionEditorWidget::_PADDING_RIGHT - StorySectionEditorWidget::_PADDING_LEFT) / _m_pixelsPerSecond;
+}
+
+void
+StorySectionEditorWidget::moveViewport(const float &_seconds)
+{
+  _m_viewportTimePosition *= _seconds;
+
+  AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
+  float viewportWidth = getViewWidthInSeconds();
+  float trackDuration = audioManager.getDuration();
+  if(viewportWidth >= trackDuration) {
+    _m_viewportTimePosition = 0.0f;
+  }
+  else {
+    float viewportFinalPointPosition = _seconds
+                                     + _m_viewportTimePosition
+                                     + viewportWidth;
+
+    if(viewportFinalPointPosition > trackDuration){
+      _m_viewportTimePosition += _seconds
+                              + trackDuration
+                              - viewportFinalPointPosition;
+    }
+    else {
+      _m_viewportTimePosition += _seconds;
+    }
+  }
+
+  _m_waveFormEditorSlider.onViewportMoved(_m_viewportTimePosition);
+
+  return;
 }
 
 const float&

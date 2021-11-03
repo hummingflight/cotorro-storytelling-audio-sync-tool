@@ -59,6 +59,14 @@ public:
   getViewWidthInSeconds();
 
   /**
+   * @brief Moves the viewport an x number of seconds.
+   *
+   * @param _seconds Seconds to move.
+   */
+  void
+  moveViewport(const float& _seconds);
+
+  /**
    * @brief Get the zoom value.
    *
    * @return Zoom value.
@@ -72,6 +80,13 @@ public:
    */
   StorySection*
   getActiveStorySection();
+
+  /**
+   * @brief Gets the viewport position in seconds.
+   * @return
+   */
+  const float&
+  getViewportPosition();
 
 protected:
 
@@ -204,6 +219,12 @@ private:
    */
   float
   _m_zoom;
+
+  /**
+   * @brief Defines the second which the viewport start.
+   */
+  float
+  _m_viewportTimePosition;
 
   /**
    * @brief _MIN_PIXEL_PER_SECOND

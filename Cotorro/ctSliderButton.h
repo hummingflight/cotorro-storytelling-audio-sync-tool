@@ -5,6 +5,8 @@
 
 namespace ct {
 
+class WaveformEditorSlider;
+
 /**
  * @brief The SliderButton class
  */
@@ -28,6 +30,13 @@ public:
    */
   virtual void
   update(sf::RenderWindow& _window) override;
+
+  /**
+   * @brief init
+   * @param _m_waveformEditorSlider
+   */
+  void
+  init(WaveformEditorSlider* _m_waveformEditorSlider);
 
 protected:
 
@@ -58,6 +67,12 @@ protected:
    */
   virtual void
   onMouseMoved(QMouseEvent* e) override;
+
+  /**
+   * @brief _m_pWaveformEditorSlider
+   */
+  WaveformEditorSlider*
+  _m_pWaveformEditorSlider;
 };
 
 }

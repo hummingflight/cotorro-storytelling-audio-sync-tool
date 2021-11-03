@@ -110,6 +110,18 @@ protected:
   sf::FloatRect
   _m_area;
 
+  /**
+   * @brief _m_lastMousePosition
+   */
+  QPointF
+  _m_dragStartPosition;
+
+  /**
+   * @brief _m_dragDistance
+   */
+  QPointF
+  _m_dragDistance;
+
 };
 
 }

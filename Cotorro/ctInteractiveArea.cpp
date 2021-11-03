@@ -4,7 +4,8 @@ namespace ct {
 
 InteractiveArea::InteractiveArea():
   TransformableNode(),
-  _m_area()
+  _m_area(),
+  _m_dragStartPosition()
 {
   return;
 }
@@ -41,17 +42,30 @@ InteractiveArea::receiveMouseInput(const eMOUSE_EVENT::E& _key, QMouseEvent *_e)
 {
   sf::FloatRect globalArea = getGlobalArea();
   QPointF position = _e->position();
-  if(globalArea.contains(position.x(), position.y())) {
+  if(globalArea.contains(position.x(), position.y())) {    
+
     switch (_key) {
+
       case eMOUSE_EVENT::kPressed:
+        if(_e->button() == Qt::LeftButton) {
+          _m_dragStartPosition = position;
+        }
+
         onMousePressed(_e);
         break;
+
       case eMOUSE_EVENT::kReleased:
         onMouseReleased(_e);
         break;
+
       case eMOUSE_EVENT::kMoved:
+        if(_e->buttons() & Qt::LeftButton) {
+          _m_dragDistance = _e->pos() - _m_dragStartPosition;
+        }
+
         onMouseMoved(_e);
         break;
+
       case eMOUSE_EVENT::kDoubleClicked:
         onMouseDoubleClicked(_e);
         break;

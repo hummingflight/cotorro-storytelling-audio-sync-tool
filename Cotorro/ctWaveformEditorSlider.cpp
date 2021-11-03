@@ -76,6 +76,27 @@ WaveformEditorSlider::onStorySectionChanged(StorySection *_pStorySection)
 }
 
 void
+WaveformEditorSlider::onViewportMoved(const float& _newPosition)
+{
+  if(_m_pStorySectionEditorWidget == nullptr) {
+    Cotorro::Log(
+      eLOGTYPE::kError,
+      QObject::tr("| WaveformEditorSlider | Story section editor widget is not defined.")
+    );
+    return;
+  }
+
+  AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
+  float trackDuration = audioManager.getDuration();
+  if(trackDuration > 0.0f) {
+    float positionX = (_newPosition / trackDuration) * _m_drawableArea.width;
+    _m_button.setPosition(positionX, _m_button.getPosition().y);
+  }
+
+  return;
+}
+
+void
 WaveformEditorSlider::destroy()
 {
   return;
