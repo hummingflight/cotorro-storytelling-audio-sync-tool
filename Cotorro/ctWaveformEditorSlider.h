@@ -117,6 +117,18 @@ protected:
    */
   StorySectionEditorWidget*
   _m_pStorySectionEditorWidget;
+
+  /**
+   * @brief Save the last mouse position.
+   */
+  QPoint
+  _m_lastMousePosition;
+
+  /**
+   * @brief Indicates if the slider was pressed.
+   */
+  bool
+  _m_sliderPressed;
 };
 
 }

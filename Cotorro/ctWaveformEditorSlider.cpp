@@ -10,7 +10,9 @@ WaveformEditorSlider::WaveformEditorSlider(StorySectionEditorWidget* _pStorySect
   Frame(),
   _m_buttonArea(),
   _m_buttonShape(),
-  _m_pStorySectionEditorWidget(_pStorySectionEditorWidget)
+  _m_pStorySectionEditorWidget(_pStorySectionEditorWidget),
+  _m_lastMousePosition(),
+  _m_sliderPressed(false)
 {
   return;
 }
@@ -37,21 +39,35 @@ WaveformEditorSlider::onDrawableAreaChanged()
 void
 WaveformEditorSlider::onMousePressed(QMouseEvent *e)
 {
-  // TODO
+  QPoint mousePosition = e->pos();
+  _m_lastMousePosition = mousePosition;
+
+  if(_m_buttonArea.contains(mousePosition.x(), mousePosition.y())) {
+    _m_sliderPressed = true;
+  }
+
   return;
 }
 
 void
 WaveformEditorSlider::onMouseMoved(QMouseEvent *e)
 {
-  // TODO
+  QPoint mousePosition = e->pos();
+  if(_m_sliderPressed) {
+    _m_pStorySectionEditorWidget->moveViewport(
+      _m_pStorySectionEditorWidget->getMediaLength()
+      * (mousePosition.x() - _m_lastMousePosition.x())
+      / _m_drawableArea.width
+    );
+  }
+  _m_lastMousePosition = mousePosition;
   return;
 }
 
 void
 WaveformEditorSlider::onMouseReleased(QMouseEvent *e)
 {
-  // TODO
+  _m_sliderPressed = false;
   return;
 }
 
@@ -72,9 +88,7 @@ WaveformEditorSlider::onStorySectionChanged(StorySection *_pStorySection)
 void
 WaveformEditorSlider::onViewportMoved(const float& _newPosition)
 {
-
-  // TODO
-
+  updateSlider();
   return;
 }
 
@@ -88,6 +102,9 @@ void
 WaveformEditorSlider::onInit()
 {
   updateSlider();
+
+  // Slider Color
+  _m_buttonShape.setFillColor(sf::Color(80, 80, 80));
   return;
 }
 

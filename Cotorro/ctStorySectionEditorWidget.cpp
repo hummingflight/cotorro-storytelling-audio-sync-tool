@@ -222,6 +222,10 @@ StorySectionEditorWidget::setViewportPosition(const float &_time)
     else {
       _m_viewportTimePosition = _time;
     }
+
+    if(_m_viewportTimePosition < 0.0f) {
+      _m_viewportTimePosition = 0.0f;
+    }
   }
 
   _m_waveFormEditorSlider.onViewportMoved(_m_viewportTimePosition);
@@ -249,6 +253,10 @@ StorySectionEditorWidget::moveViewport(const float &_seconds)
     }
     else {
       _m_viewportTimePosition += _seconds;
+    }
+
+    if(_m_viewportTimePosition < 0.0f) {
+      _m_viewportTimePosition = 0.0f;
     }
   }
 
