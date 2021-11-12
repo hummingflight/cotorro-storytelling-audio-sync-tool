@@ -1,8 +1,9 @@
 #ifndef WAVEFORMEDITORSLIDER_H
 #define WAVEFORMEDITORSLIDER_H
 
+#include <QMouseEvent>
+
 #include "ctFrame.h"
-#include "ctSliderButton.h"
 #include "ctStorySection.h"
 
 namespace ct {
@@ -28,8 +29,9 @@ public:
   ~WaveformEditorSlider();
 
   /**
-   * @brief onUpdate
-   * @param _window
+   * @brief Draws the button in the SFML Canvas
+   *
+   * @param _window SFML Render Window.
    */
   virtual void
   onUpdate(sf::RenderWindow& _window) override;
@@ -39,13 +41,6 @@ public:
    */
   virtual void
   onDrawableAreaChanged() override;
-
-  /**
-   * @brief setStorySectionEditorWidget
-   * @param _pStorySectionEditorWidget
-   */
-  void
-  setStorySectionEditorWidget(StorySectionEditorWidget* _pStorySectionEditorWidget);
 
   /**
    * @brief onMousePressed
@@ -102,13 +97,20 @@ protected:
    * @brief onInit
    */
   virtual void
-  onInit() override;  
+  onInit() override;
 
   /**
-   * @brief _m_button
+   * @brief Represent the area of the slider button.
    */
-  SliderButton
-  _m_button;
+  sf::FloatRect
+  _m_buttonArea;
+
+  /**
+   * @brief Slider button shape, which is used to draw the button using
+   * the SFML render.
+   */
+  sf::RectangleShape
+  _m_buttonShape;
 
   /**
    * @brief _m_pStorySectionEditorWidget

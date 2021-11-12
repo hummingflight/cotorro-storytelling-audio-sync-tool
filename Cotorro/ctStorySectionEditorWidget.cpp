@@ -108,10 +108,49 @@ StorySectionEditorWidget::getActiveStorySection()
   return _m_pActiveStorySection;
 }
 
-const float&
+float
 StorySectionEditorWidget::getViewportPosition()
 {
   return _m_viewportTimePosition;
+}
+
+float
+StorySectionEditorWidget::getViewportNormalizedPosition()
+{
+  float mediaLength = getMediaLength();
+  if(mediaLength <= 0.0f) {
+    return 0.0f;
+  }
+
+  return getViewportPosition() / mediaLength;
+}
+
+float
+StorySectionEditorWidget::getViewportLength()
+{
+  if(_m_pixelsPerSecond == 0.0f) {
+    return 0.0f;
+  }
+
+  return (width() - StorySectionEditorWidget::_PADDING_RIGHT - StorySectionEditorWidget::_PADDING_LEFT) / _m_pixelsPerSecond;
+}
+
+float
+StorySectionEditorWidget::getViewportNormalizedLength()
+{
+  float mediaLength = getMediaLength();
+  if(mediaLength <= 0.0f) {
+    return 0.0f;
+  }
+
+  return  getViewportLength() / mediaLength;
+}
+
+float
+StorySectionEditorWidget::getMediaLength()
+{
+  AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
+  return audioManager.getDuration();
 }
 
 void
@@ -163,24 +202,38 @@ StorySectionEditorWidget::getPixelsPerSecond()
   return _m_pixelsPerSecond;
 }
 
-float
-StorySectionEditorWidget::getViewWidthInSeconds()
+const void
+StorySectionEditorWidget::setViewportPosition(const float &_time)
 {
-  if(_m_pixelsPerSecond == 0.0f) {
-    return 0.0f;
+  float viewportWidth = getViewportLength();
+  float trackDuration = getMediaLength();
+  if(viewportWidth >= trackDuration) {
+    _m_viewportTimePosition = 0.0f;
+  }
+  else {
+    float viewportFinalPointPosition = _time
+                                     + viewportWidth;
+
+    if(viewportFinalPointPosition > trackDuration){
+      _m_viewportTimePosition = _time
+                              + trackDuration
+                              - viewportFinalPointPosition;
+    }
+    else {
+      _m_viewportTimePosition = _time;
+    }
   }
 
-  return (width() - StorySectionEditorWidget::_PADDING_RIGHT - StorySectionEditorWidget::_PADDING_LEFT) / _m_pixelsPerSecond;
+  _m_waveFormEditorSlider.onViewportMoved(_m_viewportTimePosition);
+
+  return;
 }
 
 void
 StorySectionEditorWidget::moveViewport(const float &_seconds)
 {
-  _m_viewportTimePosition *= _seconds;
-
-  AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
-  float viewportWidth = getViewWidthInSeconds();
-  float trackDuration = audioManager.getDuration();
+  float viewportWidth = getViewportLength();
+  float trackDuration = getMediaLength();
   if(viewportWidth >= trackDuration) {
     _m_viewportTimePosition = 0.0f;
   }
@@ -238,7 +291,6 @@ StorySectionEditorWidget::onInit()
     StorySectionEditorWidget::_PADDING_BETWEEN
   );
 
-  _m_waveFormEditorSlider.setStorySectionEditorWidget(this);
   _m_waveFormEditorSlider.init();  
   _m_waveFormEditorSlider.setMinimumSize(10, 20);
   _m_waveFormEditorSlider.setMargin(

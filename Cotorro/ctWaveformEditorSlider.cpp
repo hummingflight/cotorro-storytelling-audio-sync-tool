@@ -8,7 +8,8 @@ namespace ct {
 
 WaveformEditorSlider::WaveformEditorSlider(StorySectionEditorWidget* _pStorySectionEditorWidget) :
   Frame(),
-  _m_button(),
+  _m_buttonArea(),
+  _m_buttonShape(),
   _m_pStorySectionEditorWidget(_pStorySectionEditorWidget)
 {
   return;
@@ -22,7 +23,7 @@ WaveformEditorSlider::~WaveformEditorSlider()
 void
 WaveformEditorSlider::onUpdate(sf::RenderWindow &_window)
 {
-  _m_button.update(_window);
+  _window.draw(_m_buttonShape);
   return;
 }
 
@@ -34,37 +35,30 @@ WaveformEditorSlider::onDrawableAreaChanged()
 }
 
 void
-WaveformEditorSlider::setStorySectionEditorWidget(StorySectionEditorWidget *_pStorySectionEditorWidget)
-{
-  _m_pStorySectionEditorWidget = _pStorySectionEditorWidget;
-  return;
-}
-
-void
 WaveformEditorSlider::onMousePressed(QMouseEvent *e)
 {
-  _m_button.receiveMouseInput(eMOUSE_EVENT::kPressed, e);
+  // TODO
   return;
 }
 
 void
 WaveformEditorSlider::onMouseMoved(QMouseEvent *e)
 {
-  _m_button.receiveMouseInput(eMOUSE_EVENT::kMoved, e);
+  // TODO
   return;
 }
 
 void
 WaveformEditorSlider::onMouseReleased(QMouseEvent *e)
 {
-  _m_button.receiveMouseInput(eMOUSE_EVENT::kReleased, e);
+  // TODO
   return;
 }
 
 void
 WaveformEditorSlider::onMouseDoubleClicked(QMouseEvent *e)
 {
-  _m_button.receiveMouseInput(eMOUSE_EVENT::kDoubleClicked, e);
+  // TODO
   return;
 }
 
@@ -78,20 +72,8 @@ WaveformEditorSlider::onStorySectionChanged(StorySection *_pStorySection)
 void
 WaveformEditorSlider::onViewportMoved(const float& _newPosition)
 {
-  if(_m_pStorySectionEditorWidget == nullptr) {
-    Cotorro::Log(
-      eLOGTYPE::kError,
-      QObject::tr("| WaveformEditorSlider | Story section editor widget is not defined.")
-    );
-    return;
-  }
 
-  AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
-  float trackDuration = audioManager.getDuration();
-  if(trackDuration > 0.0f) {
-    float positionX = (_newPosition / trackDuration) * _m_drawableArea.width;
-    _m_button.setPosition(positionX, _m_button.getPosition().y);
-  }
+  // TODO
 
   return;
 }
@@ -105,48 +87,29 @@ WaveformEditorSlider::destroy()
 void
 WaveformEditorSlider::onInit()
 {
-  _m_button.setParent(_m_frameNode);
+  updateSlider();
   return;
 }
 
 void
 WaveformEditorSlider::updateSlider()
 {
-  if(_m_pStorySectionEditorWidget == nullptr) {
-    Cotorro::Log(
-      eLOGTYPE::kError,
-      QObject::tr("| WaveformEditorSlider | Story section editor widget is not defined.")
-    );
-    return;
+  float normViewportPosition = _m_pStorySectionEditorWidget->getViewportNormalizedPosition();
+  float normViewportLength = _m_pStorySectionEditorWidget->getViewportNormalizedLength();
+
+  if(normViewportLength > 1.0f || normViewportLength <= 0.0f) {
+    normViewportLength = 1.0f;
   }
 
-  // Set slider height.
-  _m_button.setHeight(_m_drawableArea.height);
+  // Update Button Area
+  _m_buttonArea.left = _m_drawableArea.left + _m_drawableArea.width * normViewportPosition;
+  _m_buttonArea.top = _m_drawableArea.top;
+  _m_buttonArea.width = _m_drawableArea.width * normViewportLength;
+  _m_buttonArea.height = _m_drawableArea.height;
 
-  // Set slider width.
-  StorySection* pActiveSection = _m_pStorySectionEditorWidget->getActiveStorySection();
-  if(pActiveSection == nullptr) {
-    // No Active section: Slider fill all the drawable area.
-    _m_button.setWidth(_m_drawableArea.width);
-  }
-  else {
-
-    float viewWidthInSeconds = _m_pStorySectionEditorWidget->getViewWidthInSeconds();
-
-    AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
-    float trackDuration = audioManager.getDuration();
-    float sliderScale = 1.0f;
-    if(trackDuration > 0.0f) {
-      sliderScale = viewWidthInSeconds / trackDuration;
-
-      // Truncate scale.
-      if(sliderScale > 1.0f) {
-        sliderScale = 1.0f;
-      }
-    }
-
-    _m_button.setWidth(_m_drawableArea.width * sliderScale);
-  }
+  // Update Button Shape
+  _m_buttonShape.setPosition(_m_buttonArea.left, _m_buttonArea.top);
+  _m_buttonShape.setSize(_m_buttonArea.getSize());
 
   return;
 }

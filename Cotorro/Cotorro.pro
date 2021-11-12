@@ -17,7 +17,6 @@ SOURCES += \
     ctInteractiveArea.cpp \
     ctResourceManager.cpp \
     ctSfmlCanvas.cpp \
-    ctSliderButton.cpp \
     ctStorySectionEditorWidget.cpp \
     ctTimeLineLine.cpp \
     ctTransformableNode.cpp \
@@ -45,7 +44,6 @@ HEADERS += \
     ctProject.h \
     ctResourceManager.h \
     ctSfmlCanvas.h \
-    ctSliderButton.h \
     ctStorySection.h \
     ctStorySectionEditorWidget.h \
     ctStorySectionManager.h \

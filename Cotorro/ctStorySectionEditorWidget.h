@@ -44,29 +44,6 @@ public:
   setZoom(const float& _zoom);
 
   /**
-   * @brief Gets the number of pixels per second. It takes into account the
-   * zoom value.
-   */
-  float
-  getPixelsPerSecond();
-
-  /**
-   * @brief Gets the length (in seconds) of the view. It takes into account the
-   * zoom value.
-   * @return
-   */
-  float
-  getViewWidthInSeconds();
-
-  /**
-   * @brief Moves the viewport an x number of seconds.
-   *
-   * @param _seconds Seconds to move.
-   */
-  void
-  moveViewport(const float& _seconds);
-
-  /**
    * @brief Get the zoom value.
    *
    * @return Zoom value.
@@ -75,18 +52,75 @@ public:
   getZoom();
 
   /**
-   * @brief getActiveStorySection
-   * @return
+   * @brief Gets the number of pixels per second. It takes into account the
+   * zoom value.
+   */
+  float
+  getPixelsPerSecond();
+
+  /**
+   * @brief Set the viewport position in the timeline.
+   *
+   * @param _time The viewport position in the timeline.
+   */
+  const void
+  setViewportPosition(const float& _time);
+
+  /**
+   * @brief Moves the viewport an x number of seconds.
+   *
+   * @param _seconds Seconds to move.
+   */
+  void
+  moveViewport(const float& _seconds);  
+
+  /**
+   * @brief Get reference to the active story section
+   *
+   * @return Reference to the active story section.
    */
   StorySection*
   getActiveStorySection();
 
   /**
-   * @brief Gets the viewport position in seconds.
-   * @return
+   * @brief Gets the viewport position in the timeline (seconds).
+   *
+   * @return The position of the viewport in the timeline (seconds).
    */
-  const float&
+  float
   getViewportPosition();
+
+  /**
+   * @brief Gets the viewport position in the timeline relative to the media duration.
+   *
+   * @return The viewport position in the timeline relative to the media duration
+   */
+  float
+  getViewportNormalizedPosition();
+
+  /**
+   * @brief Gets the viewport length in the timeline (seconds).
+   *
+   * @return The viewpor length in the timeline (seconds).
+   */
+  float
+  getViewportLength();
+
+  /**
+   * @brief Get the viewport length in the timeline relative to the media duration.
+   *
+   * @return The viewport length in the timeline relative to the media duration.
+   */
+  float
+  getViewportNormalizedLength();
+
+  /**
+   * @brief Get the media length in seconds.
+   *
+   * @return The media length in seconds.
+   */
+  float
+  getMediaLength();
 
 protected:
 
@@ -165,6 +199,12 @@ private:
    */
   void
   resetView();
+
+  /**
+   * @brief Make sure viewport position doesn't cross media duration.
+   */
+  void
+  adjustViewportPosition();
 
   /**
    * @brief Canvas's clear color.
