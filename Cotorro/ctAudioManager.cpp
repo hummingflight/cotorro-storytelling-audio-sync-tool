@@ -155,6 +155,12 @@ AudioManager::getDuration()
   return _m_musicPlayer.getDuration().asSeconds();
 }
 
+float
+AudioManager::getPlayingPosition()
+{
+  return _m_musicPlayer.getPlayingOffset().asSeconds();
+}
+
 void
 AudioManager::setVolumen(const qint32 &_value)
 {

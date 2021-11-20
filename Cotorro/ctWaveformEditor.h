@@ -137,6 +137,12 @@ private:
   deactiveLine(TimeLineLine* _pTimeLineLine);
 
   /**
+   * @brief _m_cursor
+   */
+  TimeLineLine
+  _m_cursor;
+
+  /**
    * @brief _activeTimeLineLines
    */
   QList<TimeLineLine*>

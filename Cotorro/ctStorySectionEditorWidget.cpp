@@ -21,7 +21,7 @@ StorySectionEditorWidget::StorySectionEditorWidget
   const QSize& _size
 ) :
   SfmlCanvas(_parent, _position, _size),
-  _m_clearColor(148, 148, 148),
+  _m_clearColor(200, 200, 200),
   _m_view(sf::Vector2f(0,0), sf::Vector2f(300.0f,200.0f)),
   _m_waveFormEditor(this),
   _m_wordsEditor(),
@@ -157,6 +157,8 @@ void
 StorySectionEditorWidget::onActiveSectionChanged(StorySection *_pStorySection)
 {
   _m_pActiveStorySection = _pStorySection;
+
+  setViewportPosition(0.0f);
 
   _m_waveFormEditor.onStorySectionChanged(_pStorySection);
   _m_waveFormEditorSlider.onStorySectionChanged(_pStorySection);

@@ -9,6 +9,7 @@ quint32 WaveformEditor::_TIME_LINE_LINE_POOL_SIZE = 30;
 
 WaveformEditor::WaveformEditor(StorySectionEditorWidget* _pStorySectionEditorWidget) :
   Frame(),
+  _m_cursor(),
   _m_activeTimeLineLines(),
   _m_deactiveTimeLineLines(),
   _m_pStorySectionEditorWidget(_pStorySectionEditorWidget),
@@ -26,11 +27,23 @@ WaveformEditor::~WaveformEditor()
 
 void
 WaveformEditor::onUpdate(sf::RenderWindow &_window)
-{
+{  
   // Draw each active line.
   foreach(TimeLineLine* _line, _m_activeTimeLineLines) {
     _line->update(_window);
   }
+
+  // Update cursor
+  AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
+  float cursorPosition = audioManager.getPlayingPosition();
+  _m_cursor.setPosition(cursorPosition, 0.0f);
+
+  QTime time(0, 0);
+  time = time.addSecs(cursorPosition);
+  _m_cursor.setLabel(time.toString("mm::ss"));
+
+  // Draw cursor
+  _m_cursor.update(_window);
   return;
 }
 
@@ -38,6 +51,8 @@ void
 WaveformEditor::onDrawableAreaChanged()
 {
   Frame::onDrawableAreaChanged();
+
+  _m_cursor.setHeight(_m_drawableArea.height);
 
   foreach(TimeLineLine* _line, _m_activeTimeLineLines) {
     _line->setHeight(_m_drawableArea.height);
@@ -75,6 +90,12 @@ void
 WaveformEditor::onInit()
 {
   _m_waveformNode.setParent(_m_frameNode);
+
+  // Setup cursor
+  _m_cursor.init();
+  _m_cursor.setParent(_m_waveformNode);
+  _m_cursor.setColor(sf::Color::Red);
+  _m_cursor.setDisplayTextOnTop(true);
 
   // Create pool of time line lines.
   for(quint32 ii = 0; ii < WaveformEditor::_TIME_LINE_LINE_POOL_SIZE; ++ii) {

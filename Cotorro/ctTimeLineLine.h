@@ -65,6 +65,29 @@ public:
   void
   setHeight(const float& _height);
 
+  /**
+   * @brief Sets line's color
+   * @param _color Color.
+   */
+  void
+  setColor(const sf::Color& _color);
+
+  /**
+   * @brief Sets the label in the top of the line.
+   *
+   * @param _textOnTop True if you want to set the label at the top.
+   */
+  void
+  setDisplayTextOnTop(const bool& _textOnTop);
+
+  /**
+   * @brief Setup the text size of the label.
+   *
+   * @param _size Text size.
+   */
+  void
+  setTextSize(const quint32& _size);
+
 private:
 
   /**
@@ -84,6 +107,12 @@ private:
    */
   sf::Text
   _m_text;
+
+  /**
+   * @brief Indicates if the text should be displayed at the top of the line.
+   */
+  bool
+  _m_textOnTop;
 
 };
 

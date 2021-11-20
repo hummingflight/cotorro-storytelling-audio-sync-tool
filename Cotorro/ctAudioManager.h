@@ -104,6 +104,14 @@ public:
   getDuration();
 
   /**
+   * @brief Gets the playing position in seconds.
+   *
+   * @return Playing position in seconds.
+   */
+  float
+  getPlayingPosition();
+
+  /**
    * @brief Sets the volumen.
    *
    * @param _value Value.
