@@ -3,11 +3,14 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <QMouseEvent>
+
 #include "ctFrame.h"
 #include "ctTimeLineLine.h"
 
 namespace ct {
 
+class StorySection;
 class StorySectionEditorWidget;
 
 /**
@@ -20,7 +23,7 @@ public:
   /**
    * @brief WaveformEditor
    */
-  WaveformEditor();
+  WaveformEditor(StorySectionEditorWidget* _pStorySectionEditorWidget);
 
   /**
    * @brief ~WaveformEditor
@@ -53,6 +56,43 @@ public:
    */
   void
   updateTimeline();
+
+  /**
+   * @brief onMousePressed
+   */
+  void
+  onMousePressed(QMouseEvent* e);
+
+  /**
+   * @brief onMouseMoved
+   */
+  void
+  onMouseMoved(QMouseEvent* e);
+
+  /**
+   * @brief onMouseReleased
+   */
+  void
+  onMouseReleased(QMouseEvent* e);
+
+  /**
+   * @brief onMouseDoubleClicked
+   */
+  void
+  onMouseDoubleClicked(QMouseEvent* e);
+
+  /**
+   * @brief onStorySectionChanged
+   * @param _pStorySection
+   */
+  void
+  onStorySectionChanged(StorySection* _pStorySection);
+
+  /**
+   * @brief onViewportMoved
+   */
+  void
+  onViewportMoved(const float& _newPosition);
 
   /**
    * @brief destroy
@@ -97,6 +137,12 @@ private:
   deactiveLine(TimeLineLine* _pTimeLineLine);
 
   /**
+   * @brief _m_cursor
+   */
+  TimeLineLine
+  _m_cursor;
+
+  /**
    * @brief _activeTimeLineLines
    */
   QList<TimeLineLine*>
@@ -119,6 +165,12 @@ private:
    */
   TransformableNode
   _m_waveformNode;
+
+  /**
+   * @brief Space between lines in seconds.
+   */
+  float
+  _m_lineSpacing;
 };
 
 }

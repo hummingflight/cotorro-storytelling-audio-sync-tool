@@ -10,15 +10,18 @@ CONFIG += c++11
 
 SOURCES += \
     ctAudioManager.cpp \
+    ctButton.cpp \
     ctFontResource.cpp \
     ctFontResourceManager.cpp \
     ctFrame.cpp \
+    ctInteractiveArea.cpp \
     ctResourceManager.cpp \
     ctSfmlCanvas.cpp \
     ctStorySectionEditorWidget.cpp \
     ctTimeLineLine.cpp \
     ctTransformableNode.cpp \
     ctWaveformEditor.cpp \
+    ctWaveformEditorSlider.cpp \
     ctWordsEditor.cpp \
     main.cpp \
     ctCotorro.cpp \
@@ -31,11 +34,13 @@ SOURCES += \
 
 HEADERS += \
     ctAudioManager.h \
+    ctButton.h \
     ctCotorro.h\
     ctCotorroUtilities.h \
     ctFontResource.h \
     ctFontResourceManager.h \
     ctFrame.h \
+    ctInteractiveArea.h \
     ctProject.h \
     ctResourceManager.h \
     ctSfmlCanvas.h \
@@ -45,6 +50,7 @@ HEADERS += \
     ctTimeLineLine.h \
     ctTransformableNode.h \
     ctWaveformEditor.h \
+    ctWaveformEditorSlider.h \
     ctWordsEditor.h \
     diaEditor.h \
     diaNewProject.h \

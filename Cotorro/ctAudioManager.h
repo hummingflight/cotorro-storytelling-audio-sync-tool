@@ -97,6 +97,21 @@ public:
   isReady();
 
   /**
+   * @brief Gets the total duration of the music in seconds.
+   * @return Total duration of the music in seconds.
+   */
+  float
+  getDuration();
+
+  /**
+   * @brief Gets the playing position in seconds.
+   *
+   * @return Playing position in seconds.
+   */
+  float
+  getPlayingPosition();
+
+  /**
    * @brief Sets the volumen.
    *
    * @param _value Value.

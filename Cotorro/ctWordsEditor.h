@@ -5,6 +5,8 @@
 
 namespace ct {
 
+class StorySection;
+
 /**
  * @brief The WordsEditor class
  */
@@ -17,8 +19,18 @@ public:
    */
   WordsEditor();
 
+  /**
+   * @brief ~WordsEditor
+   */
   virtual
   ~WordsEditor();
+
+  /**
+   * @brief onStorySectionChanged
+   * @param _pStorySection
+   */
+  void
+  onStorySectionChanged(StorySection* _pStorySection);
 };
 
 }

@@ -13,5 +13,12 @@ WordsEditor::~WordsEditor()
 
 }
 
+void
+WordsEditor::onStorySectionChanged(StorySection *_pStorySection)
+{
+  // TODO
+  return;
+}
+
 }
 
