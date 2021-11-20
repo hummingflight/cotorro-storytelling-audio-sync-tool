@@ -23,7 +23,7 @@ public:
   /**
    * @brief WaveformEditor
    */
-  WaveformEditor();
+  WaveformEditor(StorySectionEditorWidget* _pStorySectionEditorWidget);
 
   /**
    * @brief ~WaveformEditor
@@ -87,6 +87,12 @@ public:
    */
   void
   onStorySectionChanged(StorySection* _pStorySection);
+
+  /**
+   * @brief onViewportMoved
+   */
+  void
+  onViewportMoved(const float& _newPosition);
 
   /**
    * @brief destroy
@@ -153,6 +159,12 @@ private:
    */
   TransformableNode
   _m_waveformNode;
+
+  /**
+   * @brief Space between lines in seconds.
+   */
+  float
+  _m_lineSpacing;
 };
 
 }

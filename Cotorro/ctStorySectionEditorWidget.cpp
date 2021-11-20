@@ -23,7 +23,7 @@ StorySectionEditorWidget::StorySectionEditorWidget
   SfmlCanvas(_parent, _position, _size),
   _m_clearColor(148, 148, 148),
   _m_view(sf::Vector2f(0,0), sf::Vector2f(300.0f,200.0f)),
-  _m_waveFormEditor(),
+  _m_waveFormEditor(this),
   _m_wordsEditor(),
   _m_waveFormEditorSlider(this),
   _m_pActiveStorySection(nullptr),
@@ -229,7 +229,7 @@ StorySectionEditorWidget::setViewportPosition(const float &_time)
   }
 
   _m_waveFormEditorSlider.onViewportMoved(_m_viewportTimePosition);
-
+  _m_waveFormEditor.onViewportMoved(_m_viewportTimePosition);
   return;
 }
 
@@ -261,6 +261,7 @@ StorySectionEditorWidget::moveViewport(const float &_seconds)
   }
 
   _m_waveFormEditorSlider.onViewportMoved(_m_viewportTimePosition);
+  _m_waveFormEditor.onViewportMoved(_m_viewportTimePosition);
 
   return;
 }
