@@ -22,6 +22,8 @@ SOURCES += \
     ctTransformableNode.cpp \
     ctWaveformEditor.cpp \
     ctWaveformEditorSlider.cpp \
+    ctWord.cpp \
+    ctWordBlock.cpp \
     ctWordsEditor.cpp \
     main.cpp \
     ctCotorro.cpp \
@@ -51,6 +53,8 @@ HEADERS += \
     ctTransformableNode.h \
     ctWaveformEditor.h \
     ctWaveformEditorSlider.h \
+    ctWord.h \
+    ctWordBlock.h \
     ctWordsEditor.h \
     diaEditor.h \
     diaNewProject.h \
