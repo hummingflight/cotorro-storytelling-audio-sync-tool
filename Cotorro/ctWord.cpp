@@ -10,7 +10,8 @@ Word::Word()
   : _m_word(""),
     _m_data(""),
     _m_start(0.0f),
-    _m_end(0.0f)
+    _m_end(0.0f),
+    _m_index(0)
 {
   return;
 }
@@ -20,19 +21,21 @@ void Word::init
     const QString &_word,
     const float &_start,
     const float &_end,
-    const QString &_data
+    const QString &_data,
+    const quint32& _index
 )
 {
   _m_word = _word;
   _m_start = _start;
   _m_end = _end;
   _m_data = _data;
+  _m_index = _index;
 
   return;
 }
 
 eOPRESULT::E
-Word::init(QXmlStreamReader &_reader)
+Word::init(QXmlStreamReader &_reader, const quint32& _index)
 {
   // Get attributes.
   QXmlStreamAttributes attributes = _reader.attributes();
@@ -67,6 +70,7 @@ Word::init(QXmlStreamReader &_reader)
   _m_data = attributes.value(QObject::tr("data")).toString();
   _m_start = attributes.value(QObject::tr("start")).toFloat();
   _m_end = attributes.value(QObject::tr("end")).toFloat();
+  _m_index = _index;
 
   // Reach the end of the element.
   while(!_reader.atEnd()) {
@@ -145,6 +149,12 @@ float
 Word::getEnd()
 {
   return _m_end;
+}
+
+const quint32&
+Word::getIndex()
+{
+  return _m_index;
 }
 
 }

@@ -35,7 +35,8 @@ public:
     const QString& _word,
     const float& _start,
     const float& _end,
-    const QString& _data
+    const QString& _data,
+    const quint32& _index
   );
 
   /**
@@ -43,11 +44,12 @@ public:
    * the information comming from the XML Stream Reader.
    *
    * @param _reader XML Stream Reader.
+   * @param _index Word index.
    *
    * @return Operation result.
    */
   eOPRESULT::E
-  init(QXmlStreamReader& _reader);
+  init(QXmlStreamReader& _reader, const quint32& _index);
 
   /**
    * @brief Save infromation in the file.
@@ -127,6 +129,13 @@ public:
   float
   getEnd();
 
+  /**
+   * @brief Get the word index.
+   * @return
+   */
+  const quint32&
+  getIndex();
+
 private:
 
   /**
@@ -152,6 +161,12 @@ private:
    */
   float
   _m_end;
+
+  /**
+   * @brief Word index.
+   */
+  quint32
+  _m_index;
 
 };
 

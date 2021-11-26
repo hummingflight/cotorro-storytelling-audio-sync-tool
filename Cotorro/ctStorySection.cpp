@@ -73,6 +73,7 @@ StorySection::init(QXmlStreamReader &_reader)
   _m_content = attributes.value(tr("content")).toString();
 
   // Create words and/or reach the end of the element.
+  qint32 index = 0;
   while(!_reader.atEnd()) {
     QXmlStreamReader::TokenType token = _reader.readNext();
     if(token == QXmlStreamReader::StartElement) {
@@ -81,7 +82,7 @@ StorySection::init(QXmlStreamReader &_reader)
         // Create a new word.
         Word* pNewWord = new Word();
 
-        if(pNewWord->init(_reader) != eOPRESULT::kOk) {
+        if(pNewWord->init(_reader, index) != eOPRESULT::kOk) {
           // Something went wrong.
           delete pNewWord;
           return eOPRESULT::kFail;
@@ -89,6 +90,7 @@ StorySection::init(QXmlStreamReader &_reader)
 
         // Add new word.
         _m_aWords.push_back(pNewWord);
+        index++;
       }
     } else if(token == QXmlStreamReader::EndElement) {
       return eOPRESULT::kOk;
@@ -182,6 +184,7 @@ StorySection::resetWords()
 {
   clearWords();
 
+  qint32 index = 0;
   float stepsSeconds = 1.0f;
   float start = 0.0f;
 
@@ -193,10 +196,12 @@ StorySection::resetWords()
       it.next(),
       start,
       start + stepsSeconds,
-      ""
+      "",
+      index
     );
     _m_aWords.push_back(pWord);
     start += stepsSeconds;
+    index++;
   }
   return;
 }

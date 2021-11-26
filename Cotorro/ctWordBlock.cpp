@@ -30,6 +30,26 @@ WordBlock::getWord()
   return _m_pWord;
 }
 
+bool
+WordBlock::isActive()
+{
+  return _m_isActive;
+}
+
+void
+WordBlock::active()
+{
+  _m_isActive = true;
+  return;
+}
+
+void
+WordBlock::deactive()
+{
+  _m_isActive = false;
+  return;
+}
+
 void
 WordBlock::destroy()
 {

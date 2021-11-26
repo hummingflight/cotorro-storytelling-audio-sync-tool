@@ -46,6 +46,26 @@ public:
   getWord();
 
   /**
+   * @brief Cheks if the word block is being used.
+   *
+   * @return True if the word block is currently being used.
+   */
+  bool
+  isActive();
+
+  /**
+   * @brief Actives the word block.
+   */
+  void
+  active();
+
+  /**
+   * @brief Deactives the word block.
+   */
+  void
+  deactive();
+
+  /**
    * @brief Safely destroys this object.
    */
   void
