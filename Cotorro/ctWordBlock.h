@@ -5,6 +5,8 @@
 
 namespace ct {
 
+class Word;
+
 /**
  * @brief The WordBlock class
  */
@@ -16,6 +18,38 @@ public:
    * @brief WordBlock
    */
   WordBlock();
+
+  /**
+   * @brief Sets the word to this word block. It can
+   * be nullptr.
+   *
+   * @param _pWord Word. It can be nullptr for empty blocks.
+   */
+  void
+  setWord(Word* _pWord);
+
+  /**
+   * @brief Checks if this block has an assignated word.
+   *
+   * @return True if the block has an assignated word.
+   */
+  bool
+  hasWord();
+
+  /**
+   * @brief Gets the assignated word. It will return nullptr
+   * if there isn't any assignated word.
+   *
+   * @return Assignated word. Can returns nullptr.
+   */
+  Word*
+  getWord();
+
+  /**
+   * @brief Safely destroys this object.
+   */
+  void
+  destroy();
 
 private:
 
@@ -30,6 +64,12 @@ private:
    */
   sf::Text
   _m_text;
+
+  /**
+   * @brief _m_pWord
+   */
+  Word*
+  _m_pWord;
 
   /**
    * @brief Indicates if the word block is active.

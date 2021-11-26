@@ -36,7 +36,9 @@ Editor::Editor(QWidget *parent)
 
 Editor::~Editor()
 {
+  Cotorro::Destroy();
   delete ui;
+  return;
 }
 
 QPlainTextEdit*
@@ -318,6 +320,7 @@ Editor::on_actionAddSection_triggered()
     // Fill Story Section.
     pStorySection->setAudioKey(dia.sectionAudioFileName);
     pStorySection->setContent(dia.sectionContent);
+    pStorySection->resetWords();
 
     // Update Story Section panel.
     updateStorySectionPanel();

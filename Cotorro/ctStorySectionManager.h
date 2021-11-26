@@ -153,6 +153,12 @@ public:
   qint32
   size();
 
+  /**
+   * @brief Safely destroys this instance.
+   */
+  void
+  destroy();
+
 signals:
 
   /**

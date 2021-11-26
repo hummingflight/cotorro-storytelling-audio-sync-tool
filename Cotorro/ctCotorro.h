@@ -30,6 +30,12 @@ public:
   Start(QObject *parent);
 
   /**
+   * @brief Safely destroys the module.
+   */
+  static void
+  Destroy();
+
+  /**
    * @brief Get module instance.
    */
   static Cotorro*&

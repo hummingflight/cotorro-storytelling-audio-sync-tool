@@ -50,6 +50,16 @@ public:
   init(QXmlStreamReader& _reader);
 
   /**
+   * @brief Save infromation in the file.
+   *
+   * @param _writer XML stream writer.
+   *
+   * @return Operation result.
+   */
+  eOPRESULT::E
+  save(QXmlStreamWriter& _writer);
+
+  /**
    * @brief Sets the word.
    *
    * @param _word word.
@@ -124,12 +134,6 @@ private:
    */
   QString
   _m_word;
-
-  /**
-   * @brief UUID.
-   */
-  QString
-  _m_uuid;
 
   /**
    * @brief Word's stringified data.

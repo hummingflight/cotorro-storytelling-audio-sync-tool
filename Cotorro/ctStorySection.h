@@ -5,7 +5,8 @@
 #include <QXmlStreamWriter>
 #include <QXmlStreamReader>
 
-#include <ctCotorroUtilities.h>
+#include "ctCotorroUtilities.h"
+#include "ctWord.h"
 
 namespace ct {
 
@@ -115,9 +116,29 @@ public:
   eOPRESULT::E
   save(QXmlStreamWriter& _writer);
 
+  /**
+   * @brief Clear all generated words.
+   */
+  void
+  clearWords();
+
+  /**
+   * @brief Resets the table of words according to the
+   * actual content of the story sections. This will override
+   * all actual words for new ones.
+   */
+  void
+  resetWords();
+
+  /**
+   * @brief Safely destroys this object.
+   */
+  void
+  destroy();
+
 signals:
 
-private:
+private:  
 
   /**
    * @brief Pretty name.
@@ -142,6 +163,12 @@ private:
    */
   QString
   _m_content;
+
+  /**
+   * @brief Table of words that corresponds to the section content.
+   */
+  QList<Word*>
+  _m_aWords;
 
 };
 

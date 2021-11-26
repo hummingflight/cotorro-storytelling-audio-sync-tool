@@ -149,6 +149,10 @@ StorySectionManager::save(QXmlStreamWriter &_writer)
 void
 StorySectionManager::clear()
 {
+  foreach(StorySection* storySection, _m_hStorySections.values()) {
+    storySection->destroy();
+  }
+
   // Destroys story sections.
   qDeleteAll(_m_hStorySections);
   _m_hStorySections.clear();
@@ -348,6 +352,13 @@ qint32
 StorySectionManager::size()
 {
   return _m_hStorySections.size();
+}
+
+void
+StorySectionManager::destroy()
+{
+  clear();
+  return;
 }
 
 eOPRESULT::E

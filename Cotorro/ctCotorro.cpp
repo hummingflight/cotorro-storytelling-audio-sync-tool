@@ -25,6 +25,16 @@ Cotorro::Start(QObject *parent)
   Cotorro::_Instance()->_onStart();
 }
 
+void
+Cotorro::Destroy()
+{
+  if(Cotorro::_Instance() != nullptr)
+  {
+    Cotorro::_Instance()->destroy();
+  }
+  return;
+}
+
 Cotorro*&
 Cotorro::Instance()
 {
@@ -258,8 +268,11 @@ Cotorro::getResourceManager()
   return _m_resourceManager;
 }
 
-void Cotorro::destroy()
+void
+Cotorro::destroy()
 {
+  _m_project.destroy();
+  _m_resourceManager.destroy();
   return;
 }
 

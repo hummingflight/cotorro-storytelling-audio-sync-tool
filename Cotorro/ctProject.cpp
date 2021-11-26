@@ -192,5 +192,12 @@ Project::getStorySectionManager()
   return _m_storySectionManager;
 }
 
+void
+Project::destroy()
+{
+  _m_storySectionManager.destroy();
+  return;
+}
+
 }
 

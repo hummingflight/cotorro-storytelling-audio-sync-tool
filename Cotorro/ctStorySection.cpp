@@ -1,6 +1,7 @@
 #include "ctStorySection.h"
 
 #include <QUuid>
+#include <QRegularExpression>
 
 #include "ctCotorro.h"
 
@@ -11,7 +12,8 @@ StorySection::StorySection(QObject *parent) :
   _m_name(""),
   _m_uuid(""),
   _m_audioKey(""),
-  _m_content("")
+  _m_content(""),
+  _m_aWords()
 {
   return;
 }
@@ -34,6 +36,8 @@ StorySection::init(const QString &_name)
 eOPRESULT::E
 StorySection::init(QXmlStreamReader &_reader)
 {
+  clearWords();
+
   // Get attributes.
   QXmlStreamAttributes attributes = _reader.attributes();
 
@@ -68,10 +72,25 @@ StorySection::init(QXmlStreamReader &_reader)
   _m_audioKey = attributes.value(tr("audioKey")).toString();
   _m_content = attributes.value(tr("content")).toString();
 
-  // Reach the end of the element.
+  // Create words and/or reach the end of the element.
   while(!_reader.atEnd()) {
     QXmlStreamReader::TokenType token = _reader.readNext();
-    if(token == QXmlStreamReader::EndElement) {
+    if(token == QXmlStreamReader::StartElement) {
+      if(_reader.name().toLatin1() == "Word") {
+
+        // Create a new word.
+        Word* pNewWord = new Word();
+
+        if(pNewWord->init(_reader) != eOPRESULT::kOk) {
+          // Something went wrong.
+          delete pNewWord;
+          return eOPRESULT::kFail;
+        }
+
+        // Add new word.
+        _m_aWords.push_back(pNewWord);
+      }
+    } else if(token == QXmlStreamReader::EndElement) {
       return eOPRESULT::kOk;
     }
   }
@@ -135,9 +154,51 @@ StorySection::save(QXmlStreamWriter &_writer)
   _writer.writeAttribute(tr("audioKey"), _m_audioKey);
   _writer.writeAttribute(tr("content"), _m_content);
 
+  foreach( Word* word , _m_aWords) {
+    word->save(_writer);
+  }
+
   _writer.writeEndElement();
 
   return eOPRESULT::kOk;
+}
+
+void
+StorySection::clearWords()
+{
+  qDeleteAll(_m_aWords);
+  _m_aWords.clear();
+}
+
+void
+StorySection::destroy()
+{
+  clearWords();
+  return;
+}
+
+void
+StorySection::resetWords()
+{
+  clearWords();
+
+  float stepsSeconds = 1.0f;
+  float start = 0.0f;
+
+  QStringList words = _m_content.split(QRegularExpression("\\s+"), Qt::SkipEmptyParts);
+  QStringListIterator it(words);
+  while(it.hasNext()) {
+    Word* pWord = new Word();
+    pWord->init(
+      it.next(),
+      start,
+      start + stepsSeconds,
+      ""
+    );
+    _m_aWords.push_back(pWord);
+    start += stepsSeconds;
+  }
+  return;
 }
 
 }

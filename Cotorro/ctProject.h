@@ -114,6 +114,12 @@ public:
   StorySectionManager&
   getStorySectionManager();
 
+  /**
+   * @brief Safely destroys this instance.
+   */
+  void
+  destroy();
+
 signals:
 
 private:
