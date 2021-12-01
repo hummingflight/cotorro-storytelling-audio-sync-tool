@@ -101,7 +101,7 @@ public:
   destroy();
 
   /**
-   * @brief _TIME_LINE_LINE_POOL_SIZE
+   * @brief Maximum size of time line lines pool.
    */
   static quint32 _TIME_LINE_LINE_POOL_SIZE;
 

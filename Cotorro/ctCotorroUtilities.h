@@ -33,6 +33,15 @@ enum E {
 };
 }
 
+namespace eNODE_TYPE {
+enum E {
+  kStart,
+  kEnd,
+  kNull,
+  kNode
+};
+}
+
 }
 
 #endif // COTORROUTILITIES_H

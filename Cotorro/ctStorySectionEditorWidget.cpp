@@ -24,7 +24,7 @@ StorySectionEditorWidget::StorySectionEditorWidget
   _m_clearColor(200, 200, 200),
   _m_view(sf::Vector2f(0,0), sf::Vector2f(300.0f,200.0f)),
   _m_waveFormEditor(this),
-  _m_wordsEditor(),
+  _m_wordsEditor(this),
   _m_waveFormEditorSlider(this),
   _m_pActiveStorySection(nullptr),
   _m_pixelsPerSecond(0),

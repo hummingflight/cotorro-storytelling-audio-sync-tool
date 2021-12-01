@@ -229,10 +229,6 @@ TimeLineLine*
 WaveformEditor::getAvailableLine()
 {
   if(_m_deactiveTimeLineLines.isEmpty()) {
-    Cotorro::Log(
-          eLOGTYPE::kError,
-          QObject::tr("| WaveformEditor | No lines available.")
-    );
     return nullptr;
   }
 

@@ -28,6 +28,7 @@ public:
    * @param _start Start point in audio clip where this word should be pronounced.
    * @param _end End point in audio clip where this workd is no longer pronounced.
    * @param _data Word's stringified data.
+   * @param _index Word index.
    */
   void
   init

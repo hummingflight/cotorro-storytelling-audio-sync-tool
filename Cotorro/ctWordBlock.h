@@ -3,6 +3,9 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "ctCotorroUtilities.h"
+#include "ctTransformableNode.h"
+
 namespace ct {
 
 class Word;
@@ -10,7 +13,7 @@ class Word;
 /**
  * @brief The WordBlock class
  */
-class WordBlock
+class WordBlock : public TransformableNode
 {
 public:
 
@@ -18,6 +21,23 @@ public:
    * @brief WordBlock
    */
   WordBlock();
+
+  /**
+   * @brief WordBlock
+   */
+  WordBlock(eNODE_TYPE::E _type);
+
+  /**
+   * @brief ~WordBlock
+   */
+  virtual
+  ~WordBlock();
+
+  /**
+   * @brief Updates and draw the word block.
+   */
+  void
+  update(sf::RenderWindow& _window);
 
   /**
    * @brief Sets the word to this word block. It can
@@ -66,6 +86,50 @@ public:
   deactive();
 
   /**
+   * @brief Set the block height.
+   *
+   * @param _height Height.
+   */
+  void
+  setHeight(const float& _height);
+
+  /**
+   * @brief Gets the next word block.
+   *
+   * @return Next word block.
+   */
+  WordBlock*
+  getNext();
+
+  /**
+   * @brief Gets the previous word block.
+   *
+   * @return Previous word block.
+   */
+  WordBlock*
+  getPrev();
+
+  /**
+   * @brief Sets the next word block.
+   */
+  void
+  setNext(WordBlock*);
+
+  /**
+   * @brief Dettaches this word block.
+   */
+  void
+  dettach();
+
+  /**
+   * @brief Gets the word block type.
+   *
+   * @return Word block type.
+   */
+  const eNODE_TYPE::E&
+  getType();
+
+  /**
    * @brief Safely destroys this object.
    */
   void
@@ -92,10 +156,34 @@ private:
   _m_pWord;
 
   /**
+   * @brief Word block height.
+   */
+  float
+  _m_height;
+
+  /**
    * @brief Indicates if the word block is active.
    */
   bool
   _m_isActive;
+
+  /**
+   * @brief Reference to the next word block.
+   */
+  WordBlock*
+  _m_next;
+
+  /**
+   * @brief Reference to the prev word block.
+   */
+  WordBlock*
+  _m_prev;
+
+  /**
+   * @brief Node's type.
+   */
+  eNODE_TYPE::E
+  _m_type;
 
 };
 
