@@ -9,10 +9,11 @@ const quint32 WordsEditor::_WORD_BLOCKS_POOL_SIZE;
 
 WordsEditor::WordsEditor(StorySectionEditorWidget* _pStorySectionEditorWidget) :
   Frame(),
-  _m_aActiveWordBlocks(),
   _m_aDeactiveWordBlocks(),
   _m_wordBlocksGroup(),
-  _m_pStorySectionEditorWidget(_pStorySectionEditorWidget)
+  _m_pStorySectionEditorWidget(_pStorySectionEditorWidget),
+  _m_startWordBlock(eNODE_TYPE::kStart),
+  _m_endWordBlock(eNODE_TYPE::kEnd)
 {
   return;
 }
@@ -26,11 +27,11 @@ void
 WordsEditor::onUpdate(sf::RenderWindow &_window)
 {
   // Update active word blocks.
-  QListIterator<WordBlock*> it(_m_aActiveWordBlocks);
-  while(it.hasNext()) {
-    it.next()->update(_window);
+  WordBlock* pWordBlock = _m_startWordBlock.getNext();
+  while(pWordBlock->getType() != eNODE_TYPE::kEnd) {
+    pWordBlock->update(_window);
+    pWordBlock = pWordBlock->getNext();
   }
-
   return;
 }
 
@@ -82,7 +83,10 @@ void
 WordsEditor::updateWordBlocks()
 {
   float viewportPosition = _m_pStorySectionEditorWidget->getViewportPosition();
-  float viewportEndPosition = viewportPosition + _m_pStorySectionEditorWidget->getViewportLength();
+  float viewportEndPosition = viewportPosition
+                            + _m_pStorySectionEditorWidget->getViewportLength();
+
+  clipping(viewportPosition, viewportEndPosition);
 
 
   return;
@@ -91,14 +95,14 @@ WordsEditor::updateWordBlocks()
 void
 WordsEditor::deactiveWordBlock(WordBlock *_pWordBlock)
 {
-  if(_m_aActiveWordBlocks.removeOne(_pWordBlock)) {
-    _pWordBlock->deactive();
-    _m_aDeactiveWordBlocks.push_back(_pWordBlock);
-  }
+  _pWordBlock->deactive();
+  _pWordBlock->dettach();
+  _m_aDeactiveWordBlocks.push_back(_pWordBlock);
   return;
 }
 
-WordBlock *WordsEditor::getWordBlock()
+WordBlock*
+WordsEditor::getWordBlock()
 {
   if(!_m_aDeactiveWordBlocks.isEmpty()) {
     WordBlock* pWordBlock = _m_aDeactiveWordBlocks.takeLast();
@@ -112,14 +116,12 @@ WordBlock *WordsEditor::getWordBlock()
 void
 WordsEditor::clearWordBlocks()
 {
-  QListIterator<WordBlock*> it(_m_aActiveWordBlocks);
-  while(it.hasNext()) {
-    WordBlock* pWordBlock = it.next();
-
-    pWordBlock->deactive();
-    _m_aDeactiveWordBlocks.push_back(pWordBlock);
+  WordBlock* pWordBlock = _m_startWordBlock.getNext();
+  while(pWordBlock->getType() != eNODE_TYPE::kEnd) {
+    WordBlock* pNext = pWordBlock->getNext();
+    deactiveWordBlock(pWordBlock);
+    pWordBlock = pNext;
   }
-  _m_aActiveWordBlocks.clear();
   return;
 }
 
@@ -137,14 +139,29 @@ void
 WordsEditor::onInit()
 {
   _m_wordBlocksGroup.setParent(_m_frameNode);
-
   _m_aDeactiveWordBlocks.clear();
-  _m_aActiveWordBlocks.clear();
 
   for(qint32 i = 0; i < WordsEditor::_WORD_BLOCKS_POOL_SIZE; ++i) {
     _m_aWordBlockPool[i].deactive();
     _m_aWordBlockPool[i].setParent(_m_wordBlocksGroup);
     _m_aDeactiveWordBlocks.push_back(&(_m_aWordBlockPool[i]));
+  }
+  return;
+}
+
+void
+WordsEditor::clipping(const float& _viewportStart, const float& _viewportEnd)
+{
+  WordBlock* pWordBlock = _m_startWordBlock.getNext();
+  while(pWordBlock->getType() != eNODE_TYPE::kEnd) {
+    if(!pWordBlock->isVisible(_viewportStart, _viewportEnd)) {
+      pWordBlock = pWordBlock->getNext();
+    }
+    else {
+      WordBlock* next = pWordBlock->getNext();
+      deactiveWordBlock(pWordBlock);
+      pWordBlock = next;
+    }
   }
   return;
 }

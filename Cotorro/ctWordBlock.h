@@ -122,6 +122,18 @@ public:
   dettach();
 
   /**
+   * @brief Checks if the word block is visible in the
+   * given viewport.
+   *
+   * @param _viewportStart Viewport start in seconds.
+   * @param _viewportEnd Viewport end in seconds.
+   *
+   * @return True if the word bloc is visible in the given viewport.
+   */
+  bool
+  isVisible(const float& _viewportStart, const float& _viewportEnd);
+
+  /**
    * @brief Gets the word block type.
    *
    * @return Word block type.

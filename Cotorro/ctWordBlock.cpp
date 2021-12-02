@@ -1,5 +1,7 @@
 #include "ctWordBlock.h"
 
+#include "ctWord.h"
+
 namespace ct {
 
 WordBlock::WordBlock() :
@@ -153,6 +155,26 @@ WordBlock::dettach()
   _m_next = nullptr;
 
   return;
+}
+
+bool
+WordBlock::isVisible(const float &_viewportStart, const float &_viewportEnd)
+{
+  if(_m_pWord == nullptr) {
+    return false;
+  }
+
+  float start = _m_pWord->getStart();
+  float end = _m_pWord->getEnd();
+
+  if(start >= _viewportStart && start < _viewportEnd ) {
+    return true;
+  }
+  else if(start <= _viewportStart && end > _viewportStart) {
+    return true;
+  }
+
+  return false;
 }
 
 const eNODE_TYPE::E&

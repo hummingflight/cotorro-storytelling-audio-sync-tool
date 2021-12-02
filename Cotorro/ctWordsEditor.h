@@ -119,6 +119,11 @@ public:
    */
   static const quint32 _WORD_BLOCKS_POOL_SIZE = 250;
 
+  /**
+   * @brief TODO
+   */
+  static const float _CLIPPING_VIEWPORT_EXTRUDE = 0.0f;
+
 private:
 
   /**
@@ -128,9 +133,10 @@ private:
   onInit() override;
 
   /**
-   * @brief List of active word blocks.
+   * @brief Removes non visible word blocks.
    */
-  QList<WordBlock*> _m_aActiveWordBlocks;
+  void
+  clipping(const float& _viewportStart, const float& _viewportEnd);
 
   /**
    * @brief List of deactive word blocks.
@@ -151,6 +157,16 @@ private:
    * @brief Array of word blocks.
    */
   WordBlock _m_aWordBlockPool[WordsEditor::_WORD_BLOCKS_POOL_SIZE];
+
+  /**
+   * @brief The start node of the linked list.
+   */
+  WordBlock _m_startWordBlock;
+
+  /**
+   * @brief The final node of the linded list.
+   */
+  WordBlock _m_endWordBlock;
 };
 
 }
