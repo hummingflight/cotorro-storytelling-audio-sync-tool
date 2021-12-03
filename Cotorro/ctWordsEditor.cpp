@@ -130,7 +130,7 @@ WordsEditor::updateWordBlocks()
     if(pCurrentNext->getType() != eNODE_TYPE::kEnd) {
       Word* pCurrentNextWord = pCurrentNext->getWord();
       if(pCurrentNextWord->getIndex() == iWordIndex) {
-        // The next word is already the set.
+        // The next word is already set.
         return;
       }
     }
