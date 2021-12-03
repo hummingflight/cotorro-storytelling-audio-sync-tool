@@ -137,6 +137,18 @@ public:
   const quint32&
   getIndex();
 
+  /**
+   * @brief Checks if the word block is visible in the
+   * given viewport.
+   *
+   * @param _viewportStart Viewport start in seconds.
+   * @param _viewportEnd Viewport end in seconds.
+   *
+   * @return True if the word block is visible in the given viewport.
+   */
+  inline bool
+  isVisibleInViewport(const quint32& _viewportStart, const quint32& _viewportEnd);
+
 private:
 
   /**

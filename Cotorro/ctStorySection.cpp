@@ -206,4 +206,10 @@ StorySection::resetWords()
   return;
 }
 
+const QList<Word *>&
+StorySection::getWordsList()
+{
+  return _m_aWords;
+}
+
 }

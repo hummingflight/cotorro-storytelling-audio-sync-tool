@@ -131,6 +131,14 @@ public:
   resetWords();
 
   /**
+   * @brief Get the list of words.
+   *
+   * @return List of words.
+   */
+  const QList<Word*>&
+  getWordsList();
+
+  /**
    * @brief Safely destroys this object.
    */
   void

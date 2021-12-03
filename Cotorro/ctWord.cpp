@@ -157,5 +157,21 @@ Word::getIndex()
   return _m_index;
 }
 
+bool
+Word::isVisibleInViewport(
+    const quint32 &_viewportStart,
+    const quint32 &_viewportEnd
+)
+{
+  if(_m_start >= _viewportStart && _m_start < _viewportEnd ) {
+    return true;
+  }
+  else if(_m_start <= _viewportStart && _m_end > _viewportStart) {
+    return true;
+  }
+
+  return false;
+}
+
 }
 

@@ -116,7 +116,7 @@ public:
   setNext(WordBlock*);
 
   /**
-   * @brief Dettaches this word block.
+   * @brief Dettach this word block.
    */
   void
   dettach();

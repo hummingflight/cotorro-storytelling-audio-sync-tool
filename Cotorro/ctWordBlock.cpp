@@ -164,17 +164,7 @@ WordBlock::isVisible(const float &_viewportStart, const float &_viewportEnd)
     return false;
   }
 
-  float start = _m_pWord->getStart();
-  float end = _m_pWord->getEnd();
-
-  if(start >= _viewportStart && start < _viewportEnd ) {
-    return true;
-  }
-  else if(start <= _viewportStart && end > _viewportStart) {
-    return true;
-  }
-
-  return false;
+  return _m_pWord->isVisibleInViewport(_viewportStart, _viewportEnd);
 }
 
 const eNODE_TYPE::E&

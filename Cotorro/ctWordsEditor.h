@@ -119,11 +119,6 @@ public:
    */
   static const quint32 _WORD_BLOCKS_POOL_SIZE = 250;
 
-  /**
-   * @brief TODO
-   */
-  static const float _CLIPPING_VIEWPORT_EXTRUDE = 0.0f;
-
 private:
 
   /**
@@ -137,6 +132,46 @@ private:
    */
   void
   clipping(const float& _viewportStart, const float& _viewportEnd);
+
+  /**
+   * @brief Finds the first visible word (the first one to the left) in the
+   * given viewport. This is a recursive function.
+   *
+   * @param _startIndex Array segment start index.
+   * @param _endIndex Array segment end index.
+   * @param _viewportStart Viewport start point in seconds.
+   * @param _viewportEnd Viewport final point in seconds.
+   * @param _list Words list.
+   *
+   * @return The first visible word. Returns nullptr if there isn't any visible
+   * word.
+   */
+  Word*
+  findFirtWordInViewport(
+      const quint32& _startIndex,
+      const quint32& _endIndex,
+      const float& _viewportStart,
+      const float& _viewportEnd,
+      const QList<Word*>& _list
+  );
+
+  /**
+   * @brief Checks if region is visible in the given viewport.
+   *
+   * @param _start Region's start point in seconds.
+   * @param _end Region's end point in seconds.
+   * @param _viewportStart Viewport start point in seconds.
+   * @param _viewportEnd Viewport final point in seconds.
+   *
+   * @return True if the word is visible in the viewport.
+   */
+  bool
+  isRegionVisible(
+      const float& _start,
+      const float& _end,
+      const float& _viewportStart,
+      const float& _viewportEnd
+  );
 
   /**
    * @brief List of deactive word blocks.
