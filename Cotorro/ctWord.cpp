@@ -159,8 +159,8 @@ Word::getIndex()
 
 bool
 Word::isVisibleInViewport(
-    const quint32 &_viewportStart,
-    const quint32 &_viewportEnd
+    const float &_viewportStart,
+    const float &_viewportEnd
 )
 {
   if(_m_start >= _viewportStart && _m_start < _viewportEnd ) {

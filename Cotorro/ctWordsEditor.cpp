@@ -17,6 +17,7 @@ WordsEditor::WordsEditor(StorySectionEditorWidget* _pStorySectionEditorWidget) :
   _m_startWordBlock(eNODE_TYPE::kStart),
   _m_endWordBlock(eNODE_TYPE::kEnd)
 {
+  _m_startWordBlock.setNext(&_m_endWordBlock);
   return;
 }
 
@@ -40,6 +41,12 @@ WordsEditor::onUpdate(sf::RenderWindow &_window)
 void
 WordsEditor::onDrawableAreaChanged()
 {
+  WordBlock* pWordBlock = _m_startWordBlock.getNext();
+  while(pWordBlock->getType() != eNODE_TYPE::kEnd) {
+    pWordBlock->setHeight(_m_drawableArea.height);
+    pWordBlock = pWordBlock->getNext();
+  }
+
   updateWordBlocks();
   return;
 }
@@ -71,14 +78,15 @@ WordsEditor::onMouseDoubleClicked(QMouseEvent *e)
 void
 WordsEditor::onStorySectionChanged(StorySection *_pStorySection)
 {
-  // TODO
+  clearWordBlocks();
+  updateWordBlocks();
   return;
 }
 
 void
 WordsEditor::onViewportMoved(const float &_newPosition)
 {
-
+  updateWordBlocks();
 }
 
 void
@@ -102,6 +110,9 @@ WordsEditor::updateWordBlocks()
   float viewportPosition = _m_pStorySectionEditorWidget->getViewportPosition();
   float viewportEndPosition = viewportPosition
                             + _m_pStorySectionEditorWidget->getViewportLength();
+
+  _m_wordBlocksGroup.setPosition(-viewportPosition * _m_pStorySectionEditorWidget->getPixelsPerSecond(), 0.0f);
+  _m_wordBlocksGroup.setScale(_m_pStorySectionEditorWidget->getPixelsPerSecond(), 1.0f);
 
   // Remove non visible word blocks.
   clipping(viewportPosition, viewportEndPosition);
@@ -152,14 +163,13 @@ WordsEditor::updateWordBlocks()
     iWordIndex++;
     if(iWordIndex >= wordList.length()) {
       // Final word was reach.
-      return;
+      break;
     }
 
     // Prepare for next iteration.
     previousWordBlock = pNewWordBlock;
     iWord = wordList.at(iWordIndex);
   }
-
   return;
 }
 
@@ -179,6 +189,7 @@ WordsEditor::getWordBlock()
     WordBlock* pWordBlock = _m_aDeactiveWordBlocks.takeLast();
 
     pWordBlock->active();
+    pWordBlock->setHeight(_m_drawableArea.height);
     return pWordBlock;
   }
   return nullptr;
@@ -208,8 +219,7 @@ WordsEditor::destroy()
 
 void
 WordsEditor::onInit()
-{
-  _m_startWordBlock.setNext(&_m_endWordBlock);
+{  
   _m_wordBlocksGroup.setParent(_m_frameNode);
   _m_aDeactiveWordBlocks.clear();
 
@@ -226,7 +236,7 @@ WordsEditor::clipping(const float& _viewportStart, const float& _viewportEnd)
 {
   WordBlock* pWordBlock = _m_startWordBlock.getNext();
   while(pWordBlock->getType() != eNODE_TYPE::kEnd) {
-    if(!pWordBlock->isVisible(_viewportStart, _viewportEnd)) {
+    if(pWordBlock->isVisible(_viewportStart, _viewportEnd)) {
       pWordBlock = pWordBlock->getNext();
     }
     else {
@@ -320,6 +330,19 @@ WordsEditor::isRegionVisible
   }
 
   return false;
+}
+
+void
+WordsEditor::printActiveBlocksNumber()
+{
+  WordBlock* iiWordBlock = _m_startWordBlock.getNext();
+  quint32 count = 0;
+  while(iiWordBlock->getType() != eNODE_TYPE::kEnd) {
+    iiWordBlock = iiWordBlock->getNext();
+    count++;
+  }
+
+  Cotorro::Log(eLOGTYPE::kMessage, QObject::tr("Active word blocks: %1").arg(QString::number(count)));
 }
 
 }

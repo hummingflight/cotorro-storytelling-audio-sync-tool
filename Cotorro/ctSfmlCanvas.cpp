@@ -16,8 +16,8 @@ SfmlCanvas::SfmlCanvas
     quint32 _frameTime
 ) :
   QWidget(parent),
-  _m_timer(),
   _m_isReady(false),
+  _m_timer(),  
   _m_clock()
 {
   // Setup some states to allow direct rendering into the widget

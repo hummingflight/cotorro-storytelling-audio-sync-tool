@@ -9,12 +9,16 @@ WordBlock::WordBlock() :
   _m_blockShape(),
   _m_text(),
   _m_pWord(nullptr),
-  _m_height(1.0f),
+  _m_height(10.0f),
   _m_isActive(false),
   _m_next(nullptr),
   _m_prev(nullptr),
   _m_type(eNODE_TYPE::kNode)
 {
+
+  _m_blockShape.setOutlineThickness(1.0f);
+  _m_blockShape.setOutlineColor(sf::Color::Black);
+  _m_blockShape.setFillColor(sf::Color(220, 220, 220));
   return;
 }
 
@@ -40,12 +44,14 @@ WordBlock::~WordBlock()
 void
 WordBlock::update(sf::RenderWindow &_window)
 {
+  setPosition(_m_pWord->getStart(), 0.0f);
+
   _updateTransform();
 
   sf::FloatRect blockShapeFloatRect(
         0.0f,
         0.0f,
-        10.0f,
+        _m_pWord->getEnd() - _m_pWord->getStart(),
         _m_height
   );
 
@@ -53,14 +59,11 @@ WordBlock::update(sf::RenderWindow &_window)
   blockShapeFloatRect = _m_global.transformRect(blockShapeFloatRect);
 
   // Assign to texture.
-  _m_blockShape.setTextureRect(
-    sf::IntRect(
-      static_cast<sf::Int32>(blockShapeFloatRect.left),
-      static_cast<sf::Int32>(blockShapeFloatRect.top),
-      static_cast<sf::Int32>(blockShapeFloatRect.width),
-      static_cast<sf::Int32>(blockShapeFloatRect.height)
-    )
+  _m_blockShape.setPosition(
+        static_cast<sf::Int32>(blockShapeFloatRect.left),
+        static_cast<sf::Int32>(blockShapeFloatRect.top)
   );
+  _m_blockShape.setSize(blockShapeFloatRect.getSize());
 
   // Draw word block.
   _window.draw(_m_blockShape);

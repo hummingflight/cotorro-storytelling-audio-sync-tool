@@ -46,10 +46,16 @@ protected:
   sf::Time
   getDeltaTime();
 
+  /**
+   * @brief _m_isReady
+   */
+  bool
+  _m_isReady;
+
 private slots:
 
   void
-  onTimeOut();
+  onTimeOut();  
 
 private:
 
@@ -88,13 +94,7 @@ private:
    * @brief _m_timer
    */
   QTimer
-  _m_timer;
-
-  /**
-   * @brief _m_isReady
-   */
-  bool
-  _m_isReady;
+  _m_timer;  
 
   /**
    * @brief _m_time

@@ -174,6 +174,12 @@ private:
   );
 
   /**
+   * @brief EREASE THIS METHOD
+   */
+  void
+  printActiveBlocksNumber();
+
+  /**
    * @brief List of deactive word blocks.
    */
   QList<WordBlock*> _m_aDeactiveWordBlocks;

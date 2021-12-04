@@ -147,7 +147,7 @@ public:
    * @return True if the word block is visible in the given viewport.
    */
   bool
-  isVisibleInViewport(const quint32& _viewportStart, const quint32& _viewportEnd);
+  isVisibleInViewport(const float& _viewportStart, const float& _viewportEnd);
 
 private:
 

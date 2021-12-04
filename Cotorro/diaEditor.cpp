@@ -442,7 +442,7 @@ Editor::onRenameButtonClick()
   if(pActiveSection == nullptr) {
     Cotorro::Log(
       ct::eLOGTYPE::kError,
-      "| Editor | Active story section is nullptr."
+      tr("| Editor | Active story section is nullptr.")
     );
 
     return;

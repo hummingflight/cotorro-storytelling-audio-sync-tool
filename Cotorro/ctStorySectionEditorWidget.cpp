@@ -42,9 +42,6 @@ StorySectionEditorWidget::setZoom(const float &_zoom)
                      + (StorySectionEditorWidget::_MAX_PIXEL_PER_SECOND - StorySectionEditorWidget::_MIN_PIXEL_PER_SECOND)
                      * _m_zoom;
 
-  _m_waveFormEditor.updateTimeline();
-  _m_waveFormEditorSlider.updateSlider();
-
   moveViewport(0.0f);
   return;
 }
@@ -232,6 +229,7 @@ StorySectionEditorWidget::setViewportPosition(const float &_time)
 
   _m_waveFormEditorSlider.onViewportMoved(_m_viewportTimePosition);
   _m_waveFormEditor.onViewportMoved(_m_viewportTimePosition);
+  _m_wordsEditor.onViewportMoved(_m_viewportTimePosition);
   return;
 }
 
@@ -264,7 +262,7 @@ StorySectionEditorWidget::moveViewport(const float &_seconds)
 
   _m_waveFormEditorSlider.onViewportMoved(_m_viewportTimePosition);
   _m_waveFormEditor.onViewportMoved(_m_viewportTimePosition);
-
+  _m_wordsEditor.onViewportMoved(_m_viewportTimePosition);
   return;
 }
 
@@ -295,6 +293,7 @@ StorySectionEditorWidget::onInit()
   _m_waveFormEditor.updateTimeline();
 
   _m_wordsEditor.init();
+  _m_wordsEditor.setMinimumSize(10, 20);
   _m_wordsEditor.setMargin(
     StorySectionEditorWidget::_PADDING_LEFT,
     StorySectionEditorWidget::_PADDING_BETWEEN,
