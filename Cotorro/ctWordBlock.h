@@ -34,6 +34,12 @@ public:
   ~WordBlock();
 
   /**
+   * @brief Initialize the word block.
+   */
+  void
+  init();
+
+  /**
    * @brief Updates and draw the word block.
    */
   void

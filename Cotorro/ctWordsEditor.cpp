@@ -224,6 +224,7 @@ WordsEditor::onInit()
   _m_aDeactiveWordBlocks.clear();
 
   for(qint32 i = 0; i < WordsEditor::_WORD_BLOCKS_POOL_SIZE; ++i) {
+    _m_aWordBlockPool[i].init();
     _m_aWordBlockPool[i].deactive();
     _m_aWordBlockPool[i].setParent(_m_wordBlocksGroup);
     _m_aDeactiveWordBlocks.push_back(&(_m_aWordBlockPool[i]));

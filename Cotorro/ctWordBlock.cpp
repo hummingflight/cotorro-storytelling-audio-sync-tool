@@ -1,5 +1,7 @@
 #include "ctWordBlock.h"
 
+#include "ctCotorro.h"
+#include "ctResourceManager.h"
 #include "ctWord.h"
 
 namespace ct {
@@ -15,7 +17,6 @@ WordBlock::WordBlock() :
   _m_prev(nullptr),
   _m_type(eNODE_TYPE::kNode)
 {
-
   _m_blockShape.setOutlineThickness(1.0f);
   _m_blockShape.setOutlineColor(sf::Color::Black);
   _m_blockShape.setFillColor(sf::Color(220, 220, 220));
@@ -38,6 +39,29 @@ WordBlock::WordBlock(eNODE_TYPE::E _type) :
 
 WordBlock::~WordBlock()
 {
+  return;
+}
+
+void
+WordBlock::init()
+{
+  // Setup Label.
+  ResourceManager& resourceManager = Cotorro::Instance()->getResourceManager();
+  FontResourceManager& fontManager = resourceManager.fontResourceManager();
+  if(!fontManager.has("arial_narrow_7.ttf")) {
+    Cotorro::Log(
+      eLOGTYPE::kError,
+      QObject::tr("| TimeLineLine | Font was not found: arial_narrow_7.ttf")
+    );
+    return;
+  }
+
+  const FontResource& fontResource = fontManager.get("arial_narrow_7.ttf");
+  _m_text.setFont(fontResource.sfmlFont);
+  _m_text.setString("");
+  _m_text.setCharacterSize(13);
+  _m_text.setFillColor(sf::Color::Black);
+
   return;
 }
 
@@ -67,6 +91,17 @@ WordBlock::update(sf::RenderWindow &_window)
 
   // Draw word block.
   _window.draw(_m_blockShape);
+
+  // Setup label position.
+  sf::FloatRect textBounds = _m_text.getGlobalBounds();
+  if(textBounds.width < blockShapeFloatRect.width) {
+    _m_text.setPosition(
+      blockShapeFloatRect.left + (blockShapeFloatRect.width * 0.5f) - textBounds.width * 0.5,
+      blockShapeFloatRect.top + (blockShapeFloatRect.height * 0.5f) - textBounds.height
+    );
+    // Draw label.
+    _window.draw(_m_text);
+  }
   return;
 }
 
@@ -74,6 +109,7 @@ void
 WordBlock::setWord(Word *_pWord)
 {
   _m_pWord = _pWord;
+  _m_text.setString(_m_pWord->getWord().toStdWString());
   return;
 }
 
