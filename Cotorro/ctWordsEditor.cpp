@@ -141,8 +141,18 @@ WordsEditor::updateWordBlocks()
     if(pCurrentNext->getType() != eNODE_TYPE::kEnd) {
       Word* pCurrentNextWord = pCurrentNext->getWord();
       if(pCurrentNextWord->getIndex() == iWordIndex) {
-        // The next word is already set.
-        return;
+        // The next word is already set, continue with the last word in the linked list.
+        previousWordBlock = _m_endWordBlock.getPrev();
+        iWordIndex = previousWordBlock->getWord()->getIndex() + 1;
+
+        // Check if the last word in the linked list is the last word in the section.
+        if(iWordIndex >= wordList.length()) {
+          break;
+        }
+
+        // Continue.
+        iWord = wordList.at(iWordIndex);
+        continue;
       }
     }
 
