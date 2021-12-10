@@ -3,6 +3,10 @@
 
 Cotorro is a development tool created and mantained by HummingFlight S.A. Its main function is to synchronize the words of a text with audio clips, generally useful for digital books and subtitles.
 
+<p align="center">
+  <img src="cotorro_logo.png" alt="Cotorro Logo"/>
+</p>
+
 ### Features
 
 - Attach text content to audio clips.
