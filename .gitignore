@@ -53,5 +53,8 @@ compile_commands.json
 
 *_qmlcache.qrc
 
+# Visual Studio
+.vs
+
 # Build Folder
 /bin
