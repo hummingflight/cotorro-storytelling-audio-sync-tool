@@ -17,3 +17,4 @@ Cotorro is a development tool created and mantained by HummingFlight S.A. Its ma
 ### For Devs
 
 - Qt 6.1.3
+- SFML 2.5.1
