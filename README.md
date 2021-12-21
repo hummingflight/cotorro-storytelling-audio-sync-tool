@@ -13,3 +13,7 @@ Cotorro is a development tool created and mantained by HummingFlight S.A. Its ma
 - Set the start and end position of a word at a specified point on the audio clip's timeline.
 - Set custom data to a word in the form of a string.
 - Export all the information about the relationship between audio clips and text in a single file. 
+
+### For Devs
+
+- Qt 6.1.3
