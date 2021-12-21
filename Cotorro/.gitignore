@@ -68,6 +68,6 @@ Thumbs.db
 
 # Binaries
 # --------
-
+/bin
 *.exe
 
