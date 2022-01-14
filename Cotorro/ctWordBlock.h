@@ -72,6 +72,12 @@ public:
   getWord();
 
   /**
+   * @brief Dettaches to the assigned word, if it has one.
+   */
+  void
+  clearWord();
+
+  /**
    * @brief Cheks if the word block is being used.
    *
    * @return True if the word block is currently being used.
@@ -100,34 +106,6 @@ public:
   setHeight(const float& _height);
 
   /**
-   * @brief Gets the next word block.
-   *
-   * @return Next word block.
-   */
-  WordBlock*
-  getNext();
-
-  /**
-   * @brief Gets the previous word block.
-   *
-   * @return Previous word block.
-   */
-  WordBlock*
-  getPrev();
-
-  /**
-   * @brief Sets the next word block.
-   */
-  void
-  setNext(WordBlock*);
-
-  /**
-   * @brief Dettach this word block.
-   */
-  void
-  dettach();
-
-  /**
    * @brief Checks if the word block is visible in the
    * given viewport.
    *
@@ -146,6 +124,22 @@ public:
    */
   const eNODE_TYPE::E&
   getType();
+
+  /**
+   * @brief Sets the word block status.
+   *
+   * @param _status Word block status.
+   */
+  void
+  setStatus(const eBLOCK_STATUS::E& _status);
+
+  /**
+   * @brief Gets the word block status.
+   *
+   * @return Word block status.
+   */
+  const eBLOCK_STATUS::E&
+  getStatus();
 
   /**
    * @brief Safely destroys this object.
@@ -186,22 +180,10 @@ private:
   _m_isActive;
 
   /**
-   * @brief Reference to the next word block.
+   * @brief Block's node status.
    */
-  WordBlock*
-  _m_next;
-
-  /**
-   * @brief Reference to the prev word block.
-   */
-  WordBlock*
-  _m_prev;
-
-  /**
-   * @brief Node's type.
-   */
-  eNODE_TYPE::E
-  _m_type;
+  eBLOCK_STATUS::E
+  _m_status;
 
 };
 

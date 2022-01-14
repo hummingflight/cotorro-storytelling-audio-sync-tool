@@ -155,6 +155,8 @@ StorySectionEditorWidget::onActiveSectionChanged(StorySection *_pStorySection)
 {
   _m_pActiveStorySection = _pStorySection;
 
+  _m_wordsEditor.clearWordBlocks();
+
   setViewportPosition(0.0f);
 
   _m_waveFormEditor.onStorySectionChanged(_pStorySection);
@@ -204,28 +206,7 @@ StorySectionEditorWidget::getPixelsPerSecond()
 const void
 StorySectionEditorWidget::setViewportPosition(const float &_time)
 {
-  float viewportWidth = getViewportLength();
-  float trackDuration = getMediaLength();
-  if(viewportWidth >= trackDuration) {
-    _m_viewportTimePosition = 0.0f;
-  }
-  else {
-    float viewportFinalPointPosition = _time
-                                     + viewportWidth;
-
-    if(viewportFinalPointPosition > trackDuration){
-      _m_viewportTimePosition = _time
-                              + trackDuration
-                              - viewportFinalPointPosition;
-    }
-    else {
-      _m_viewportTimePosition = _time;
-    }
-
-    if(_m_viewportTimePosition < 0.0f) {
-      _m_viewportTimePosition = 0.0f;
-    }
-  }
+  updateViewportPosition(_time);
 
   _m_waveFormEditorSlider.onViewportMoved(_m_viewportTimePosition);
   _m_waveFormEditor.onViewportMoved(_m_viewportTimePosition);
@@ -348,6 +329,33 @@ StorySectionEditorWidget::resetView()
   sf::RenderWindow::setView(_m_view);
 
   return;
+}
+
+void
+StorySectionEditorWidget::updateViewportPosition(const float &_time)
+{
+  float viewportWidth = getViewportLength();
+  float trackDuration = getMediaLength();
+  if(viewportWidth >= trackDuration) {
+    _m_viewportTimePosition = 0.0f;
+  }
+  else {
+    float viewportFinalPointPosition = _time
+                                     + viewportWidth;
+
+    if(viewportFinalPointPosition > trackDuration){
+      _m_viewportTimePosition = _time
+                              + trackDuration
+                              - viewportFinalPointPosition;
+    }
+    else {
+      _m_viewportTimePosition = _time;
+    }
+
+    if(_m_viewportTimePosition < 0.0f) {
+      _m_viewportTimePosition = 0.0f;
+    }
+  }
 }
 
 }

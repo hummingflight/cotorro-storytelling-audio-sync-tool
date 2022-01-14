@@ -201,6 +201,12 @@ private:
   resetView();
 
   /**
+   * @brief TODO
+   */
+  void
+  updateViewportPosition(const float& _time);
+
+  /**
    * @brief Make sure viewport position doesn't cross media duration.
    */
   void

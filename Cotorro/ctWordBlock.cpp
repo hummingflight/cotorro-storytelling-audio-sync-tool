@@ -13,13 +13,9 @@ WordBlock::WordBlock() :
   _m_pWord(nullptr),
   _m_height(10.0f),
   _m_isActive(false),
-  _m_next(nullptr),
-  _m_prev(nullptr),
-  _m_type(eNODE_TYPE::kNode)
+  _m_status(eBLOCK_STATUS::kIdle)
 {
-  _m_blockShape.setOutlineThickness(1.0f);
-  _m_blockShape.setOutlineColor(sf::Color::Black);
-  _m_blockShape.setFillColor(sf::Color(220, 220, 220));
+  setStatus(eBLOCK_STATUS::kIdle);
   return;
 }
 
@@ -30,10 +26,9 @@ WordBlock::WordBlock(eNODE_TYPE::E _type) :
   _m_pWord(nullptr),
   _m_height(1.0f),
   _m_isActive(false),
-  _m_next(nullptr),
-  _m_prev(nullptr),
-  _m_type(_type)
+  _m_status(eBLOCK_STATUS::kIdle)
 {
+  setStatus(eBLOCK_STATUS::kIdle);
   return;
 }
 
@@ -68,6 +63,10 @@ WordBlock::init()
 void
 WordBlock::update(sf::RenderWindow &_window)
 {
+  if(_m_pWord == nullptr) {
+    return;
+  }
+
   setPosition(_m_pWord->getStart(), 0.0f);
 
   _updateTransform();
@@ -108,8 +107,17 @@ WordBlock::update(sf::RenderWindow &_window)
 void
 WordBlock::setWord(Word *_pWord)
 {
-  _m_pWord = _pWord;
-  _m_text.setString(_m_pWord->getWord().toStdWString());
+  clearWord();
+
+  if(_pWord != nullptr) {
+    if(_pWord->getWordBlock() != nullptr) {
+      _pWord->getWordBlock()->clearWord();
+    }
+
+    _m_pWord = _pWord;
+    _m_pWord->setWordBlock(this);
+    _m_text.setString(_m_pWord->getWord().toStdWString());
+  }
   return;
 }
 
@@ -123,6 +131,16 @@ Word*
 WordBlock::getWord()
 {
   return _m_pWord;
+}
+
+void
+WordBlock::clearWord()
+{
+  if(_m_pWord != nullptr) {
+    _m_pWord->setWordBlock(nullptr);
+    _m_pWord = nullptr;
+  }
+  return;
 }
 
 bool
@@ -142,6 +160,8 @@ void
 WordBlock::deactive()
 {
   _m_isActive = false;
+  clearWord();
+  setStatus(eBLOCK_STATUS::kIdle);
   return;
 }
 
@@ -149,50 +169,6 @@ void
 WordBlock::setHeight(const float &_height)
 {
   _m_height = _height;
-  return;
-}
-
-WordBlock*
-WordBlock::getNext()
-{
-  return _m_next;
-}
-
-WordBlock*
-WordBlock::getPrev()
-{
-  return _m_prev;
-}
-
-void
-WordBlock::setNext(WordBlock* _pWordBlock)
-{
-  if(_m_next != nullptr) {
-    _m_next->_m_prev = _pWordBlock;
-  }
-
-  if(_pWordBlock != nullptr) {
-    _pWordBlock->_m_next = _m_next;
-    _pWordBlock->_m_prev = this;
-  }
-
-  _m_next = _pWordBlock;
-  return;
-}
-
-void
-WordBlock::dettach()
-{
-  if(_m_prev != nullptr) {
-    _m_prev->_m_next = _m_next;
-  }
-  if(_m_next != nullptr) {
-    _m_next->_m_prev = _m_prev;
-  }
-
-  _m_prev = nullptr;
-  _m_next = nullptr;
-
   return;
 }
 
@@ -206,10 +182,46 @@ WordBlock::isVisible(const float &_viewportStart, const float &_viewportEnd)
   return _m_pWord->isVisibleInViewport(_viewportStart, _viewportEnd);
 }
 
-const eNODE_TYPE::E&
-WordBlock::getType()
+void
+WordBlock::setStatus(const eBLOCK_STATUS::E &_status)
 {
-  return _m_type;
+  _m_status = _status;
+  switch (_m_status) {
+  case eBLOCK_STATUS::kIdle:
+    _m_blockShape.setOutlineThickness(1.0f);
+    _m_blockShape.setOutlineColor(sf::Color::Black);
+    _m_blockShape.setFillColor(sf::Color(220, 220, 220));
+    _m_text.setFillColor(sf::Color::Black);
+    break;
+
+  case eBLOCK_STATUS::kSelected:
+    _m_blockShape.setOutlineThickness(1.0f);
+    _m_blockShape.setOutlineColor(sf::Color::White);
+    _m_blockShape.setFillColor(sf::Color(0, 174, 255));
+    _m_text.setFillColor(sf::Color::White);
+    break;
+
+  case eBLOCK_STATUS::kGrouped:
+    _m_blockShape.setOutlineThickness(1.0f);
+    _m_blockShape.setOutlineColor(sf::Color::Black);
+    _m_blockShape.setFillColor(sf::Color(0, 206, 255));
+    _m_text.setFillColor(sf::Color::Black);
+    break;
+
+  default:
+    _m_blockShape.setOutlineThickness(1.0f);
+    _m_blockShape.setOutlineColor(sf::Color::Black);
+    _m_blockShape.setFillColor(sf::Color(220, 220, 220));
+    _m_text.setFillColor(sf::Color::Black);
+    break;
+  }
+  return;
+}
+
+const eBLOCK_STATUS::E&
+WordBlock::getStatus()
+{
+  return _m_status;
 }
 
 void

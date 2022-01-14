@@ -11,7 +11,8 @@ Word::Word()
     _m_data(""),
     _m_start(0.0f),
     _m_end(0.0f),
-    _m_index(0)
+    _m_index(0),
+    _m_pWordBlock(nullptr)
 {
   return;
 }
@@ -155,6 +156,25 @@ const quint32&
 Word::getIndex()
 {
   return _m_index;
+}
+
+bool
+Word::hasWordBlock()
+{
+  return _m_pWordBlock != nullptr;
+}
+
+void
+Word::setWordBlock(WordBlock *_pWordBlock)
+{
+  _m_pWordBlock = _pWordBlock;
+  return;;
+}
+
+WordBlock*
+Word::getWordBlock()
+{
+  return _m_pWordBlock;
 }
 
 bool

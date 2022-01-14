@@ -103,11 +103,25 @@ public:
   getWordBlock();
 
   /**
+   * @brief Select a range of block nodes.
+   *
+   * @param _start Start node block.
+   * @param _final Final node block.
+   */
+  void
+  selectRange(WordBlock* _start, WordBlock* _final);
+
+  /**
    * @brief Removes all word blocks from the scene.
    */
   void
   clearWordBlocks();
 
+  /**
+   * @brief Clears selected nodes.
+   */
+  void
+  clearSelection();
   /**
    * @brief destroy
    */
@@ -180,6 +194,11 @@ private:
   printActiveBlocksNumber();
 
   /**
+   * @brief List of active word blocks.
+   */
+  QList<WordBlock*> _m_aActiveWordBlocks;
+
+  /**
    * @brief List of deactive word blocks.
    */
   QList<WordBlock*> _m_aDeactiveWordBlocks;
@@ -200,14 +219,19 @@ private:
   WordBlock _m_aWordBlockPool[WordsEditor::_WORD_BLOCKS_POOL_SIZE];
 
   /**
-   * @brief The start node of the linked list.
+   * @brief Indicates the current selection mode.
    */
-  WordBlock _m_startWordBlock;
+  eSELECTION_MODE::E _m_selectionMode;
 
   /**
-   * @brief The final node of the linded list.
+   * @brief Pointer to the first node selected. Could be nullptr.
    */
-  WordBlock _m_endWordBlock;
+  WordBlock* _m_firstNodeSelected;
+
+  /**
+   * @brief List of selected nodes.
+   */
+  QList<WordBlock*> _m_selectedNodes;
 };
 
 }

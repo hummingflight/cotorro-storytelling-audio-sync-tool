@@ -42,6 +42,21 @@ enum E {
 };
 }
 
+namespace eBLOCK_STATUS {
+enum E {
+  kIdle,
+  kSelected,
+  kGrouped
+};
+}
+
+namespace eSELECTION_MODE {
+enum E {
+  kIdle,
+  kSingle,
+  kGroup
+};
+}
 }
 
 #endif // COTORROUTILITIES_H

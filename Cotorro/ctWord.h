@@ -8,6 +8,8 @@
 
 namespace ct {
 
+class WordBlock;
+
 /**
  * @brief Defines a single word of the story section's content.
  */
@@ -138,6 +140,31 @@ public:
   getIndex();
 
   /**
+   * @brief Checks if the word has word block assigned.
+   *
+   * @return True if the word has a word block assigned.
+   */
+  bool
+  hasWordBlock();
+
+  /**
+   * @brief Sets the word's word block.
+   *
+   * @param _pWordBlock Pointer to word block.
+   */
+  void
+  setWordBlock(WordBlock* _pWordBlock);
+
+  /**
+   * @brief Gets the assigned word block.
+   *
+   * @return Pointer to word block. Can return a nullptr if the word has no
+   * word block assigned.
+   */
+  WordBlock*
+  getWordBlock();
+
+  /**
    * @brief Checks if the word block is visible in the
    * given viewport.
    *
@@ -180,6 +207,12 @@ private:
    */
   quint32
   _m_index;
+
+  /**
+   * @brief Pointer to the assigned word block.
+   */
+  WordBlock*
+  _m_pWordBlock;
 
 };
 
