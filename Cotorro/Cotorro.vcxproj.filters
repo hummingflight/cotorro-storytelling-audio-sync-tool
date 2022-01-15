@@ -1,0 +1,467 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ctAudioManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ctButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ctCotorro.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ctFontResource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ctFontResourceManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ctFrame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ctInteractiveArea.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ctProject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ctResourceManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ctSfmlCanvas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ctStorySection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ctStorySectionEditorWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ctStorySectionManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ctTimeLineLine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ctTransformableNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ctWaveformEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ctWaveformEditorSlider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ctWord.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ctWordBlock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ctWordsEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="diaCreateSection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="diaEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="diaNewProject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="ctAudioManager.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="ctButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="ctCotorro.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="ctCotorroUtilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ctFontResource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ctFontResourceManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ctFrame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ctInteractiveArea.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="ctProject.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ctResourceManager.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ctSfmlCanvas.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ctStorySection.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ctStorySectionEditorWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ctStorySectionManager.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="ctTimeLineLine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ctTransformableNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ctWaveformEditor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ctWaveformEditorSlider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ctWord.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ctWordBlock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ctWordsEditor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="diaCreateSection.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="diaEditor.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="diaNewProject.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="moc_cbt\debug\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="moc_cbt\release\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="diaCreateSection.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="diaEditor.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="diaNewProject.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="app-resources.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <None Include="assets\icons\application.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\application_warning.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\arial.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\arial_narrow_7.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\calculator.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\calendar.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\camera.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\clock.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\coffee.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\computer.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\cotorro.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\images\cotorro_banner.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\direction_down.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\direction_left.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\direction_right.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\direction_up.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\disc.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\diskette.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\document.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\document_add.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\document_delete.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\document_edit.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\document_search.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\document_warning.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\file.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\file_add.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\file_delete.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\file_edit.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\file_search.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\file_warning.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\folder.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\folder_add.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\folder_delete.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\folder_empty.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\folder_search.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\folder_warning.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\home.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\load_download.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\load_upload.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\mail.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\mail_delete.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\mail_receive.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\mail_search.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\mail_send.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\mail_warning.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\mail_write.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\manage.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\message.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\notification_add.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\notification_done.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\notification_error.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\notification_remove.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\notification_warning.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\piechart.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\player_fastforward.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\player_pause.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\player_play.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\player_record.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\player_rewind.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\player_stop.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\rss.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\search.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\security_key.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\security_keyandlock.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\security_lock.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\security_unlock.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\shoppingcart.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\shoppingcart_add.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\shoppingcart_checkout.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\shoppingcart_remove.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\shoppingcart_warning.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\star_empty.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\star_full.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\star_half.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\user.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\user_add.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\user_delete.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\volume.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\volume_down.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\volume_mute.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\volume_up.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\icons\warning.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>
