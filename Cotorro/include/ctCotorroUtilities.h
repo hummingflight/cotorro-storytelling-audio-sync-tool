@@ -57,6 +57,14 @@ enum E {
   kGroup
 };
 }
+
+namespace eSEQUENCE_RESULT {
+  enum E {
+    kOk,
+    kAbort,
+    kFail
+  };
+}
 }
 
 #endif // COTORROUTILITIES_H

@@ -19,7 +19,7 @@ WordBlock::WordBlock() :
   return;
 }
 
-WordBlock::WordBlock(eNODE_TYPE::E _type) :
+WordBlock::WordBlock(const eNODE_TYPE::E& _type) :
   TransformableNode(),
   _m_blockShape(),
   _m_text(),

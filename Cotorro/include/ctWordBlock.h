@@ -25,7 +25,7 @@ public:
   /**
    * @brief WordBlock
    */
-  WordBlock(eNODE_TYPE::E _type);
+  WordBlock(const eNODE_TYPE::E& _type);
 
   /**
    * @brief ~WordBlock
@@ -116,14 +116,6 @@ public:
    */
   bool
   isVisible(const float& _viewportStart, const float& _viewportEnd);
-
-  /**
-   * @brief Gets the word block type.
-   *
-   * @return Word block type.
-   */
-  const eNODE_TYPE::E&
-  getType();
 
   /**
    * @brief Sets the word block status.
