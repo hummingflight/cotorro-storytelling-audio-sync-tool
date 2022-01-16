@@ -199,7 +199,7 @@ private:
   QList<WordBlock*> _m_aActiveWordBlocks;
 
   /**
-   * @brief List of deactive word blocks.
+   * @brief List of disabled word blocks.
    */
   QList<WordBlock*> _m_aDeactiveWordBlocks;
 

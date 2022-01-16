@@ -197,7 +197,7 @@ private:
   _m_start;
 
   /**
-   * @brief End point in audio clip where this workd is no longer pronounced.
+   * @brief End point in audio clip where this word is no longer pronounced.
    */
   float
   _m_end;

@@ -45,6 +45,36 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Source Files\widgets">
+      <UniqueIdentifier>{f0f3ed48-cb15-4b8c-bfc8-86849b69ee87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\dialogs">
+      <UniqueIdentifier>{6205b814-5dc5-4f3f-95a1-847581141797}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\dialogs">
+      <UniqueIdentifier>{2b99fd98-9213-49c1-ba17-3bb0095ca187}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\widgets">
+      <UniqueIdentifier>{9690bc9b-15fe-4e58-a0b0-ce18f9274066}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\objects">
+      <UniqueIdentifier>{65d26215-6b30-40e7-8c96-af5f3fb9d4e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\objects">
+      <UniqueIdentifier>{a64b8bf2-73e9-4dbb-b766-05c169135199}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\services">
+      <UniqueIdentifier>{b9e8c28f-dc3a-4cc6-bf6f-b8b72db2de0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\services">
+      <UniqueIdentifier>{9607b588-5cec-4f98-bd57-2a71631bae69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\objects\wordsEditor">
+      <UniqueIdentifier>{b5b24b25-02c2-415d-b802-22ee1f3cb943}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\objects\wordsEditor">
+      <UniqueIdentifier>{0a5c5895-f651-4f8c-b065-016779efb5d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="moc_cbt\debug\moc_predefs.h.cbt">
@@ -306,162 +336,153 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="include\ctAudioManager.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="include\ctCotorro.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="include\ctProject.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="include\ctResourceManager.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="include\ctSfmlCanvas.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="include\ctStorySection.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="include\ctStorySectionEditorWidget.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="include\ctAudioManager.h">
+      <Filter>Header Files\services</Filter>
+    </QtMoc>
+    <QtMoc Include="include\ctProject.h">
+      <Filter>Header Files\services</Filter>
     </QtMoc>
     <QtMoc Include="include\ctStorySectionManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\services</Filter>
     </QtMoc>
     <QtMoc Include="include\diaCreateSection.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="include\diaEditor.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\dialogs</Filter>
     </QtMoc>
     <QtMoc Include="include\diaNewProject.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\dialogs</Filter>
+    </QtMoc>
+    <QtMoc Include="include\diaEditor.h">
+      <Filter>Header Files\dialogs</Filter>
+    </QtMoc>
+    <QtMoc Include="include\ctResourceManager.h">
+      <Filter>Header Files\objects</Filter>
+    </QtMoc>
+    <QtMoc Include="include\ctSfmlCanvas.h">
+      <Filter>Header Files\objects</Filter>
+    </QtMoc>
+    <QtMoc Include="include\ctStorySection.h">
+      <Filter>Header Files\objects</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\ctFontResourceManager.h">
+      <Filter>Header Files\services</Filter>
+    </ClInclude>
     <ClInclude Include="include\ctButton.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ctFontResource.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ctFrame.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ctInteractiveArea.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ctTimeLineLine.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ctTransformableNode.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ctWaveformEditor.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ctWaveformEditorSlider.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ctWord.h">
+      <Filter>Header Files\objects</Filter>
     </ClInclude>
     <ClInclude Include="include\ctCotorroUtilities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ctFontResource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ctFontResourceManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ctFrame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ctInteractiveArea.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ctTimeLineLine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ctTransformableNode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ctWaveformEditor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ctWaveformEditorSlider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ctWord.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\ctWordsEditor.h">
+      <Filter>Header Files\objects\wordsEditor</Filter>
     </ClInclude>
     <ClInclude Include="include\ctWordBlock.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ctWordsEditor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ui_diaCreateSection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ui_diaEditor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ui_diaNewProject.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\objects\wordsEditor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\ctAudioManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ctButton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\ctCotorro.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ctFontResource.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ctFontResourceManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ctFrame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ctInteractiveArea.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ctProject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ctResourceManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ctSfmlCanvas.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ctStorySection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ctStorySectionEditorWidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ctStorySectionManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ctTimeLineLine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ctTransformableNode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ctWaveformEditor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ctWaveformEditorSlider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ctWord.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ctWordBlock.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ctWordsEditor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\diaCreateSection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\diaEditor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\diaNewProject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctStorySectionEditorWidget.cpp">
+      <Filter>Source Files\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctFontResourceManager.cpp">
+      <Filter>Source Files\services</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctStorySectionManager.cpp">
+      <Filter>Source Files\services</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctAudioManager.cpp">
+      <Filter>Source Files\services</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctResourceManager.cpp">
+      <Filter>Source Files\services</Filter>
+    </ClCompile>
+    <ClCompile Include="src\diaNewProject.cpp">
+      <Filter>Source Files\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\diaCreateSection.cpp">
+      <Filter>Source Files\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\diaEditor.cpp">
+      <Filter>Source Files\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctButton.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctFontResource.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctFrame.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctInteractiveArea.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctProject.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctSfmlCanvas.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctStorySection.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctTimeLineLine.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctTransformableNode.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctWaveformEditor.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctWaveformEditorSlider.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctWord.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctWordBlock.cpp">
+      <Filter>Source Files\objects\wordsEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctWordsEditor.cpp">
+      <Filter>Source Files\objects\wordsEditor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

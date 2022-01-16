@@ -55,30 +55,30 @@ public:
   setWord(Word* _pWord);
 
   /**
-   * @brief Checks if this block has an assignated word.
+   * @brief Checks if this block has an assigned word.
    *
-   * @return True if the block has an assignated word.
+   * @return True if the block has an assigned word.
    */
   bool
   hasWord();
 
   /**
-   * @brief Gets the assignated word. It will return nullptr
-   * if there isn't any assignated word.
+   * @brief Gets the assigned word. It will return nullptr
+   * if there isn't any assigned word.
    *
-   * @return Assignated word. Can returns nullptr.
+   * @return Assigned word. Can returns nullptr.
    */
   Word*
   getWord();
 
   /**
-   * @brief Dettaches to the assigned word, if it has one.
+   * @brief Detaches to the assigned word, if it has one.
    */
   void
   clearWord();
 
   /**
-   * @brief Cheks if the word block is being used.
+   * @brief Checks if the word block is being used.
    *
    * @return True if the word block is currently being used.
    */
@@ -92,7 +92,7 @@ public:
   active();
 
   /**
-   * @brief Deactives the word block.
+   * @brief Deactivate the word block.
    */
   void
   deactive();
