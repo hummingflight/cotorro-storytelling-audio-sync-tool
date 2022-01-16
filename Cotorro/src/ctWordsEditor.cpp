@@ -90,23 +90,16 @@ WordsEditor::updateWordBlocks()
 {
   StorySectionManager& storySectionManager = Cotorro::Instance()->getProject().getStorySectionManager();
   if(!storySectionManager.hasActiveSection()) {
-    clearWordBlocks();
-    // No active story section.
-    return;
+    clearWordBlocks();    
+    return; // No active story section.
   }
 
   StorySection* pActiveStorySection = storySectionManager.getActiveSection();
   const QList<Word*>& wordList = pActiveStorySection->getWordsList();
   if(wordList.length() == 0) {
-    clearWordBlocks();
-    // Story section has no words.
-    return;
+    clearWordBlocks();    
+    return; // Story section has no words.
   }
-
-  Cotorro::Log(
-    eLOGTYPE::kMessage,
-    QObject::tr("======== Update Word blocks ========")
-  );
 
   float viewportPosition = _m_pStorySectionEditorWidget->getViewportPosition();
   float viewportEndPosition = viewportPosition
@@ -115,10 +108,9 @@ WordsEditor::updateWordBlocks()
   _m_wordBlocksGroup.setPosition(-viewportPosition * _m_pStorySectionEditorWidget->getPixelsPerSecond(), 0.0f);
   _m_wordBlocksGroup.setScale(_m_pStorySectionEditorWidget->getPixelsPerSecond(), 1.0f);
 
-  // Remove non visible word blocks.
+  
   clipping(viewportPosition, viewportEndPosition);
 
-  // Find the first vistible word to the left.
   Word* pFirstWord = findFirtWordInViewport(
     0,
     wordList.length() - 1,
@@ -127,9 +119,8 @@ WordsEditor::updateWordBlocks()
     wordList
   );
 
-  if(pFirstWord == nullptr) {
-    // No visible word.
-    return;
+  if(pFirstWord == nullptr) {    
+    return; // No visible word.
   }
 
   Word* iWord = pFirstWord;
@@ -156,38 +147,22 @@ WordsEditor::updateWordBlocks()
 
     // Create and assign new word block.
     WordBlock* pNewWordBlock = getWordBlock();
-    if(pNewWordBlock == nullptr) {
-      Cotorro::Log(
-        eLOGTYPE::kWarning,
-        QObject::tr("| WordsEditor | Word blocks pool is out of elements.")
-      );
-      // No word blocks available.
-      return;
+    if(pNewWordBlock == nullptr) {      
+      return; // No word blocks available.
     }
 
     // Set word to word block.
     pNewWordBlock->setWord(iWord);
 
-    Cotorro::Log(
-      eLOGTYPE::kMessage,
-      QObject::tr("Word Created: Index: %1 Word: %2").arg(iWordIndex).arg(iWord->getWord())
-    );
-
     // Step word index.
     iWordIndex++;
-    if(iWordIndex >= wordList.length()) {
-      // Final word was reach.
-      break;
+    if(iWordIndex >= wordList.length()) {      
+      break; // Final word was reach.
     }
 
     // Prepare for next iteration.
     iWord = wordList.at(iWordIndex);
   }
-
-  Cotorro::Log(
-    eLOGTYPE::kMessage,
-    QObject::tr("===============================")
-  );
 
   return;
 }
@@ -248,7 +223,6 @@ WordsEditor::destroy()
   clearSelection();
   clearWordBlocks();
 
-  // Call destroy callback to each word block.
   for(qint32 i = 0; i < WordsEditor::_WORD_BLOCKS_POOL_SIZE; ++i) {
     _m_aWordBlockPool[i].destroy();
   }
@@ -286,7 +260,6 @@ WordsEditor::clipping(const float& _viewportStart, const float& _viewportEnd)
   for(quint32 i = 0; i < size; ++i) {
     deactiveWordBlock(toRemove[i]);
   }
-
   return;
 }
 
