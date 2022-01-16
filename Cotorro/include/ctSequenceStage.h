@@ -1,6 +1,6 @@
 #pragma once
 
-#include <qobject.h>
+#include <QObject>
 
 #include "ctCotorroUtilities.h"
 

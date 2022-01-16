@@ -1,7 +1,8 @@
 #pragma once
 
-#include <qmap.h>
+#include <QMap>
 
+#include "ctCotorroUtilities.h"
 #include "ctSequence.h"
 
 namespace ct {
@@ -21,18 +22,18 @@ public:
   /**
   * TODO
   */
-  const eOPRESULT::E
-  add(const QString& _name, const Sequence& _sequence);
+  eOPRESULT::E
+  add(const QString& _name, Sequence* _sequence);
 
   /**
   * TODO
   */
-  const eSEQUENCE_RESULT::E
+  eSEQUENCE_RESULT::E
   exec(const QString& _name);
 
 private:
 
-  QMap<QString, const Sequence&> _m_hSequenceMap;
+  QMap<QString, Sequence*> _m_hSequenceMap;
 };
 
 }

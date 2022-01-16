@@ -7,8 +7,8 @@ namespace ct {
   {
   }
 
-  const eOPRESULT::E 
-  Sequencer::add(const QString& _name, const Sequence& _sequence)
+  eOPRESULT::E 
+  Sequencer::add(const QString& _name, Sequence* _sequence)
   {
     if (_m_hSequenceMap.contains(_name)) {
       return eOPRESULT::kFail;
@@ -19,7 +19,6 @@ namespace ct {
     return eOPRESULT::kOk;
   }
 
-  const 
   eSEQUENCE_RESULT::E
   Sequencer::exec(const QString& _name)
   {
@@ -27,6 +26,6 @@ namespace ct {
       return eSEQUENCE_RESULT::kFail;
     }
 
-    return _m_hSequenceMap.value(_name).exec();
+    return _m_hSequenceMap.value(_name)->exec();
   }
 }

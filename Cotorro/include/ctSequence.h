@@ -1,6 +1,6 @@
 #pragma once
 
-#include <qobject.h>
+#include <QVector>
 
 #include "ctCotorroUtilities.h"
 #include "ctSequenceStage.h"
@@ -24,7 +24,7 @@ namespace ct
     * TODO
     */
     Sequence&
-    add(SequenceStage& _stage);
+    add(SequenceStage* _stage);
 
     /**
     * TODO
@@ -37,7 +37,7 @@ namespace ct
     /**
     * TODO
     */
-    QVector<SequenceStage&> _m_hStages;
+    QVector<SequenceStage*> _m_hStages;
 
   };
 }
