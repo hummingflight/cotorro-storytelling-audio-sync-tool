@@ -83,7 +83,7 @@
   </ImportGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>GeneratedFiles\$(ConfigurationName);GeneratedFiles;.;dependencies\sfml\include;release;C:/VulkanSDK/1.0.51.0/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>GeneratedFiles\$(ConfigurationName);GeneratedFiles;$(SolutionDir)include;dependencies\sfml\include;release;C:/VulkanSDK/1.0.51.0/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -permissive- -Zc:__cplusplus -Zc:externConstexpr -utf-8 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>release\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -149,7 +149,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>GeneratedFiles\$(ConfigurationName);GeneratedFiles;.;dependencies\sfml\include;debug;C:/VulkanSDK/1.0.51.0/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>GeneratedFiles\$(ConfigurationName);GeneratedFiles;$(SolutionDir)include;dependencies\sfml\include;debug;C:/VulkanSDK/1.0.51.0/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -permissive- -Zc:__cplusplus -Zc:externConstexpr -utf-8 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -209,69 +209,6 @@
     </QtUic>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ctAudioManager.cpp" />
-    <ClCompile Include="ctButton.cpp" />
-    <ClCompile Include="ctCotorro.cpp" />
-    <ClCompile Include="ctFontResource.cpp" />
-    <ClCompile Include="ctFontResourceManager.cpp" />
-    <ClCompile Include="ctFrame.cpp" />
-    <ClCompile Include="ctInteractiveArea.cpp" />
-    <ClCompile Include="ctProject.cpp" />
-    <ClCompile Include="ctResourceManager.cpp" />
-    <ClCompile Include="ctSfmlCanvas.cpp" />
-    <ClCompile Include="ctStorySection.cpp" />
-    <ClCompile Include="ctStorySectionEditorWidget.cpp" />
-    <ClCompile Include="ctStorySectionManager.cpp" />
-    <ClCompile Include="ctTimeLineLine.cpp" />
-    <ClCompile Include="ctTransformableNode.cpp" />
-    <ClCompile Include="ctWaveformEditor.cpp" />
-    <ClCompile Include="ctWaveformEditorSlider.cpp" />
-    <ClCompile Include="ctWord.cpp" />
-    <ClCompile Include="ctWordBlock.cpp" />
-    <ClCompile Include="ctWordsEditor.cpp" />
-    <ClCompile Include="diaCreateSection.cpp" />
-    <ClCompile Include="diaEditor.cpp" />
-    <ClCompile Include="diaNewProject.cpp" />
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="ctAudioManager.h">
-    </QtMoc>
-    <ClInclude Include="ctButton.h" />
-    <QtMoc Include="ctCotorro.h">
-    </QtMoc>
-    <ClInclude Include="ctCotorroUtilities.h" />
-    <ClInclude Include="ctFontResource.h" />
-    <ClInclude Include="ctFontResourceManager.h" />
-    <ClInclude Include="ctFrame.h" />
-    <ClInclude Include="ctInteractiveArea.h" />
-    <QtMoc Include="ctProject.h">
-    </QtMoc>
-    <QtMoc Include="ctResourceManager.h">
-    </QtMoc>
-    <QtMoc Include="ctSfmlCanvas.h">
-    </QtMoc>
-    <QtMoc Include="ctStorySection.h">
-    </QtMoc>
-    <QtMoc Include="ctStorySectionEditorWidget.h">
-    </QtMoc>
-    <QtMoc Include="ctStorySectionManager.h">
-    </QtMoc>
-    <ClInclude Include="ctTimeLineLine.h" />
-    <ClInclude Include="ctTransformableNode.h" />
-    <ClInclude Include="ctWaveformEditor.h" />
-    <ClInclude Include="ctWaveformEditorSlider.h" />
-    <ClInclude Include="ctWord.h" />
-    <ClInclude Include="ctWordBlock.h" />
-    <ClInclude Include="ctWordsEditor.h" />
-    <QtMoc Include="diaCreateSection.h">
-    </QtMoc>
-    <QtMoc Include="diaEditor.h">
-    </QtMoc>
-    <QtMoc Include="diaNewProject.h">
-    </QtMoc>
-  </ItemGroup>
-  <ItemGroup>
     <CustomBuild Include="moc_cbt\debug\moc_predefs.h.cbt">
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -289,14 +226,6 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)\moc\moc_predefs.h;%(Outputs)</Outputs>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <QtUic Include="diaCreateSection.ui">
-    </QtUic>
-    <QtUic Include="diaEditor.ui">
-    </QtUic>
-    <QtUic Include="diaNewProject.ui">
-    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="app-resources.qrc">
@@ -383,6 +312,65 @@
     <None Include="assets\icons\volume_mute.ico" />
     <None Include="assets\icons\volume_up.ico" />
     <None Include="assets\icons\warning.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="include\ctAudioManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\ctButton.h" />
+    <ClInclude Include="include\ctCotorroUtilities.h" />
+    <ClInclude Include="include\ctFontResource.h" />
+    <ClInclude Include="include\ctFontResourceManager.h" />
+    <ClInclude Include="include\ctFrame.h" />
+    <ClInclude Include="include\ctInteractiveArea.h" />
+    <ClInclude Include="include\ctTimeLineLine.h" />
+    <ClInclude Include="include\ctTransformableNode.h" />
+    <ClInclude Include="include\ctWaveformEditor.h" />
+    <ClInclude Include="include\ctWaveformEditorSlider.h" />
+    <ClInclude Include="include\ctWord.h" />
+    <ClInclude Include="include\ctWordBlock.h" />
+    <ClInclude Include="include\ctWordsEditor.h" />
+    <QtMoc Include="include\diaNewProject.h" />
+    <QtMoc Include="include\diaEditor.h" />
+    <QtMoc Include="include\diaCreateSection.h" />
+    <QtMoc Include="include\ctStorySectionManager.h" />
+    <QtMoc Include="include\ctStorySectionEditorWidget.h" />
+    <QtMoc Include="include\ctStorySection.h" />
+    <QtMoc Include="include\ctSfmlCanvas.h" />
+    <QtMoc Include="include\ctResourceManager.h" />
+    <QtMoc Include="include\ctProject.h" />
+    <QtMoc Include="include\ctCotorro.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\ctAudioManager.cpp" />
+    <ClCompile Include="src\ctButton.cpp" />
+    <ClCompile Include="src\ctCotorro.cpp" />
+    <ClCompile Include="src\ctFontResource.cpp" />
+    <ClCompile Include="src\ctFontResourceManager.cpp" />
+    <ClCompile Include="src\ctFrame.cpp" />
+    <ClCompile Include="src\ctInteractiveArea.cpp" />
+    <ClCompile Include="src\ctProject.cpp" />
+    <ClCompile Include="src\ctResourceManager.cpp" />
+    <ClCompile Include="src\ctSfmlCanvas.cpp" />
+    <ClCompile Include="src\ctStorySection.cpp" />
+    <ClCompile Include="src\ctStorySectionEditorWidget.cpp" />
+    <ClCompile Include="src\ctStorySectionManager.cpp" />
+    <ClCompile Include="src\ctTimeLineLine.cpp" />
+    <ClCompile Include="src\ctTransformableNode.cpp" />
+    <ClCompile Include="src\ctWaveformEditor.cpp" />
+    <ClCompile Include="src\ctWaveformEditorSlider.cpp" />
+    <ClCompile Include="src\ctWord.cpp" />
+    <ClCompile Include="src\ctWordBlock.cpp" />
+    <ClCompile Include="src\ctWordsEditor.cpp" />
+    <ClCompile Include="src\diaCreateSection.cpp" />
+    <ClCompile Include="src\diaEditor.cpp" />
+    <ClCompile Include="src\diaNewProject.cpp" />
+    <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="diaCreateSection.ui" />
+    <QtUic Include="diaEditor.ui" />
+    <QtUic Include="diaNewProject.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
