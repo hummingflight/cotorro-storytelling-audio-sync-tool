@@ -40,7 +40,7 @@ WaveformEditor::onUpdate(sf::RenderWindow &_window)
 
   QTime time(0, 0);
   time = time.addSecs(cursorPosition);
-  _m_cursor.setLabel(time.toString("mm::ss"));
+  _m_cursor.setLabel(time.toString("mm:ss"));
 
   // Draw cursor
   _m_cursor.update(_window);
@@ -154,7 +154,7 @@ WaveformEditor::updateTimeline()
       if(-0.01f < delta && delta < 0.01f) {
           exists = true;
           pLine->setPosition(linePosition, 0.0f);
-          pLine->setLabel(time.toString("mm::ss"));
+          pLine->setLabel(time.toString("mm:ss"));
           break;
       }
     }
@@ -164,7 +164,7 @@ WaveformEditor::updateTimeline()
       TimeLineLine* pNewLine = getAvailableLine();
       if(pNewLine != nullptr) {
         pNewLine->setPosition(linePosition, 0.0f);
-        pNewLine->setLabel(time.toString("mm::ss"));
+        pNewLine->setLabel(time.toString("mm:ss"));
       }
     }
 

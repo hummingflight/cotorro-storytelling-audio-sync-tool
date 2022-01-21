@@ -92,7 +92,7 @@ Project::open
     }
   }
 
-  // Project was succesfully opened
+  // Project was successfully opened
   Cotorro::Log(eLOGTYPE::kMessage,"Project was successfully opened.");
   Cotorro::Log(eLOGTYPE::kMessage,"Project path: " + _m_fileFullPath);
 
@@ -123,7 +123,7 @@ Project::save(QXmlStreamWriter& _writer)
   // Check result.
   if(result == eOPRESULT::kOk) {
 
-    // Project was succesfully saved
+    // Project was successfully saved
     Cotorro::Log (
       eLOGTYPE::kMessage,
       tr("Project was successfully saved.")

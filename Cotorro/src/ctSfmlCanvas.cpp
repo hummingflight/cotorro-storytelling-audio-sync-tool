@@ -85,7 +85,7 @@ SfmlCanvas::showEvent(QShowEvent*)
     // Let the derived class do its specific stuff
     onInit();
 
-    // Setup the timer to trigger a refresh at specified framerate
+    // Setup the timer to trigger a refresh at specified frame rate
     connect(&_m_timer, &QTimer::timeout, this, &SfmlCanvas::onTimeOut);
     _m_timer.start();
 

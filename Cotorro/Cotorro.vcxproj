@@ -323,9 +323,11 @@
     <ClInclude Include="include\ctFontResourceManager.h" />
     <ClInclude Include="include\ctFrame.h" />
     <ClInclude Include="include\ctInteractiveArea.h" />
+    <ClInclude Include="include\ctMachineState.h" />
     <ClInclude Include="include\ctSequence.h" />
     <ClInclude Include="include\ctSequencer.h" />
     <ClInclude Include="include\ctSequenceStage.h" />
+    <ClInclude Include="include\ctMachineStateState.h" />
     <ClInclude Include="include\ctTimeLineLine.h" />
     <ClInclude Include="include\ctTransformableNode.h" />
     <ClInclude Include="include\ctWaveformEditor.h" />
@@ -352,12 +354,14 @@
     <ClCompile Include="src\ctFontResourceManager.cpp" />
     <ClCompile Include="src\ctFrame.cpp" />
     <ClCompile Include="src\ctInteractiveArea.cpp" />
+    <ClCompile Include="src\ctMachineState.cpp" />
     <ClCompile Include="src\ctProject.cpp" />
     <ClCompile Include="src\ctResourceManager.cpp" />
     <ClCompile Include="src\ctSequence.cpp" />
     <ClCompile Include="src\ctSequencer.cpp" />
     <ClCompile Include="src\ctSequenceStage.cpp" />
     <ClCompile Include="src\ctSfmlCanvas.cpp" />
+    <ClCompile Include="src\ctMachineStateState.cpp" />
     <ClCompile Include="src\ctStorySection.cpp" />
     <ClCompile Include="src\ctStorySectionEditorWidget.cpp" />
     <ClCompile Include="src\ctStorySectionManager.cpp" />

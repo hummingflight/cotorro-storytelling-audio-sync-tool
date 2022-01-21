@@ -75,14 +75,17 @@
     <Filter Include="Header Files\objects\wordsEditor">
       <UniqueIdentifier>{0a5c5895-f651-4f8c-b065-016779efb5d2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\objects\wordsEditor\stages">
-      <UniqueIdentifier>{54b0bc19-6f32-4c8d-b853-55a3e6a6185c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\objects\sequencer">
       <UniqueIdentifier>{3cef4eca-4a35-45c3-aeda-8a722ea01407}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\objects\sequencer">
       <UniqueIdentifier>{86d00c56-94b9-4e06-82fa-a168cf731386}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\objects\wordsEditor\states">
+      <UniqueIdentifier>{d149e154-977a-4535-9af8-2029994becb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\objects\wordsEditor\states">
+      <UniqueIdentifier>{e44ba112-12ea-440e-a7cf-f175b0394933}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -428,6 +431,12 @@
     <ClInclude Include="include\ctSequence.h">
       <Filter>Header Files\objects\sequencer</Filter>
     </ClInclude>
+    <ClInclude Include="include\ctMachineState.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ctMachineStateState.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ctCotorro.cpp">
@@ -510,6 +519,12 @@
     </ClCompile>
     <ClCompile Include="src\ctSequence.cpp">
       <Filter>Source Files\objects\sequencer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctMachineState.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctMachineStateState.cpp">
+      <Filter>Source Files\objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

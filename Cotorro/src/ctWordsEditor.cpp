@@ -50,13 +50,13 @@ WordsEditor::onDrawableAreaChanged()
 void
 WordsEditor::onMousePressed(QMouseEvent *e)
 {
-
+  
 }
 
 void
 WordsEditor::onMouseMoved(QMouseEvent *e)
 {
-
+  QPointF position = e->windowPos();
 }
 
 void
