@@ -73,8 +73,7 @@ Editor::init()
   connect(ui->btn_addSection, &QPushButton::clicked, this, &Editor::on_actionAddSection_triggered);
   connect(ui->btn_removeSection, &QPushButton::clicked, this, &Editor::on_actionRemoveSection_triggered);
   connect(ui->list_storySections, &QListWidget::itemDoubleClicked, this, &Editor::onStorySectionDoubleClicked);  
-  connect(ui->list_storySectionWords, &QListWidget::itemDoubleClicked, this, &Editor::onStorySectionWordsDoubleClicked);
-  connect(ui->list_storySectionWords, &QListWidget::itemClicked, this, &Editor::onStorySectionWordsDoubleClicked);
+  connect(ui->list_storySectionWords, &QListWidget::itemSelectionChanged, this, &Editor::onWordSelectionChanged);
   connect(ui->btnRename, &QPushButton::clicked, this, &Editor::onRenameButtonClick);
   connect(ui->btnPlaySimulation, &QPushButton::clicked, this, &Editor::onPlaySimulation);
   connect(ui->btnPauseSimulation, &QPushButton::clicked, this, &Editor::onPauseSimulation);
@@ -372,7 +371,7 @@ Editor::onWordSelectionChanged()
     storySectionManager.setActiveWord(index.row());
   }
   else {
-    storySectionManager.setActiveSectionToNull();
+    storySectionManager.setActiveWordToNull();
   }
   return;
 }
