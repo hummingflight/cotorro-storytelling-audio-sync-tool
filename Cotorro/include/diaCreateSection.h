@@ -4,12 +4,10 @@
 #include <QDialog>
 
 namespace Ui {
+	
 class DiaCreateSection;
 }
 
-/**
- * @brief Creates a new story section.
- */
 class DiaCreateSection : public QDialog
 {
   Q_OBJECT

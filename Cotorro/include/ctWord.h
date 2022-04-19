@@ -8,8 +8,6 @@
 
 namespace ct {
 
-class WordBlock;
-
 /**
  * @brief Defines a single word of the story section's content.
  */
@@ -28,7 +26,7 @@ public:
    *
    * @param _word Word.
    * @param _start Start point in audio clip where this word should be pronounced.
-   * @param _end End point in audio clip where this workd is no longer pronounced.
+   * @param _end End point in audio clip where this work is no longer pronounced.
    * @param _data Word's stringified data.
    * @param _index Word index.
    */
@@ -44,7 +42,7 @@ public:
 
   /**
    * @brief Initialize the Word. Fills the word with
-   * the information comming from the XML Stream Reader.
+   * the information coming from the XML Stream Reader.
    *
    * @param _reader XML Stream Reader.
    * @param _index Word index.
@@ -55,7 +53,7 @@ public:
   init(QXmlStreamReader& _reader, const quint32& _index);
 
   /**
-   * @brief Save infromation in the file.
+   * @brief Save information in the file.
    *
    * @param _writer XML stream writer.
    *
@@ -140,31 +138,6 @@ public:
   getIndex();
 
   /**
-   * @brief Checks if the word has word block assigned.
-   *
-   * @return True if the word has a word block assigned.
-   */
-  bool
-  hasWordBlock();
-
-  /**
-   * @brief Sets the word's word block.
-   *
-   * @param _pWordBlock Pointer to word block.
-   */
-  void
-  setWordBlock(WordBlock* _pWordBlock);
-
-  /**
-   * @brief Gets the assigned word block.
-   *
-   * @return Pointer to word block. Can return a nullptr if the word has no
-   * word block assigned.
-   */
-  WordBlock*
-  getWordBlock();
-
-  /**
    * @brief Checks if the word block is visible in the
    * given viewport.
    *
@@ -207,13 +180,6 @@ private:
    */
   quint32
   _m_index;
-
-  /**
-   * @brief Pointer to the assigned word block.
-   */
-  WordBlock*
-  _m_pWordBlock;
-
 };
 
 }

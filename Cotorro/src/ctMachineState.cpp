@@ -27,6 +27,7 @@ namespace ct {
       MachineStateState* pState = i.next();
       if (!_m_hState.contains(pState->getName())) {
         _m_hState.insert(pState->getName(), pState);
+        pState->_m_pStateMachine = this;
       }
       else {
         Cotorro::Log(

@@ -173,13 +173,6 @@ StorySection::clearWords()
 }
 
 void
-StorySection::destroy()
-{
-  clearWords();
-  return;
-}
-
-void
 StorySection::resetWords()
 {
   clearWords();
@@ -212,4 +205,10 @@ StorySection::getWordsList()
   return _m_aWords;
 }
 
+void
+StorySection::destroy()
+{
+  clearWords();
+  return;
+}
 }

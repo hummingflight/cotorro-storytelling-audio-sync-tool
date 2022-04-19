@@ -1,6 +1,7 @@
 #include "ctStorySectionManager.h"
 
 #include "ctCotorro.h"
+#include "ctWord.h"
 #include "ctStorySection.h"
 #include "ctAudioManager.h"
 
@@ -9,7 +10,8 @@ namespace ct {
 StorySectionManager::StorySectionManager(QObject *parent) :
   QObject(parent),
   _m_hStorySections(),
-  _m_pActiveSection(nullptr)
+  _m_pActiveSection(nullptr),
+  _m_pActiveWord(nullptr)
 {
   return;
 }
@@ -92,7 +94,7 @@ StorySectionManager::open(QXmlStreamReader &_reader)
           return result;
         }
 
-        // Attem to add story section.
+        // Attempt to add story section.
         result = add(storySection);
         if(result != eOPRESULT::kOk) {
 
@@ -149,16 +151,17 @@ StorySectionManager::save(QXmlStreamWriter &_writer)
 void
 StorySectionManager::clear()
 {
+  // Set active section to null.
+  setActiveSectionToNull();
+  setActiveWordToNull();
+
   foreach(StorySection* storySection, _m_hStorySections.values()) {
     storySection->destroy();
   }
 
   // Destroys story sections.
   qDeleteAll(_m_hStorySections);
-  _m_hStorySections.clear();
-
-  // Set active section to null.
-  setActiveSection(nullptr);
+  _m_hStorySections.clear(); 
 
   // Emit signal.
   emit sectionsChanged();
@@ -326,14 +329,13 @@ StorySectionManager::setActiveSectionByName(const QString &_name)
 
   // Set active section.
   setActiveSection(get(_name));
-
   return;
 }
 
 void
 StorySectionManager::setActiveSectionToNull()
 {
-  setActiveSection(nullptr);
+  setActiveSection(nullptr);  
 }
 
 bool
@@ -346,6 +348,57 @@ StorySection*
 StorySectionManager::getActiveSection()
 {
   return _m_pActiveSection;
+}
+
+void 
+StorySectionManager::setActiveWord(const quint32& _index)
+{
+  if (_m_pActiveSection == nullptr)
+  {
+    Cotorro::Log(
+      eLOGTYPE::kWarning,
+      QObject::tr("| StorySectionManager | No Active Section found.")
+    );
+    return;
+  }
+
+  const QList<Word*> wordList = _m_pActiveSection->getWordsList();
+  if (wordList.length() <= _index)
+  {
+    Cotorro::Log(
+      eLOGTYPE::kWarning,
+      QObject::tr("| StorySectionManager | Index out of range.")
+    );
+    return;
+  }
+
+  _m_pActiveWord = wordList.at(_index);
+
+  emit activeWordChanged(_m_pActiveWord);
+  return;
+}
+
+void 
+StorySectionManager::setActiveWordToNull()
+{
+  if (_m_pActiveWord != nullptr)
+  {
+    _m_pActiveWord = nullptr;
+    emit activeWordChanged(_m_pActiveWord);
+  }  
+  return;
+}
+
+bool 
+StorySectionManager::hasActiveWord()
+{
+  return _m_pActiveWord != nullptr;
+}
+
+Word* 
+StorySectionManager::getActiveWord()
+{
+  return _m_pActiveWord;
 }
 
 qint32
@@ -388,7 +441,6 @@ StorySectionManager::add(StorySection *_pStorySection)
 void
 StorySectionManager::setActiveSection(StorySection *_pStorySection)
 {
-  // Check if they are the same.
   if(_m_pActiveSection != nullptr && _pStorySection != nullptr) {
     if(_pStorySection->getUuid() == _m_pActiveSection->getUuid()){
       return;
@@ -398,7 +450,6 @@ StorySectionManager::setActiveSection(StorySection *_pStorySection)
     return;
   }
 
-  // Set active section.
   _m_pActiveSection = _pStorySection;
 
   if(_m_pActiveSection != nullptr) {
@@ -420,6 +471,8 @@ StorySectionManager::setActiveSection(StorySection *_pStorySection)
           tr("| StorySectionManager | Active Section: undefined.")
     );
   }
+
+  setActiveWordToNull();
 
   // Emit signals.
   emit activeSectionChanged(_pStorySection);

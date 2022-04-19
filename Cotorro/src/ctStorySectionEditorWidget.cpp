@@ -105,6 +105,12 @@ StorySectionEditorWidget::getActiveStorySection()
   return _m_pActiveStorySection;
 }
 
+Word* 
+StorySectionEditorWidget::getActiveWord()
+{
+  return _m_pActiveWord;
+}
+
 float
 StorySectionEditorWidget::getViewportPosition()
 {
@@ -154,14 +160,20 @@ void
 StorySectionEditorWidget::onActiveSectionChanged(StorySection *_pStorySection)
 {
   _m_pActiveStorySection = _pStorySection;
-
-  _m_wordsEditor.clearWordBlocks();
-
   setViewportPosition(0.0f);
 
   _m_waveFormEditor.onStorySectionChanged(_pStorySection);
   _m_waveFormEditorSlider.onStorySectionChanged(_pStorySection);
-  _m_wordsEditor.onStorySectionChanged(_pStorySection);
+  return;
+}
+
+
+void 
+StorySectionEditorWidget::onActiveWordChanged(ct::Word* _pWord)
+{
+  _m_pActiveWord = _pWord;
+
+  _m_wordsEditor.onActiveWordChanged(_pWord);
   return;
 }
 
@@ -299,6 +311,7 @@ StorySectionEditorWidget::onInit()
   StorySectionManager& storySectionManager = project.getStorySectionManager();
 
   connect(&storySectionManager, &StorySectionManager::activeSectionChanged, this, &StorySectionEditorWidget::onActiveSectionChanged);
+  connect(&storySectionManager, &StorySectionManager::activeWordChanged, this, &StorySectionEditorWidget::onActiveWordChanged);
 
   return;
 }

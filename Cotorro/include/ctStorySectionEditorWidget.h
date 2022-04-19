@@ -83,6 +83,14 @@ public:
   getActiveStorySection();
 
   /**
+   * Gets the pointer to the active word.
+   * 
+   * @return Pointer to the actice word.
+   */
+  Word*
+  getActiveWord();
+
+  /**
    * @brief Gets the viewport position in the timeline (seconds).
    *
    * @return The position of the viewport in the timeline (seconds).
@@ -180,6 +188,13 @@ private slots:
   void
   onActiveSectionChanged(ct::StorySection* _pStorySection);
 
+  /**
+   * TODO
+   */
+  void
+  onActiveWordChanged(ct::Word* _pWord);
+
+
 private:
 
   /**
@@ -253,6 +268,12 @@ private:
    */
   StorySection*
   _m_pActiveStorySection;
+
+  /**
+   * Active Word.
+   */
+  Word*
+  _m_pActiveWord;
 
   /**
    * @brief _m_pixelsPerSecond

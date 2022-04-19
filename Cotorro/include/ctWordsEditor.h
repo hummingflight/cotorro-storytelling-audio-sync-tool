@@ -68,70 +68,34 @@ public:
   onMouseDoubleClicked(QMouseEvent* e);
 
   /**
-   * @brief onStorySectionChanged
-   * @param _pStorySection
-   */
-  void
-  onStorySectionChanged(StorySection* _pStorySection);
-
-  /**
    * @brief onViewportMoved
    */
   void
   onViewportMoved(const float& _newPosition);
 
   /**
-   * @brief updateWordBlocks
+   * Updates the active word.
    */
   void
-  updateWordBlocks();
+  onActiveWordChanged(Word*);
 
   /**
-   * @brief Deactive the given word block.
-   *
-   * @param Word block.
+   * @brief Update the Word Block content and visibility.
    */
   void
-  deactiveWordBlock(WordBlock* _pWordBlock);
+  updateWordBlockVisibility();
 
   /**
-   * @brief Gets an available word block pointer.
-   *
-   * @return Word block pointer. Returns nullptr if the editor has run out of blocks.
-   */
-  WordBlock*
-  getWordBlock();
-
-  /**
-   * @brief Select a range of block nodes.
-   *
-   * @param _start Start node block.
-   * @param _final Final node block.
+   * Updates the Word Block Group transformation.
    */
   void
-  selectRange(WordBlock* _start, WordBlock* _final);
+  updateWordBlockGroupTransformation();
 
-  /**
-   * @brief Removes all word blocks from the scene.
-   */
-  void
-  clearWordBlocks();
-
-  /**
-   * @brief Clears selected nodes.
-   */
-  void
-  clearSelection();
   /**
    * @brief destroy
    */
   void
   destroy();
-
-  /**
-   * @brief Maximum size of the word blocks pool.
-   */
-  static const quint32 _WORD_BLOCKS_POOL_SIZE = 250;
 
 private:
 
@@ -142,96 +106,22 @@ private:
   onInit() override;
 
   /**
-   * @brief Removes non visible word blocks.
-   */
-  void
-  clipping(const float& _viewportStart, const float& _viewportEnd);
-
-  /**
-   * @brief Finds the first visible word (the first one to the left) in the
-   * given viewport. This is a recursive function.
-   *
-   * @param _startIndex Array segment start index.
-   * @param _endIndex Array segment end index.
-   * @param _viewportStart Viewport start point in seconds.
-   * @param _viewportEnd Viewport final point in seconds.
-   * @param _list Words list.
-   *
-   * @return The first visible word. Returns nullptr if there isn't any visible
-   * word.
-   */
-  Word*
-  findFirtWordInViewport(
-      const quint32& _startIndex,
-      const quint32& _endIndex,
-      const float& _viewportStart,
-      const float& _viewportEnd,
-      const QList<Word*>& _list
-  );
-
-  /**
-   * @brief Checks if region is visible in the given viewport.
-   *
-   * @param _start Region's start point in seconds.
-   * @param _end Region's end point in seconds.
-   * @param _viewportStart Viewport start point in seconds.
-   * @param _viewportEnd Viewport final point in seconds.
-   *
-   * @return True if the word is visible in the viewport.
-   */
-  bool
-  isRegionVisible(
-      const float& _start,
-      const float& _end,
-      const float& _viewportStart,
-      const float& _viewportEnd
-  );
-
-  /**
-   * @brief EREASE THIS METHOD
-   */
-  void
-  printActiveBlocksNumber();
-
-  /**
-   * @brief List of active word blocks.
-   */
-  QList<WordBlock*> _m_aActiveWordBlocks;
-
-  /**
-   * @brief List of disabled word blocks.
-   */
-  QList<WordBlock*> _m_aDeactiveWordBlocks;
-
-  /**
    * @brief Word blocks group.
    */
-  TransformableNode _m_wordBlocksGroup;
+  TransformableNode 
+  _m_wordBlocksGroup;
 
   /**
    * @brief Pointer to the story section editor widget.
    */
-  StorySectionEditorWidget* _m_pStorySectionEditorWidget;
+  StorySectionEditorWidget* 
+  _m_pStorySectionEditorWidget;
 
   /**
-   * @brief Array of word blocks.
+   * TODO
    */
-  WordBlock _m_aWordBlockPool[WordsEditor::_WORD_BLOCKS_POOL_SIZE];
-
-  /**
-   * @brief Indicates the current selection mode.
-   */
-  eSELECTION_MODE::E _m_selectionMode;
-
-  /**
-   * @brief Pointer to the first node selected. Could be nullptr.
-   */
-  WordBlock* _m_firstNodeSelected;
-
-  /**
-   * @brief List of selected nodes.
-   */
-  QList<WordBlock*> _m_selectedNodes;
+  WordBlock
+  _m_wordBlock;
 };
 
 }

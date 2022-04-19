@@ -4,7 +4,11 @@
 
 namespace ct {
 
+  class MachineState;
+
   class MachineStateState {
+
+    friend MachineState;
 
   public:
 
@@ -53,8 +57,12 @@ namespace ct {
     /**
     * State's name.
     */
-    QString _m_name;    
+    QString _m_name;
 
+    /**
+    * Pointer to the state machine.
+    */
+    MachineState* _m_pStateMachine;
   };
 
 }

@@ -11,19 +11,18 @@ Word::Word()
     _m_data(""),
     _m_start(0.0f),
     _m_end(0.0f),
-    _m_index(0),
-    _m_pWordBlock(nullptr)
+    _m_index(0)
 {
   return;
 }
 
 void Word::init
 (
-    const QString &_word,
-    const float &_start,
-    const float &_end,
-    const QString &_data,
-    const quint32& _index
+  const QString& _word,
+  const float& _start,
+  const float& _end,
+  const QString& _data,
+  const quint32& _index
 )
 {
   _m_word = _word;
@@ -38,23 +37,19 @@ void Word::init
 eOPRESULT::E
 Word::init(QXmlStreamReader &_reader, const quint32& _index)
 {
-  // Get attributes.
   QXmlStreamAttributes attributes = _reader.attributes();
 
-  // Check that all attributes exists in the element.
   if(!attributes.hasAttribute("word") ||
      !attributes.hasAttribute("start") ||
      !attributes.hasAttribute("end") ||
      !attributes.hasAttribute("data")
   ) {
 
-    // Console Error.
     Cotorro::Log (
       eLOGTYPE::kError,
       QObject::tr("| Word | One or more attributes were not found in the XML.")
     );
 
-    // Reach the end of the element.
     while(!_reader.atEnd()) {
       QXmlStreamReader::TokenType token = _reader.readNext();
       if(token == QXmlStreamReader::EndElement) {
@@ -62,18 +57,15 @@ Word::init(QXmlStreamReader &_reader, const quint32& _index)
       }
     }
 
-    // Return failure if the end of the document is reached.
     return eOPRESULT::kFail;
   }
 
-  // Fill values.
   _m_word = attributes.value(QObject::tr("word")).toString();
   _m_data = attributes.value(QObject::tr("data")).toString();
   _m_start = attributes.value(QObject::tr("start")).toFloat();
   _m_end = attributes.value(QObject::tr("end")).toFloat();
   _m_index = _index;
 
-  // Reach the end of the element.
   while(!_reader.atEnd()) {
     QXmlStreamReader::TokenType token = _reader.readNext();
     if(token == QXmlStreamReader::EndElement) {
@@ -81,7 +73,6 @@ Word::init(QXmlStreamReader &_reader, const quint32& _index)
     }
   }
 
-  // Return failure if the end of the document is reached.
   return eOPRESULT::kFail;
 }
 
@@ -156,25 +147,6 @@ const quint32&
 Word::getIndex()
 {
   return _m_index;
-}
-
-bool
-Word::hasWordBlock()
-{
-  return _m_pWordBlock != nullptr;
-}
-
-void
-Word::setWordBlock(WordBlock *_pWordBlock)
-{
-  _m_pWordBlock = _pWordBlock;
-  return;;
-}
-
-WordBlock*
-Word::getWordBlock()
-{
-  return _m_pWordBlock;
 }
 
 bool

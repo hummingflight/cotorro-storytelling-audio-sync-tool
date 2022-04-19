@@ -84,9 +84,6 @@
     <Filter Include="Source Files\objects\wordsEditor\states">
       <UniqueIdentifier>{d149e154-977a-4535-9af8-2029994becb0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\objects\wordsEditor\states">
-      <UniqueIdentifier>{e44ba112-12ea-440e-a7cf-f175b0394933}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="moc_cbt\debug\moc_predefs.h.cbt">
@@ -525,6 +522,12 @@
     </ClCompile>
     <ClCompile Include="src\ctMachineStateState.cpp">
       <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctWordInputState.cpp">
+      <Filter>Source Files\objects\wordsEditor\states</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctIdleWordInputState.cpp">
+      <Filter>Source Files\objects\wordsEditor\states</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

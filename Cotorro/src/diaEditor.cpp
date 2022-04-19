@@ -11,6 +11,7 @@
 #include "ctProject.h"
 #include "ctStorySection.h"
 #include "ctStorySectionEditorWidget.h"
+#include "ctWord.h"
 
 using ct::Cotorro;
 using ct::Project;
@@ -72,6 +73,8 @@ Editor::init()
   connect(ui->btn_addSection, &QPushButton::clicked, this, &Editor::on_actionAddSection_triggered);
   connect(ui->btn_removeSection, &QPushButton::clicked, this, &Editor::on_actionRemoveSection_triggered);
   connect(ui->list_storySections, &QListWidget::itemDoubleClicked, this, &Editor::onStorySectionDoubleClicked);  
+  connect(ui->list_storySectionWords, &QListWidget::itemDoubleClicked, this, &Editor::onStorySectionWordsDoubleClicked);
+  connect(ui->list_storySectionWords, &QListWidget::itemClicked, this, &Editor::onStorySectionWordsDoubleClicked);
   connect(ui->btnRename, &QPushButton::clicked, this, &Editor::onRenameButtonClick);
   connect(ui->btnPlaySimulation, &QPushButton::clicked, this, &Editor::onPlaySimulation);
   connect(ui->btnPauseSimulation, &QPushButton::clicked, this, &Editor::onPauseSimulation);
@@ -326,7 +329,7 @@ Editor::on_actionAddSection_triggered()
     updateStorySectionPanel();
   }
 
-  // Unload any audio comming from the previous dialog.
+  // Unload any audio coming from the previous dialog.
   // This will force the audio manager to load the active section's
   // audio again when the user hits the "play" simulation button.
   AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
@@ -355,6 +358,22 @@ Editor::onStorySectionDoubleClicked(QListWidgetItem *item)
     storySectionManager.setActiveSectionToNull();
   }
 
+  return;
+}
+
+void
+Editor::onWordSelectionChanged()
+{
+  Project& project = Cotorro::Instance()->getProject();
+  StorySectionManager& storySectionManager = project.getStorySectionManager();
+  QItemSelectionModel* model = ui->list_storySectionWords->selectionModel();
+  if (model->hasSelection()) {
+    QModelIndex index = model->currentIndex();
+    storySectionManager.setActiveWord(index.row());
+  }
+  else {
+    storySectionManager.setActiveSectionToNull();
+  }
   return;
 }
 
@@ -474,6 +493,19 @@ void
 Editor::onActiveSectionChanged(ct::StorySection *_pActiveSection)
 {
   updateEditorPanel(_pActiveSection);
+
+  // Fill the editor's list of words with the content from the current
+  // story section.
+  ui->list_storySectionWords->clear();
+  if (_pActiveSection != nullptr) {
+    QList<ct::Word*> aWords = _pActiveSection->getWordsList();
+    QListIterator<ct::Word*> it(aWords);
+    while (it.hasNext()) {
+      ct::Word* pWord = it.next();
+      ui->list_storySectionWords->addItem(pWord->getWord());
+    }
+  }
+
   return;
 }
 

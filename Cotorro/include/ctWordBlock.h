@@ -23,11 +23,6 @@ public:
   WordBlock();
 
   /**
-   * @brief WordBlock
-   */
-  WordBlock(const eNODE_TYPE::E& _type);
-
-  /**
    * @brief ~WordBlock
    */
   virtual
@@ -72,30 +67,16 @@ public:
   getWord();
 
   /**
-   * @brief Detaches to the assigned word, if it has one.
-   */
-  void
-  clearWord();
-
-  /**
-   * @brief Checks if the word block is being used.
-   *
-   * @return True if the word block is currently being used.
+   * TODO
    */
   bool
   isActive();
 
   /**
-   * @brief Actives the word block.
+   * TODO
    */
   void
-  active();
-
-  /**
-   * @brief Deactivate the word block.
-   */
-  void
-  deactive();
+  setActive(const bool& _active);
 
   /**
    * @brief Set the block height.
@@ -116,22 +97,6 @@ public:
    */
   bool
   isVisible(const float& _viewportStart, const float& _viewportEnd);
-
-  /**
-   * @brief Sets the word block status.
-   *
-   * @param _status Word block status.
-   */
-  void
-  setStatus(const eBLOCK_STATUS::E& _status);
-
-  /**
-   * @brief Gets the word block status.
-   *
-   * @return Word block status.
-   */
-  const eBLOCK_STATUS::E&
-  getStatus();
 
   /**
    * @brief Safely destroys this object.
@@ -166,17 +131,10 @@ private:
   _m_height;
 
   /**
-   * @brief Indicates if the word block is active.
+   * @brief Is active?
    */
   bool
   _m_isActive;
-
-  /**
-   * @brief Block's node status.
-   */
-  eBLOCK_STATUS::E
-  _m_status;
-
 };
 
 }

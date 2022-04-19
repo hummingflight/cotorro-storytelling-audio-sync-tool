@@ -16,6 +16,7 @@ namespace ct {
 class StorySection : public QObject
 {
   Q_OBJECT
+
 public:
 
   /**
@@ -40,8 +41,8 @@ public:
   init(const QString& _name);
 
   /**
-   * @brief Initiale the story section. Fill the story section with
-   * the information comming from the XML Stream Reader.
+   * @brief Initialize the story section. Fill the story section with
+   * the information coming from the XML Stream Reader.
    *
    * @param _reader XML Stream Reader.
    *
@@ -107,7 +108,7 @@ public:
   setContent(const QString& _content);
 
   /**
-   * @brief Save infromation in the file.
+   * @brief Save information in the file.
    *
    * @param _writer XML stream writer.
    *
@@ -177,7 +178,6 @@ private:
    */
   QList<Word*>
   _m_aWords;
-
 };
 
 }

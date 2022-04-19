@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>840</width>
+    <width>810</width>
     <height>600</height>
    </rect>
   </property>
@@ -31,7 +31,7 @@
        <bool>false</bool>
       </property>
       <widget class="QWidget" name="layoutWidget">
-       <layout class="QVBoxLayout" name="layout_storytellingSection" stretch="0">
+       <layout class="QVBoxLayout" name="layout_storytellingSection" stretch="0,0">
         <property name="spacing">
          <number>3</number>
         </property>
@@ -115,6 +115,30 @@
               </widget>
              </item>
             </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="wordBox">
+          <property name="minimumSize">
+           <size>
+            <width>160</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>300</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>Story Section Words</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <widget class="QListWidget" name="list_storySectionWords"/>
            </item>
           </layout>
          </widget>
@@ -331,8 +355,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>840</width>
-     <height>20</height>
+     <width>810</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

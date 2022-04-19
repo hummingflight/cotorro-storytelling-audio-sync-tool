@@ -71,6 +71,9 @@ private slots:
   onStorySectionDoubleClicked(QListWidgetItem *item);
 
   void
+  onWordSelectionChanged();
+
+  void
   onRenameButtonClick();
 
   void

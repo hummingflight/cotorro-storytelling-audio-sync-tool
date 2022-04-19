@@ -3,7 +3,8 @@
 namespace ct {
 
   MachineStateState::MachineStateState(const QString& _stateName) :
-  _m_name(_stateName)
+  _m_name(_stateName),
+  _m_pStateMachine(nullptr)
   { }
 
   MachineStateState::~MachineStateState()
@@ -23,7 +24,10 @@ namespace ct {
 
   void 
   MachineStateState::destroy()
-  { }
+  {
+    _m_pStateMachine = nullptr;
+    return;
+  }
 
   const QString& 
   MachineStateState::getName() const

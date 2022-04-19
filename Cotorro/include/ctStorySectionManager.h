@@ -11,6 +11,7 @@
 namespace ct {
 
 class StorySection;
+class Word;
 
 /**
  * @brief The StorySectionManager class
@@ -44,7 +45,7 @@ public:
   open(QXmlStreamReader& _reader);
 
   /**
-   * @brief Save infromation in the file.
+   * @brief Save information in the file.
    *
    * @param _writer XML stream writer.
    *
@@ -146,6 +147,35 @@ public:
   getActiveSection();
 
   /**
+   * @brief Set the active word from the active story section.
+   */
+  void
+  setActiveWord(const quint32&);
+
+  /**
+   * @brief Set the active word to nullptr.
+   */
+  void
+  setActiveWordToNull();
+
+  /**
+   * @brief Checks if has an active word.
+   * 
+   * @return True if it has an active word.
+   */
+  bool
+  hasActiveWord();
+
+  /**
+   * @brief Gets the active word.
+   * 
+   * @return Pointer to the active word. Could return nullptr
+   * if it doesn't have any active word.
+   */
+  Word*
+  getActiveWord();
+
+  /**
    * @brief Get the number of story sections.
    *
    * @return The number of story sections.
@@ -173,10 +203,16 @@ signals:
   void
   activeSectionChanged(ct::StorySection* _pStorySection);
 
+  /**
+   * @brief Emitted when the active section has changed.
+   */
+  void
+  activeWordChanged(ct::Word* _pWord);
+
 private:
 
   /**
-   * @brief Attemps to add the story section.
+   * @brief attempts to add the story section.
    *
    * @param _pStorySection Pointer to the story section.
    *
@@ -204,6 +240,12 @@ private:
    * */
   StorySection*
   _m_pActiveSection;
+
+  /**
+   * @brief Pointer to the active word.
+   */
+  Word*
+  _m_pActiveWord;
 
 };
 
