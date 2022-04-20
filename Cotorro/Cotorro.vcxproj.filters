@@ -434,6 +434,9 @@
     <ClInclude Include="include\ctMachineStateState.h">
       <Filter>Header Files\objects</Filter>
     </ClInclude>
+    <ClInclude Include="include\ctWaveWordShadow.h">
+      <Filter>Header Files\objects\wordsEditor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ctCotorro.cpp">
@@ -528,6 +531,9 @@
     </ClCompile>
     <ClCompile Include="src\ctIdleWordInputState.cpp">
       <Filter>Source Files\objects\wordsEditor\states</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ctWaveWordShadow.cpp">
+      <Filter>Source Files\objects\wordsEditor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

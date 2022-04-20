@@ -332,6 +332,7 @@
     <ClInclude Include="include\ctTransformableNode.h" />
     <ClInclude Include="include\ctWaveformEditor.h" />
     <ClInclude Include="include\ctWaveformEditorSlider.h" />
+    <ClInclude Include="include\ctWaveWordShadow.h" />
     <ClInclude Include="include\ctWord.h" />
     <ClInclude Include="include\ctWordBlock.h" />
     <ClInclude Include="include\ctWordsEditor.h" />
@@ -370,6 +371,7 @@
     <ClCompile Include="src\ctTransformableNode.cpp" />
     <ClCompile Include="src\ctWaveformEditor.cpp" />
     <ClCompile Include="src\ctWaveformEditorSlider.cpp" />
+    <ClCompile Include="src\ctWaveWordShadow.cpp" />
     <ClCompile Include="src\ctWord.cpp" />
     <ClCompile Include="src\ctWordBlock.cpp" />
     <ClCompile Include="src\ctWordInputState.cpp" />

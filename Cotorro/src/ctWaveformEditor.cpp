@@ -1,6 +1,7 @@
 #include "ctWaveformEditor.h"
 
 #include "ctCotorro.h"
+#include "ctWord.h"
 #include "ctStorySectionEditorWidget.h"
 
 namespace ct {
@@ -14,7 +15,8 @@ WaveformEditor::WaveformEditor(StorySectionEditorWidget* _pStorySectionEditorWid
   _m_deactiveTimeLineLines(),
   _m_pStorySectionEditorWidget(_pStorySectionEditorWidget),
   _m_waveformNode(),
-  _m_lineSpacing(15.0f)
+  _m_lineSpacing(15.0f),
+  _m_waveFormWordShadow()
 {
   return;
 }
@@ -28,10 +30,12 @@ WaveformEditor::~WaveformEditor()
 void
 WaveformEditor::onUpdate(sf::RenderWindow &_window)
 {  
+  _m_waveFormWordShadow.update(_window);
+
   // Draw each active line.
   foreach(TimeLineLine* _line, _m_activeTimeLineLines) {
     _line->update(_window);
-  }
+  }  
 
   // Update cursor
   AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
@@ -62,6 +66,8 @@ WaveformEditor::onDrawableAreaChanged()
     _line->setHeight(_m_drawableArea.height);
   }
 
+  _m_waveFormWordShadow.setHeight(_m_drawableArea.height);
+
   updateTimeline();
   return;
 }
@@ -83,13 +89,15 @@ WaveformEditor::destroy()
 
   _m_activeTimeLineLines.clear();
   _m_deactiveTimeLineLines.clear();
+
+  _m_waveFormWordShadow.destroy();
   return;
 }
 
 void
 WaveformEditor::onInit()
 {
-  _m_waveformNode.setParent(_m_frameNode);
+  _m_waveformNode.setParent(_m_frameNode);  
 
   // Setup cursor
   _m_cursor.init();
@@ -107,6 +115,9 @@ WaveformEditor::onInit()
     );
 
   }
+
+  _m_waveFormWordShadow.init();
+  _m_waveFormWordShadow.setParent(_m_waveformNode);
 
   return;
 }
@@ -213,10 +224,16 @@ WaveformEditor::onStorySectionChanged(StorySection *_pStorySection)
   return;
 }
 
+void 
+WaveformEditor::onActiveWordChanged(Word* _pWord)
+{
+  _m_waveFormWordShadow.setWord(_pWord);
+  _m_waveFormWordShadow.setActive(_pWord != nullptr);
+}
+
 void WaveformEditor::onViewportMoved(const float &_newPosition)
 {
   updateTimeline();
-  return;
 }
 
 bool

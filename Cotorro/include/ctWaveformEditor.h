@@ -7,10 +7,12 @@
 
 #include "ctFrame.h"
 #include "ctTimeLineLine.h"
+#include "ctWaveWordShadow.h"
 
 namespace ct {
 
 class StorySection;
+class Word;
 class StorySectionEditorWidget;
 
 /**
@@ -89,6 +91,13 @@ public:
   onStorySectionChanged(StorySection* _pStorySection);
 
   /**
+   * @brief onActiveWordChanged
+   * @param _pWord Active word.
+   */
+  void
+  onActiveWordChanged(Word* _pWord);
+
+  /**
    * @brief onViewportMoved
    */
   void
@@ -165,6 +174,12 @@ private:
    */
   TransformableNode
   _m_waveformNode;
+
+  /**
+   * WaveFormShadow
+   */
+  WaveFormWordShadow
+  _m_waveFormWordShadow;
 
   /**
    * @brief Space between lines in seconds.

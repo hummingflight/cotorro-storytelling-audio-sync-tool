@@ -27,6 +27,7 @@ StorySectionEditorWidget::StorySectionEditorWidget
   _m_wordsEditor(this),
   _m_waveFormEditorSlider(this),
   _m_pActiveStorySection(nullptr),
+  _m_pActiveWord(nullptr),
   _m_pixelsPerSecond(0),
   _m_zoom(0),
   _m_viewportTimePosition(0.0f)
@@ -173,6 +174,7 @@ StorySectionEditorWidget::onActiveWordChanged(ct::Word* _pWord)
 {
   _m_pActiveWord = _pWord;
 
+  _m_waveFormEditor.onActiveWordChanged(_pWord);
   _m_wordsEditor.onActiveWordChanged(_pWord);
   return;
 }
