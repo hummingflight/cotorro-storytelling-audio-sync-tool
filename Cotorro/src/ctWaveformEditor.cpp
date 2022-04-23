@@ -4,7 +4,12 @@
 #include "ctWord.h"
 #include "ctStorySectionEditorWidget.h"
 
-namespace ct {
+using sf::Vector2u;
+using sf::Vector2f;
+using sf::Vector2i;
+
+namespace ct 
+{
 
 quint32 WaveformEditor::_TIME_LINE_LINE_POOL_SIZE = 30;
 
@@ -118,7 +123,7 @@ WaveformEditor::onInit()
 
   _m_waveFormWordShadow.init();
   _m_waveFormWordShadow.setParent(_m_waveformNode);
-
+  
   return;
 }
 
@@ -206,7 +211,22 @@ WaveformEditor::onMouseMoved(QMouseEvent* e)
 void
 WaveformEditor::onMouseReleased(QMouseEvent* e)
 {
-  // TODO
+  QPoint mousePositionPoint = e->pos();
+  if (!_m_drawableArea.contains(static_cast<sf::Uint32>(mousePositionPoint.x()),
+                                static_cast<sf::Uint32>(mousePositionPoint.y()))) {
+    return;
+  }
+  
+  Vector2f mousePosition = Vector2f(static_cast<float>(mousePositionPoint.x()),
+                                    static_cast<float>(mousePositionPoint.y()));
+  Vector2f waveformPositionF = _m_waveformNode.getPosition() + _m_frameNode.getPosition();
+
+  mousePosition = mousePosition - waveformPositionF;
+  float desireAudioTimePosition = mousePosition.x / _m_pStorySectionEditorWidget->getPixelsPerSecond();
+
+  AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
+  audioManager.setPlayingPosition(desireAudioTimePosition);
+  
   return;
 }
 

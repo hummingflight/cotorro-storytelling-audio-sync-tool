@@ -104,6 +104,12 @@ public:
   getDuration();
 
   /**
+   * TODO
+   */
+  void
+  setPlayingPosition(const float&);
+
+  /**
    * @brief Gets the playing position in seconds.
    *
    * @return Playing position in seconds.

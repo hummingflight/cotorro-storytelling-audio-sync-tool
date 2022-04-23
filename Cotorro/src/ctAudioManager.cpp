@@ -1,4 +1,5 @@
 #include "ctAudioManager.h"
+#include <SFML/System.hpp>
 
 #include "ctCotorro.h"
 
@@ -153,6 +154,12 @@ float
 AudioManager::getDuration()
 {
   return _m_musicPlayer.getDuration().asSeconds();
+}
+
+void 
+AudioManager::setPlayingPosition(const float& _seconds)
+{
+  _m_musicPlayer.setPlayingOffset(sf::Time(sf::seconds(_seconds)));
 }
 
 float
