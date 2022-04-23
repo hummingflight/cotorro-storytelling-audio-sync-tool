@@ -12,6 +12,7 @@ QT_END_NAMESPACE
 namespace ct {
   class StorySection;
   class StorySectionEditorWidget;
+  class Word;
 }
 
 class Editor : public QMainWindow
@@ -93,6 +94,18 @@ private slots:
 
   void
   onZoomValueChanged(qint32 value);
+
+  void
+  onLineEditorWordStartChanged();
+
+  void
+  onLineEditorWordEndChanged();
+
+  void
+  onActiveWordChanged(ct::Word*);
+
+  void
+  onActiveWordContentChanged(ct::Word*);
 
 private:
 

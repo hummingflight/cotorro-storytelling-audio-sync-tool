@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>810</width>
+    <width>811</width>
     <height>600</height>
    </rect>
   </property>
@@ -312,6 +312,96 @@
              </layout>
             </item>
             <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_6">
+              <item>
+               <widget class="QLabel" name="label_4">
+                <property name="text">
+                 <string>Active Word:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="lblWordKey">
+                <property name="text">
+                 <string>Active Word Here</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_4">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_7">
+              <item>
+               <widget class="QLabel" name="label_5">
+                <property name="text">
+                 <string>Start:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_wordStart"/>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btnStartKey">
+                <property name="text">
+                 <string>Start</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="app-resources.qrc">
+                  <normaloff>:/icons/assets/icons/security_key.ico</normaloff>:/icons/assets/icons/security_key.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_6">
+                <property name="text">
+                 <string>End</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_wordEnd"/>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btnEndKey">
+                <property name="text">
+                 <string>End</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="app-resources.qrc">
+                  <normaloff>:/icons/assets/icons/security_key.ico</normaloff>:/icons/assets/icons/security_key.ico</iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_5">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
              <widget class="QGroupBox" name="groupSFMLCanvas">
               <property name="title">
                <string>Editor</string>
@@ -355,7 +445,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>810</width>
+     <width>811</width>
      <height>22</height>
     </rect>
    </property>

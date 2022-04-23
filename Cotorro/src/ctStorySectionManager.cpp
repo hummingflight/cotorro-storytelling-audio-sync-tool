@@ -378,6 +378,38 @@ StorySectionManager::setActiveWord(const quint32& _index)
   return;
 }
 
+  void 
+  StorySectionManager::setActiveWordStart(const float& _start)
+  {
+    if (_m_pActiveWord == nullptr) {
+      return;
+    }
+
+    _m_pActiveWord->setStart(_start);
+    if (_start >= _m_pActiveWord->getEnd()) {
+      _m_pActiveWord->setEnd(_start + 1.0f);
+    }
+
+    activeWordContentChanged(_m_pActiveWord);
+  }
+
+  void 
+  StorySectionManager::setActiveWordEnd(const float& _end)
+  {
+    if (_m_pActiveWord == nullptr)
+    {
+      return;
+    }
+
+    _m_pActiveWord->setEnd(_end);
+    if (_end <= _m_pActiveWord->getStart())
+    {
+      _m_pActiveWord->setStart(_end - 1.0f);
+    }
+
+    activeWordContentChanged(_m_pActiveWord);
+  }
+
 void 
 StorySectionManager::setActiveWordToNull()
 {

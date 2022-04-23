@@ -80,12 +80,16 @@ Editor::init()
   connect(ui->btnStopSimulation, &QPushButton::clicked, this, &Editor::onStopSimulation);
   connect(ui->sliderVolumen, &QSlider::valueChanged, this, &Editor::onVolumenValueChanged);
   connect(ui->sliderZoom, &QSlider::valueChanged, this, &Editor::onZoomValueChanged);
+  connect(ui->lineEdit_wordStart, &QLineEdit::editingFinished, this, &Editor::onLineEditorWordStartChanged);
+  connect(ui->lineEdit_wordEnd, &QLineEdit::editingFinished, this, &Editor::onLineEditorWordEndChanged);
 
   Project& project = pCotorro->getProject();
   StorySectionManager& storySectionManager = project.getStorySectionManager();
 
   connect(&storySectionManager, &StorySectionManager::sectionsChanged, this, &Editor::onStoryManagerChanged);
   connect(&storySectionManager, &StorySectionManager::activeSectionChanged, this, &Editor::onActiveSectionChanged);
+  connect(&storySectionManager, &StorySectionManager::activeWordChanged, this, &Editor::onActiveWordChanged);
+  connect(&storySectionManager, &StorySectionManager::activeWordContentChanged, this, &Editor::onActiveWordContentChanged);
 
   // Init Logger Widget
   QPalette p = ui->pText_logger->palette();
@@ -98,7 +102,15 @@ Editor::init()
   QValidator* validator = new QRegularExpressionValidator(rx, this);
   ui->lineSectionName->setValidator(validator);
 
+  QRegularExpression wordRx("^[+-]?([0-9]*[.])?[0-9]+$");
+  QValidator* wordTime = new QRegularExpressionValidator(wordRx, this);
+  ui->lineEdit_wordStart->setValidator(wordTime);
+  ui->lineEdit_wordEnd->setValidator(wordTime);
+
   Cotorro::Log(ct::eLOGTYPE::kMessage, tr("Application initialized."));
+
+  ui->lineEdit_wordStart->setDisabled(true);
+  ui->lineEdit_wordEnd->setDisabled(true);
 
   clearEditorPanel();
 
@@ -570,6 +582,48 @@ Editor::onZoomValueChanged(qint32 value)
   return;
 }
 
+void 
+Editor::onLineEditorWordStartChanged()
+{
+  Cotorro* cotorro = Cotorro::Instance();
+  StorySectionManager& storySectionMngr = cotorro->getProject().getStorySectionManager();
+
+  storySectionMngr.setActiveWordStart(ui->lineEdit_wordStart->text().toFloat());
+}
+
+void 
+Editor::onLineEditorWordEndChanged()
+{
+  Cotorro* cotorro = Cotorro::Instance();
+  StorySectionManager& storySectionMngr = cotorro->getProject().getStorySectionManager();
+
+  storySectionMngr.setActiveWordEnd(ui->lineEdit_wordEnd->text().toFloat());
+}
+
+void 
+Editor::onActiveWordChanged(ct::Word* _activeWord)
+{
+  if (_activeWord == nullptr) {
+    ui->lineEdit_wordStart->setText(tr(""));
+    ui->lineEdit_wordEnd->setText(tr(""));
+
+    ui->lineEdit_wordStart->setDisabled(true);
+    ui->lineEdit_wordEnd->setDisabled(true);
+    return;
+  }
+
+  ui->lineEdit_wordStart->setText(QString::number(_activeWord->getStart()));
+  ui->lineEdit_wordEnd->setText(QString::number(_activeWord->getEnd()));
+  ui->lineEdit_wordStart->setDisabled(false);
+  ui->lineEdit_wordEnd->setDisabled(false);
+}
+
+void 
+Editor::onActiveWordContentChanged(ct::Word* _activeWord)
+{
+  ui->lineEdit_wordStart->setText(QString::number(_activeWord->getStart()));
+  ui->lineEdit_wordEnd->setText(QString::number(_activeWord->getEnd()));
+}
 
 void
 Editor::on_actionPlaySimulation_triggered()

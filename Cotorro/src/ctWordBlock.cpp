@@ -59,6 +59,8 @@ WordBlock::update(sf::RenderWindow &_window)
 
   _updateTransform();
 
+  // Text Box
+
   sf::FloatRect blockShapeFloatRect(
         0.0f,
         0.0f,
@@ -75,6 +77,8 @@ WordBlock::update(sf::RenderWindow &_window)
 
   _window.draw(_m_blockShape);
 
+  // Text
+
   sf::FloatRect textBounds = _m_text.getGlobalBounds();
   if(textBounds.width < blockShapeFloatRect.width) {
     _m_text.setPosition(
@@ -84,6 +88,7 @@ WordBlock::update(sf::RenderWindow &_window)
 
     _window.draw(_m_text);
   }
+
   return;
 }
 

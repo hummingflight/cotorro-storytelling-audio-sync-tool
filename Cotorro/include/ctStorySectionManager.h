@@ -153,6 +153,18 @@ public:
   setActiveWord(const quint32&);
 
   /**
+   * TODO
+   */
+  void
+  setActiveWordStart(const float&);
+
+  /**
+   * TODO
+   */
+  void
+  setActiveWordEnd(const float&);
+
+  /**
    * @brief Set the active word to nullptr.
    */
   void
@@ -208,6 +220,12 @@ signals:
    */
   void
   activeWordChanged(ct::Word* _pWord);
+
+  /**
+   * @brief Emitted when the active word content has changed.
+   */
+  void
+  activeWordContentChanged(ct::Word* _pWord);
 
 private:
 
