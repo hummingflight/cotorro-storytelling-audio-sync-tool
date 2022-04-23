@@ -157,6 +157,12 @@ StorySectionEditorWidget::getMediaLength()
   return audioManager.getDuration();
 }
 
+float 
+StorySectionEditorWidget::getCursorPosition()
+{
+  return _m_waveFormEditor.getCursorPosition();
+}
+
 void
 StorySectionEditorWidget::onActiveSectionChanged(StorySection *_pStorySection)
 {

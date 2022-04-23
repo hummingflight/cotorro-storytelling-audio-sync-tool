@@ -130,6 +130,12 @@ public:
   float
   getMediaLength();
 
+  /**
+   * TODO
+   */
+  float
+  getCursorPosition();
+
 protected:
 
   /**

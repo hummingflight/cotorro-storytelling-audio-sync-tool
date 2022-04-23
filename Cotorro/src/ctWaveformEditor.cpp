@@ -236,6 +236,12 @@ void WaveformEditor::onViewportMoved(const float &_newPosition)
   updateTimeline();
 }
 
+float 
+WaveformEditor::getCursorPosition()
+{
+  return _m_cursor.getPosition().x;
+}
+
 bool
 WaveformEditor::hasAvailableLine()
 {

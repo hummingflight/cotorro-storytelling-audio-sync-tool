@@ -82,6 +82,8 @@ Editor::init()
   connect(ui->sliderZoom, &QSlider::valueChanged, this, &Editor::onZoomValueChanged);
   connect(ui->lineEdit_wordStart, &QLineEdit::editingFinished, this, &Editor::onLineEditorWordStartChanged);
   connect(ui->lineEdit_wordEnd, &QLineEdit::editingFinished, this, &Editor::onLineEditorWordEndChanged);
+  connect(ui->btnStartKey, &QPushButton::clicked, this, &Editor::onWordStartKeyButtonPressed);
+  connect(ui->btnEndKey, &QPushButton::clicked, this, &Editor::onWordEndKeyButtonPressed);
 
   Project& project = pCotorro->getProject();
   StorySectionManager& storySectionManager = project.getStorySectionManager();
@@ -111,6 +113,8 @@ Editor::init()
 
   ui->lineEdit_wordStart->setDisabled(true);
   ui->lineEdit_wordEnd->setDisabled(true);
+  ui->btnStartKey->setDisabled(true);
+  ui->btnEndKey->setDisabled(true);
 
   clearEditorPanel();
 
@@ -609,6 +613,8 @@ Editor::onActiveWordChanged(ct::Word* _activeWord)
 
     ui->lineEdit_wordStart->setDisabled(true);
     ui->lineEdit_wordEnd->setDisabled(true);
+    ui->btnStartKey->setDisabled(true);
+    ui->btnEndKey->setDisabled(true);
     return;
   }
 
@@ -616,6 +622,8 @@ Editor::onActiveWordChanged(ct::Word* _activeWord)
   ui->lineEdit_wordEnd->setText(QString::number(_activeWord->getEnd()));
   ui->lineEdit_wordStart->setDisabled(false);
   ui->lineEdit_wordEnd->setDisabled(false);
+  ui->btnStartKey->setDisabled(false);
+  ui->btnEndKey->setDisabled(false);
 }
 
 void 
@@ -625,13 +633,28 @@ Editor::onActiveWordContentChanged(ct::Word* _activeWord)
   ui->lineEdit_wordEnd->setText(QString::number(_activeWord->getEnd()));
 }
 
+void 
+Editor::onWordStartKeyButtonPressed()
+{
+  Cotorro* pCotorro = Cotorro::Instance();
+  StorySectionManager& storySectionManager = pCotorro->getProject().getStorySectionManager();
+  storySectionManager.setActiveWordStart(_m_pStorySectionEditorWidget->getCursorPosition());
+}
+
+void 
+Editor::onWordEndKeyButtonPressed()
+{
+  Cotorro* pCotorro = Cotorro::Instance();
+  StorySectionManager& storySectionManager = pCotorro->getProject().getStorySectionManager();
+  storySectionManager.setActiveWordEnd(_m_pStorySectionEditorWidget->getCursorPosition());
+}
+
 void
 Editor::on_actionPlaySimulation_triggered()
 {
   onPlaySimulation();
   return;
 }
-
 
 void
 Editor::on_actionPauseSimulation_triggered()
@@ -640,11 +663,9 @@ Editor::on_actionPauseSimulation_triggered()
   return;
 }
 
-
 void
 Editor::on_actionStopSimulation_triggered()
 {
   onStopSimulation();
   return;
 }
-

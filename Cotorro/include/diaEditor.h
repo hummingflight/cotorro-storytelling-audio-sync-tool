@@ -107,6 +107,12 @@ private slots:
   void
   onActiveWordContentChanged(ct::Word*);
 
+  void
+  onWordStartKeyButtonPressed();
+
+  void
+  onWordEndKeyButtonPressed();
+
 private:
 
   /**

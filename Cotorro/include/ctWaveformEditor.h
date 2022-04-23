@@ -104,6 +104,12 @@ public:
   onViewportMoved(const float& _newPosition);
 
   /**
+   * Get the cursor position.
+   */
+  float
+  getCursorPosition();
+
+  /**
    * @brief destroy
    */
   void
