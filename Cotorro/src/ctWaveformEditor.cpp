@@ -11,9 +11,9 @@ using sf::Vector2i;
 namespace ct 
 {
 
-quint32 WaveformEditor::_TIME_LINE_LINE_POOL_SIZE = 30;
+quint32 WaveformEditor::_TIME_LINE_LINE_POOL_SIZE = 60;
 float WaveformEditor::_MAX_LINE_SPACING = 15.0f;
-float WaveformEditor::_MIN_LINE_SPACING = 0.5f;
+float WaveformEditor::_MIN_LINE_SPACING = 0.25f;
 float WaveformEditor::_LINE_SPACING_FACTOR = 0.1f;
 
 WaveformEditor::WaveformEditor(StorySectionEditorWidget* _pStorySectionEditorWidget) :
@@ -49,10 +49,9 @@ WaveformEditor::onUpdate(sf::RenderWindow &_window)
   AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
   float cursorPosition = audioManager.getPlayingPosition();
   _m_cursor.setPosition(cursorPosition, 0.0f);
-
-  QTime time(0, 0);
-  time = time.addSecs(cursorPosition);
-  _m_cursor.setLabel(time.toString("mm:ss"));
+  
+  QString strTime = QString::number(cursorPosition, 'f', 2);
+  _m_cursor.setLabel(QObject::tr("%1s.").arg(strTime));
 
   // Draw cursor
   _m_cursor.update(_window);
@@ -203,7 +202,8 @@ WaveformEditor::updateTimeline()
       if(-0.01f < delta && delta < 0.01f) {
           exists = true;
           pLine->setPosition(linePosition, 0.0f);
-          pLine->setLabel(QObject::tr("%1s.").arg(linePosition));
+          QString strTime = QString::number(linePosition, 'f', 2);
+          pLine->setLabel(QObject::tr("%1s.").arg(strTime));
           break;
       }
     }
@@ -213,7 +213,8 @@ WaveformEditor::updateTimeline()
       TimeLineLine* pNewLine = getAvailableLine();
       if(pNewLine != nullptr) {
         pNewLine->setPosition(linePosition, 0.0f);
-        pNewLine->setLabel(QObject::tr("%1s.").arg(linePosition));
+        QString strTime = QString::number(linePosition, 'f', 2);
+        pNewLine->setLabel(QObject::tr("%1s.").arg(strTime));
       }
     }
 

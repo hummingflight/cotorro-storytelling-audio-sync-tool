@@ -93,6 +93,9 @@ private slots:
   onVolumenValueChanged(qint32 value);
 
   void
+  onSpeedValueChanged(qint32 value);
+
+  void
   onZoomValueChanged(qint32 value);
 
   void

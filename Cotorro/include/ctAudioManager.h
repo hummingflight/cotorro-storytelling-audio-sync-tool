@@ -110,6 +110,12 @@ public:
   setPlayingPosition(const float&);
 
   /**
+   * TODO
+   */
+  void
+  setPitch(const float&);
+
+  /**
    * @brief Gets the playing position in seconds.
    *
    * @return Playing position in seconds.

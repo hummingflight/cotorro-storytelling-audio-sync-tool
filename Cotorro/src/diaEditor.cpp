@@ -80,6 +80,7 @@ Editor::init()
   connect(ui->btnStopSimulation, &QPushButton::clicked, this, &Editor::onStopSimulation);
   connect(ui->sliderVolumen, &QSlider::valueChanged, this, &Editor::onVolumenValueChanged);
   connect(ui->sliderZoom, &QSlider::valueChanged, this, &Editor::onZoomValueChanged);
+  connect(ui->slider_pitch, &QSlider::valueChanged, this, &Editor::onSpeedValueChanged);
   connect(ui->lineEdit_wordStart, &QLineEdit::editingFinished, this, &Editor::onLineEditorWordStartChanged);
   connect(ui->lineEdit_wordEnd, &QLineEdit::editingFinished, this, &Editor::onLineEditorWordEndChanged);
   connect(ui->lineEdit_wordData, &QLineEdit::editingFinished, this, &Editor::onLineEditorWordDataChanged);
@@ -577,6 +578,13 @@ Editor::onVolumenValueChanged(qint32 value)
   AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
   audioManager.setVolumen(value);
   return;
+}
+
+void 
+Editor::onSpeedValueChanged(qint32 value)
+{
+  AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
+  audioManager.setPitch(static_cast<float>(value)/100.0f);
 }
 
 void

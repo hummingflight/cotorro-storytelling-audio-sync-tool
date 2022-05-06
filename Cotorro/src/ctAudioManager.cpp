@@ -79,7 +79,7 @@ AudioManager::stop()
 {
   if(!_m_isReady) {
     return;
-  }
+  }  
 
   if(_m_musicPlayer.getStatus() != Music::Stopped) {
     _m_musicPlayer.stop();
@@ -105,7 +105,7 @@ AudioManager::play()
 {
   if(!_m_isReady) {
     return;
-  }
+  }  
 
   if(_m_musicPlayer.getStatus() != Music::Playing) {
     _m_musicPlayer.play();    
@@ -160,6 +160,12 @@ void
 AudioManager::setPlayingPosition(const float& _seconds)
 {
   _m_musicPlayer.setPlayingOffset(sf::Time(sf::seconds(_seconds)));
+}
+
+void 
+AudioManager::setPitch(const float& _pitch)
+{
+  _m_musicPlayer.setPitch(_pitch);
 }
 
 float
