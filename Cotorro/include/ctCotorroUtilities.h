@@ -65,6 +65,13 @@ namespace eSEQUENCE_RESULT {
     kFail
   };
 }
+
+namespace eMUSIC_PLAYER_STATE {
+  enum E {
+    kReady,
+    kWaitingTrack
+  };
+}
 }
 
 #endif // COTORROUTILITIES_H

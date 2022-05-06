@@ -82,6 +82,7 @@ Editor::init()
   connect(ui->sliderZoom, &QSlider::valueChanged, this, &Editor::onZoomValueChanged);
   connect(ui->lineEdit_wordStart, &QLineEdit::editingFinished, this, &Editor::onLineEditorWordStartChanged);
   connect(ui->lineEdit_wordEnd, &QLineEdit::editingFinished, this, &Editor::onLineEditorWordEndChanged);
+  connect(ui->lineEdit_wordData, &QLineEdit::editingFinished, this, &Editor::onLineEditorWordDataChanged);
   connect(ui->btnStartKey, &QPushButton::clicked, this, &Editor::onWordStartKeyButtonPressed);
   connect(ui->btnEndKey, &QPushButton::clicked, this, &Editor::onWordEndKeyButtonPressed);
 
@@ -113,6 +114,7 @@ Editor::init()
 
   ui->lineEdit_wordStart->setDisabled(true);
   ui->lineEdit_wordEnd->setDisabled(true);
+  ui->lineEdit_wordData->setDisabled(true);
   ui->btnStartKey->setDisabled(true);
   ui->btnEndKey->setDisabled(true);
 
@@ -605,6 +607,15 @@ Editor::onLineEditorWordEndChanged()
 }
 
 void 
+Editor::onLineEditorWordDataChanged()
+{
+  Cotorro* cotorro = Cotorro::Instance();
+  StorySectionManager& storySectionMngr = cotorro->getProject().getStorySectionManager();
+
+  storySectionMngr.setActiveWordData(ui->lineEdit_wordData->text());
+}
+
+void 
 Editor::onActiveWordChanged(ct::Word* _activeWord)
 {
   if (_activeWord == nullptr) {
@@ -612,15 +623,19 @@ Editor::onActiveWordChanged(ct::Word* _activeWord)
     ui->lineEdit_wordEnd->setText(tr(""));
 
     ui->lineEdit_wordStart->setDisabled(true);
+    ui->lineEdit_wordData->setDisabled(true);
     ui->lineEdit_wordEnd->setDisabled(true);
     ui->btnStartKey->setDisabled(true);
     ui->btnEndKey->setDisabled(true);
+    
     return;
   }
 
   ui->lineEdit_wordStart->setText(QString::number(_activeWord->getStart()));
   ui->lineEdit_wordEnd->setText(QString::number(_activeWord->getEnd()));
+  ui->lineEdit_wordData->setText(_activeWord->getData());
   ui->lineEdit_wordStart->setDisabled(false);
+  ui->lineEdit_wordData->setDisabled(false);
   ui->lineEdit_wordEnd->setDisabled(false);
   ui->btnStartKey->setDisabled(false);
   ui->btnEndKey->setDisabled(false);
@@ -631,6 +646,7 @@ Editor::onActiveWordContentChanged(ct::Word* _activeWord)
 {
   ui->lineEdit_wordStart->setText(QString::number(_activeWord->getStart()));
   ui->lineEdit_wordEnd->setText(QString::number(_activeWord->getEnd()));
+  ui->lineEdit_wordData->setText(_activeWord->getData());
 }
 
 void 

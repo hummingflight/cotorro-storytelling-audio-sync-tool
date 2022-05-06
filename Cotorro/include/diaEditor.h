@@ -102,6 +102,9 @@ private slots:
   onLineEditorWordEndChanged();
 
   void
+  onLineEditorWordDataChanged();
+
+  void
   onActiveWordChanged(ct::Word*);
 
   void

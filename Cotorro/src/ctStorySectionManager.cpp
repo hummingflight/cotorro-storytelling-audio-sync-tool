@@ -404,8 +404,21 @@ StorySectionManager::setActiveWord(const quint32& _index)
     _m_pActiveWord->setEnd(_end);
     if (_end <= _m_pActiveWord->getStart())
     {
-      _m_pActiveWord->setStart(_end - 1.0f);
+      _m_pActiveWord->setStart(qMax(0.0f, _end - 1.0f));
     }
+
+    activeWordContentChanged(_m_pActiveWord);
+  }
+
+  void 
+  StorySectionManager::setActiveWordData(const QString& _data)
+  {
+    if (_m_pActiveWord == nullptr)
+    {
+      return;
+    }
+
+    _m_pActiveWord->setData(_data);
 
     activeWordContentChanged(_m_pActiveWord);
   }

@@ -15,12 +15,14 @@ using ct::AudioManager;
 using ct::StorySectionManager;
 using ct::eLOGTYPE::E;
 
-DiaCreateSection::DiaCreateSection(QWidget *parent) :
+DiaCreateSection::DiaCreateSection(QWidget* parent) :
   QDialog(parent),
   sectionName(""),
   sectionAudioFileName(""),
   sectionContent(""),
-  ui(new Ui::DiaCreateSection)
+  ui(new Ui::DiaCreateSection),
+  _m_musicPlayerState(ct::eMUSIC_PLAYER_STATE::kWaitingTrack),
+  _m_musicPlayer()
 {
   ui->setupUi(this);
   init();
@@ -30,14 +32,14 @@ DiaCreateSection::DiaCreateSection(QWidget *parent) :
 DiaCreateSection::~DiaCreateSection()
 {
   delete ui;
-  stopMusic();
+  stopTrack();
   return;
 }
 
 void
 DiaCreateSection::onClick_Create()
 {
-  stopMusic();
+  stopTrack();
 
   if(checkFields()) {
     sectionName = ui->lineName->text();
@@ -46,50 +48,33 @@ DiaCreateSection::onClick_Create()
 
     accept();
   }
-
-  return;
 }
 
 void
 DiaCreateSection::onClick_Cancel()
 {
-  stopMusic();
+  stopTrack();
   reject();
-
-  return;
 }
 
 void
 DiaCreateSection::onClick_Play()
 {
-  // Stop current music.
-  stopMusic();
-
-  QString selectedFile = ui->comboAudio->currentText();
-  if(selectedFile == "") {
-    return;
-  }
-
-  AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
-  if(audioManager.loadFromAssets(selectedFile) == ct::eOPRESULT::kOk) {
-    audioManager.play();
-  }
-
-  return;
+  stopTrack();
+  playTrack();
 }
 
 void
 DiaCreateSection::onClick_Stop()
 {
-  stopMusic();
-  return;
+  stopTrack();
 }
 
 void
 DiaCreateSection::onMusicComboCurrentTextChanged()
 {
-  stopMusic();
-  return;
+  stopTrack();
+  loadTrack(ui->comboAudio->currentText());
 }
 
 void
@@ -110,8 +95,6 @@ DiaCreateSection::init()
   connect(ui->comboAudio, &QComboBox::currentTextChanged, this, &DiaCreateSection::onMusicComboCurrentTextChanged);
 
   updateAudioCombo();
-
-  return;
 }
 
 void
@@ -135,16 +118,60 @@ DiaCreateSection::updateAudioCombo()
 
   QStringList aFiles = projectDir.entryList();
   ui->comboAudio->insertItems(0, aFiles);
+}
 
-  return;
+void 
+DiaCreateSection::loadTrack(const QString& _fileName)
+{
+  _m_musicPlayer.stop();
+  _m_musicPlayerState = ct::eMUSIC_PLAYER_STATE::kWaitingTrack;
+
+  if (_fileName.isEmpty())
+  {
+    return;
+  }
+
+  Project& project = Cotorro::Instance()->getProject();
+  QFileInfo fileInfo(project.getAssetsDirectory() + QDir::separator() + _fileName);
+  if (!fileInfo.exists()) {
+    Cotorro::Log(
+      ct::eLOGTYPE::kError,
+      tr("| diaCreateSection | File doesn't exists: %1").arg(fileInfo.filePath())
+    );
+    return;
+  }
+
+  if (!fileInfo.isReadable()) {
+    Cotorro::Log(
+      ct::eLOGTYPE::kError,
+      tr("| diaCreateSection | Couldn't read sound file: %1").arg(fileInfo.filePath())
+    );
+    return;
+  }
+
+  if (!_m_musicPlayer.openFromFile(fileInfo.filePath().toStdString().c_str())) {
+    Cotorro::Log(
+      ct::eLOGTYPE::kError,
+      tr("| diaCreateSection | Couldn't open sound file: %1").arg(fileInfo.filePath())
+    );
+    return;
+  }
+
+  _m_musicPlayerState = ct::eMUSIC_PLAYER_STATE::kReady;
 }
 
 void
-DiaCreateSection::stopMusic()
+DiaCreateSection::stopTrack()
 {
-  AudioManager& audioManager = Cotorro::Instance()->getAudioManager();
-  audioManager.stop();
-  return;
+  _m_musicPlayer.stop();
+}
+
+void
+DiaCreateSection::playTrack()
+{
+  if (_m_musicPlayerState == ct::eMUSIC_PLAYER_STATE::kReady) {
+    _m_musicPlayer.play();
+  }
 }
 
 bool

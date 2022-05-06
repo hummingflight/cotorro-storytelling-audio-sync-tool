@@ -1,7 +1,13 @@
 #ifndef DIACREATESECTION_H
 #define DIACREATESECTION_H
 
+#include <SFML/Audio.hpp>
+
 #include <QDialog>
+
+#include "ctCotorroUtilities.h"
+
+using sf::Music;
 
 namespace Ui {
 	
@@ -74,10 +80,22 @@ private:
   updateAudioCombo();
 
   /**
+   * 
+   */
+  void
+  loadTrack(const QString& _fileName);
+
+  /**
    * @brief Stops music.
    */
   void
-  stopMusic();
+  stopTrack();
+
+  /**
+   * Play a track.
+   */
+  void
+  playTrack();
 
   /**
    * @brief Checks the "accept" button availability.
@@ -90,6 +108,18 @@ private:
    */
   Ui::DiaCreateSection*
   ui;
+
+  /**
+   * 
+   */
+  ct::eMUSIC_PLAYER_STATE::E
+  _m_musicPlayerState;
+
+  /**
+   * Music Player.
+   */
+  Music
+  _m_musicPlayer;
 };
 
 #endif // DIACREATESECTION_H

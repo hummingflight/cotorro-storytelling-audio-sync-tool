@@ -165,6 +165,12 @@ public:
   setActiveWordEnd(const float&);
 
   /**
+   * TODO
+   */
+  void
+  setActiveWordData(const QString&);
+
+  /**
    * @brief Set the active word to nullptr.
    */
   void

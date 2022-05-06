@@ -7,7 +7,7 @@
 namespace ct {
 
 float StorySectionEditorWidget::_MIN_PIXEL_PER_SECOND = 10.0f;
-float StorySectionEditorWidget::_MAX_PIXEL_PER_SECOND = 100.0f;
+float StorySectionEditorWidget::_MAX_PIXEL_PER_SECOND = 300.0f;
 float StorySectionEditorWidget::_PADDING_TOP = 10.0f;
 float StorySectionEditorWidget::_PADDING_BOTTOM = 10.0f;
 float StorySectionEditorWidget::_PADDING_RIGHT = 10.0f;

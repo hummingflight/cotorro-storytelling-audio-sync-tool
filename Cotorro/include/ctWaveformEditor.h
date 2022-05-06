@@ -120,6 +120,21 @@ public:
    */
   static quint32 _TIME_LINE_LINE_POOL_SIZE;
 
+  /**
+   * TODO
+   */
+  static float _MAX_LINE_SPACING;
+
+  /**
+   * TODO
+   */
+  static float _MIN_LINE_SPACING;
+
+  /**
+   * TODO
+   */
+  static float _LINE_SPACING_FACTOR;
+
 protected:
 
 private:

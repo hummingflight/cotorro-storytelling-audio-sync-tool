@@ -111,7 +111,7 @@ Cotorro::openProject(const QString &_projectFilePath)
   // Set current path.
   QDir::setCurrent(projectInfo.path());
 
-  // Read information comming from the file.
+  // Read information coming from the file.
   QXmlStreamReader reader(&projFile);
 
   QXmlStreamReader::TokenType token = QXmlStreamReader::StartDocument;

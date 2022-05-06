@@ -12,6 +12,9 @@ namespace ct
 {
 
 quint32 WaveformEditor::_TIME_LINE_LINE_POOL_SIZE = 30;
+float WaveformEditor::_MAX_LINE_SPACING = 15.0f;
+float WaveformEditor::_MIN_LINE_SPACING = 0.5f;
+float WaveformEditor::_LINE_SPACING_FACTOR = 0.1f;
 
 WaveformEditor::WaveformEditor(StorySectionEditorWidget* _pStorySectionEditorWidget) :
   Frame(),
@@ -71,7 +74,7 @@ WaveformEditor::onDrawableAreaChanged()
     _line->setHeight(_m_drawableArea.height);
   }
 
-  _m_waveFormWordShadow.setHeight(_m_drawableArea.height);
+  _m_waveFormWordShadow.setHeight(_m_drawableArea.height);  
 
   updateTimeline();
   return;
@@ -131,7 +134,38 @@ void
 WaveformEditor::updateTimeline()
 {
   float viewportPosition = _m_pStorySectionEditorWidget->getViewportPosition();
-  float viewportEndPosition = viewportPosition + _m_pStorySectionEditorWidget->getViewportLength();
+  float viewportLength = _m_pStorySectionEditorWidget->getViewportLength();
+  float viewportEndPosition = viewportPosition + viewportLength;
+  float pixelsPerSecond = _m_pStorySectionEditorWidget->getPixelsPerSecond();
+
+  float W = viewportLength;
+  float w = 15.0f;
+
+  float desireLineSpacing = qFloor(_LINE_SPACING_FACTOR * viewportLength);
+  if (_MAX_LINE_SPACING < desireLineSpacing) {
+    desireLineSpacing = _MAX_LINE_SPACING;
+  }
+  else if (_MIN_LINE_SPACING > desireLineSpacing) {
+    desireLineSpacing = _MIN_LINE_SPACING;
+  }
+
+  // if Line Spacing have changed, remove all lines from viewport.
+  if (desireLineSpacing != _m_lineSpacing) {
+    QListIterator<TimeLineLine*> iActiveLine(_m_activeTimeLineLines);
+    QList<TimeLineLine*> toRemove;
+    while (iActiveLine.hasNext()) {
+      TimeLineLine* pLine = iActiveLine.next();
+      toRemove.push_back(pLine);
+    }
+
+    QListIterator<TimeLineLine*> iToRemove(toRemove);
+    while (iToRemove.hasNext()) {
+      TimeLineLine* pLine = iToRemove.next();
+      deactiveLine(pLine);
+    }
+
+    _m_lineSpacing = desireLineSpacing;
+  }
 
   // Remove lines that are out of viewport
   QListIterator<TimeLineLine*> iActiveLine(_m_activeTimeLineLines);
@@ -143,6 +177,7 @@ WaveformEditor::updateTimeline()
     if(viewportPosition > linePosition || linePosition >= viewportEndPosition){
       toRemove.push_back(pLine);
     }
+    toRemove.push_back(pLine);
   }
 
   QListIterator<TimeLineLine*> iToRemove(toRemove);
@@ -153,8 +188,6 @@ WaveformEditor::updateTimeline()
 
   // Initial line position
   float linePosition = qCeil(viewportPosition / _m_lineSpacing) * _m_lineSpacing;
-  QTime time(0, 0);
-  time = time.addSecs(linePosition);
 
   // Create time line lines
   while(linePosition < viewportEndPosition) {
@@ -170,7 +203,7 @@ WaveformEditor::updateTimeline()
       if(-0.01f < delta && delta < 0.01f) {
           exists = true;
           pLine->setPosition(linePosition, 0.0f);
-          pLine->setLabel(time.toString("mm:ss"));
+          pLine->setLabel(QObject::tr("%1s.").arg(linePosition));
           break;
       }
     }
@@ -180,11 +213,10 @@ WaveformEditor::updateTimeline()
       TimeLineLine* pNewLine = getAvailableLine();
       if(pNewLine != nullptr) {
         pNewLine->setPosition(linePosition, 0.0f);
-        pNewLine->setLabel(time.toString("mm:ss"));
+        pNewLine->setLabel(QObject::tr("%1s.").arg(linePosition));
       }
     }
 
-    time = time.addSecs(_m_lineSpacing);
     linePosition += _m_lineSpacing;
   }
 
