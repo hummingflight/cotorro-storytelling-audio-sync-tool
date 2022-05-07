@@ -1,0 +1,394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{FF2FE12D-0F39-3605-8E8E-ED37B7E99822}</ProjectGuid>
+    <RootNamespace>Cotorro</RootNamespace>
+    <Keyword>QtVS_v304</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.19041.0</WindowsTargetPlatformMinVersion>
+    <QtMsBuild Condition="'$(QtMsBuild)'=='' or !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <PlatformToolset>v143</PlatformToolset>
+    <OutputDirectory>release\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>release\</IntermediateDirectory>
+    <PrimaryOutput>Cotorro</PrimaryOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <PlatformToolset>v143</PlatformToolset>
+    <OutputDirectory>debug\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>debug\</IntermediateDirectory>
+    <PrimaryOutput>Cotorro</PrimaryOutput>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)intermediate\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>Cotorro</TargetName>
+    <IgnoreImportLibrary>true</IgnoreImportLibrary>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)intermediate\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>Cotorro</TargetName>
+    <IgnoreImportLibrary>true</IgnoreImportLibrary>
+    <LinkIncremental>false</LinkIncremental>
+    <GenerateManifest>true</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <QtInstall>Qt6.1.3</QtInstall>
+    <QtModules>core;gui;widgets</QtModules>
+    <QtPathBinaries>bin</QtPathBinaries>
+    <QtPathLibraryExecutables>bin</QtPathLibraryExecutables>
+  </PropertyGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <QtInstall>Qt6.1.3</QtInstall>
+    <QtModules>core;gui;widgets</QtModules>
+    <QtPathBinaries>bin</QtPathBinaries>
+    <QtPathLibraryExecutables>bin</QtPathLibraryExecutables>
+  </PropertyGroup>
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>GeneratedFiles\$(ConfigurationName);GeneratedFiles;$(SolutionDir)include;dependencies\sfml\include;release;C:/VulkanSDK/1.0.51.0/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -permissive- -Zc:__cplusplus -Zc:externConstexpr -utf-8 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>release\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <ObjectFileName>$(SolutionDir)\intermediate\$(Platform)\$(Configuration)\obj\</ObjectFileName>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;NDEBUG;QT_NO_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ProgramDataBaseFileName>
+      </ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>.\dependencies\sfml\lib\sfml-audio.lib;.\dependencies\sfml\lib\sfml-system.lib;.\dependencies\sfml\lib\sfml-graphics.lib;.\dependencies\sfml\lib\sfml-window.lib;$(QTDIR)\lib\Qt6Widgets.lib;$(QTDIR)\lib\Qt6Gui.lib;$(QTDIR)\lib\Qt6Core.lib;$(QTDIR)\lib\Qt6EntryPoint.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\sfml\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkIncremental>false</LinkIncremental>
+      <OptimizeReferences>true</OptimizeReferences>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;NDEBUG;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <QtMoc>
+      <CompilerFlavor>msvc</CompilerFlavor>
+      <Include>$(IntDir)moc\moc_predefs.h</Include>
+      <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
+      <DynamicSource>output</DynamicSource>
+      <QtMocDir>$(IntDir)moc\</QtMocDir>
+      <QtMocFileName>moc_%(Filename).cpp</QtMocFileName>
+    </QtMoc>
+    <QtRcc>
+      <InitFuncName>app-resources</InitFuncName>
+      <Compression>default</Compression>
+      <ExecutionDescription>Rcc'ing %(Identity)...</ExecutionDescription>
+      <QtRccDir>$(IntDir)rcc\</QtRccDir>
+      <QtRccFileName>qrc_%(Filename).cpp</QtRccFileName>
+    </QtRcc>
+    <QtUic>
+      <ExecutionDescription>Uic'ing %(Identity)...</ExecutionDescription>
+      <QtUicDir>$(IntDir)uic\</QtUicDir>
+      <QtUicFileName>ui_%(Filename).h</QtUicFileName>
+    </QtUic>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>GeneratedFiles\$(ConfigurationName);GeneratedFiles;$(SolutionDir)include;dependencies\sfml\include;debug;C:/VulkanSDK/1.0.51.0/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -permissive- -Zc:__cplusplus -Zc:externConstexpr -utf-8 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>debug\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <ObjectFileName>$(SolutionDir)\intermediate\$(Platform)\$(Configuration)\obj\</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>.\dependencies\sfml\lib\sfml-audio-d.lib;.\dependencies\sfml\lib\sfml-system-d.lib;.\dependencies\sfml\lib\sfml-graphics-d.lib;.\dependencies\sfml\lib\sfml-window-d.lib;$(QTDIR)\lib\Qt6Widgetsd.lib;$(QTDIR)\lib\Qt6Guid.lib;$(QTDIR)\lib\Qt6Cored.lib;$(QTDIR)\lib\Qt6EntryPointd.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\sfml\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <QtMoc>
+      <CompilerFlavor>msvc</CompilerFlavor>
+      <Include>$(IntDir)moc\moc_predefs.h</Include>
+      <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
+      <DynamicSource>output</DynamicSource>
+      <QtMocDir>$(IntDir)moc\</QtMocDir>
+      <QtMocFileName>moc_%(Filename).cpp</QtMocFileName>
+    </QtMoc>
+    <QtRcc>
+      <InitFuncName>app-resources</InitFuncName>
+      <Compression>default</Compression>
+      <ExecutionDescription>Rcc'ing %(Identity)...</ExecutionDescription>
+      <QtRccDir>$(IntDir)rcc\</QtRccDir>
+      <QtRccFileName>qrc_%(Filename).cpp</QtRccFileName>
+    </QtRcc>
+    <QtUic>
+      <ExecutionDescription>Uic'ing %(Identity)...</ExecutionDescription>
+      <QtUicDir>$(IntDir)uic\</QtUicDir>
+      <QtUicFileName>ui_%(Filename).h</QtUicFileName>
+    </QtUic>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="moc_cbt\debug\moc_predefs.h.cbt">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -permissive- -Zc:__cplusplus -Zc:externConstexpr -Zi -MDd -std:c++17 -utf-8 -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;"$(IntDir)\moc\moc_predefs.h"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate moc_predefs.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)\moc\moc_predefs.h</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)\moc\moc_predefs.h</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="moc_cbt\release\moc_predefs.h.cbt">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -permissive- -Zc:__cplusplus -Zc:externConstexpr -O2 -MD -std:c++17 -utf-8 -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;"$(IntDir)\moc\moc_predefs.h"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate moc_predefs.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)\moc\moc_predefs.h;%(Outputs)</Outputs>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="app-resources.qrc">
+    </QtRcc>
+    <None Include="assets\icons\application.ico" />
+    <None Include="assets\icons\application_warning.ico" />
+    <None Include="assets\fonts\arial.ttf" />
+    <None Include="assets\fonts\arial_narrow_7.ttf" />
+    <None Include="assets\icons\calculator.ico" />
+    <None Include="assets\icons\calendar.ico" />
+    <None Include="assets\icons\camera.ico" />
+    <None Include="assets\icons\clock.ico" />
+    <None Include="assets\icons\coffee.ico" />
+    <None Include="assets\icons\computer.ico" />
+    <None Include="assets\icons\cotorro.ico" />
+    <None Include="assets\images\cotorro_banner.png" />
+    <None Include="assets\icons\direction_down.ico" />
+    <None Include="assets\icons\direction_left.ico" />
+    <None Include="assets\icons\direction_right.ico" />
+    <None Include="assets\icons\direction_up.ico" />
+    <None Include="assets\icons\disc.ico" />
+    <None Include="assets\icons\diskette.ico" />
+    <None Include="assets\icons\document.ico" />
+    <None Include="assets\icons\document_add.ico" />
+    <None Include="assets\icons\document_delete.ico" />
+    <None Include="assets\icons\document_edit.ico" />
+    <None Include="assets\icons\document_search.ico" />
+    <None Include="assets\icons\document_warning.ico" />
+    <None Include="assets\icons\file.ico" />
+    <None Include="assets\icons\file_add.ico" />
+    <None Include="assets\icons\file_delete.ico" />
+    <None Include="assets\icons\file_edit.ico" />
+    <None Include="assets\icons\file_search.ico" />
+    <None Include="assets\icons\file_warning.ico" />
+    <None Include="assets\icons\folder.ico" />
+    <None Include="assets\icons\folder_add.ico" />
+    <None Include="assets\icons\folder_delete.ico" />
+    <None Include="assets\icons\folder_empty.ico" />
+    <None Include="assets\icons\folder_search.ico" />
+    <None Include="assets\icons\folder_warning.ico" />
+    <None Include="assets\icons\home.ico" />
+    <None Include="assets\icons\load_download.ico" />
+    <None Include="assets\icons\load_upload.ico" />
+    <None Include="assets\icons\mail.ico" />
+    <None Include="assets\icons\mail_delete.ico" />
+    <None Include="assets\icons\mail_receive.ico" />
+    <None Include="assets\icons\mail_search.ico" />
+    <None Include="assets\icons\mail_send.ico" />
+    <None Include="assets\icons\mail_warning.ico" />
+    <None Include="assets\icons\mail_write.ico" />
+    <None Include="assets\icons\manage.ico" />
+    <None Include="assets\icons\message.ico" />
+    <None Include="assets\icons\notification_add.ico" />
+    <None Include="assets\icons\notification_done.ico" />
+    <None Include="assets\icons\notification_error.ico" />
+    <None Include="assets\icons\notification_remove.ico" />
+    <None Include="assets\icons\notification_warning.ico" />
+    <None Include="assets\icons\piechart.ico" />
+    <None Include="assets\icons\player_fastforward.ico" />
+    <None Include="assets\icons\player_pause.ico" />
+    <None Include="assets\icons\player_play.ico" />
+    <None Include="assets\icons\player_record.ico" />
+    <None Include="assets\icons\player_rewind.ico" />
+    <None Include="assets\icons\player_stop.ico" />
+    <None Include="assets\icons\rss.ico" />
+    <None Include="assets\icons\search.ico" />
+    <None Include="assets\icons\security_key.ico" />
+    <None Include="assets\icons\security_keyandlock.ico" />
+    <None Include="assets\icons\security_lock.ico" />
+    <None Include="assets\icons\security_unlock.ico" />
+    <None Include="assets\icons\shoppingcart.ico" />
+    <None Include="assets\icons\shoppingcart_add.ico" />
+    <None Include="assets\icons\shoppingcart_checkout.ico" />
+    <None Include="assets\icons\shoppingcart_remove.ico" />
+    <None Include="assets\icons\shoppingcart_warning.ico" />
+    <None Include="assets\icons\star_empty.ico" />
+    <None Include="assets\icons\star_full.ico" />
+    <None Include="assets\icons\star_half.ico" />
+    <None Include="assets\icons\user.ico" />
+    <None Include="assets\icons\user_add.ico" />
+    <None Include="assets\icons\user_delete.ico" />
+    <None Include="assets\icons\volume.ico" />
+    <None Include="assets\icons\volume_down.ico" />
+    <None Include="assets\icons\volume_mute.ico" />
+    <None Include="assets\icons\volume_up.ico" />
+    <None Include="assets\icons\warning.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="include\ctAudioManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\ctButton.h" />
+    <ClInclude Include="include\ctCotorroUtilities.h" />
+    <ClInclude Include="include\ctFontResource.h" />
+    <ClInclude Include="include\ctFontResourceManager.h" />
+    <ClInclude Include="include\ctFrame.h" />
+    <ClInclude Include="include\ctInteractiveArea.h" />
+    <ClInclude Include="include\ctMachineState.h" />
+    <ClInclude Include="include\ctSequence.h" />
+    <ClInclude Include="include\ctSequencer.h" />
+    <ClInclude Include="include\ctSequenceStage.h" />
+    <ClInclude Include="include\ctMachineStateState.h" />
+    <ClInclude Include="include\ctTimeLineLine.h" />
+    <ClInclude Include="include\ctTransformableNode.h" />
+    <ClInclude Include="include\ctWaveformEditor.h" />
+    <ClInclude Include="include\ctWaveformEditorSlider.h" />
+    <ClInclude Include="include\ctWaveWordShadow.h" />
+    <ClInclude Include="include\ctWord.h" />
+    <ClInclude Include="include\ctWordBlock.h" />
+    <ClInclude Include="include\ctWordsEditor.h" />
+    <QtMoc Include="include\diaNewProject.h" />
+    <QtMoc Include="include\diaEditor.h" />
+    <QtMoc Include="include\diaCreateSection.h" />
+    <QtMoc Include="include\ctStorySectionManager.h" />
+    <QtMoc Include="include\ctStorySectionEditorWidget.h" />
+    <QtMoc Include="include\ctStorySection.h" />
+    <QtMoc Include="include\ctSfmlCanvas.h" />
+    <QtMoc Include="include\ctResourceManager.h" />
+    <QtMoc Include="include\ctProject.h" />
+    <QtMoc Include="include\ctCotorro.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\ctAudioManager.cpp" />
+    <ClCompile Include="src\ctButton.cpp" />
+    <ClCompile Include="src\ctCotorro.cpp" />
+    <ClCompile Include="src\ctFontResource.cpp" />
+    <ClCompile Include="src\ctFontResourceManager.cpp" />
+    <ClCompile Include="src\ctFrame.cpp" />
+    <ClCompile Include="src\ctIdleWordInputState.cpp" />
+    <ClCompile Include="src\ctInteractiveArea.cpp" />
+    <ClCompile Include="src\ctMachineState.cpp" />
+    <ClCompile Include="src\ctProject.cpp" />
+    <ClCompile Include="src\ctResourceManager.cpp" />
+    <ClCompile Include="src\ctSequence.cpp" />
+    <ClCompile Include="src\ctSequencer.cpp" />
+    <ClCompile Include="src\ctSequenceStage.cpp" />
+    <ClCompile Include="src\ctSfmlCanvas.cpp" />
+    <ClCompile Include="src\ctMachineStateState.cpp" />
+    <ClCompile Include="src\ctStorySection.cpp" />
+    <ClCompile Include="src\ctStorySectionEditorWidget.cpp" />
+    <ClCompile Include="src\ctStorySectionManager.cpp" />
+    <ClCompile Include="src\ctTimeLineLine.cpp" />
+    <ClCompile Include="src\ctTransformableNode.cpp" />
+    <ClCompile Include="src\ctWaveformEditor.cpp" />
+    <ClCompile Include="src\ctWaveformEditorSlider.cpp" />
+    <ClCompile Include="src\ctWaveWordShadow.cpp" />
+    <ClCompile Include="src\ctWord.cpp" />
+    <ClCompile Include="src\ctWordBlock.cpp" />
+    <ClCompile Include="src\ctWordInputState.cpp" />
+    <ClCompile Include="src\ctWordsEditor.cpp" />
+    <ClCompile Include="src\diaCreateSection.cpp" />
+    <ClCompile Include="src\diaEditor.cpp" />
+    <ClCompile Include="src\diaNewProject.cpp" />
+    <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="diaCreateSection.ui" />
+    <QtUic Include="diaEditor.ui" />
+    <QtUic Include="diaNewProject.ui" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
+</Project>
