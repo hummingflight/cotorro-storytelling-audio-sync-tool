@@ -155,6 +155,7 @@ StorySection::save(QXmlStreamWriter &_writer)
   _writer.writeAttribute(tr("name"), _m_name);
   _writer.writeAttribute(tr("audioKey"), _m_audioKey);
   _writer.writeAttribute(tr("content"), _m_content);
+  _writer.writeAttribute(tr("size"), QString::number(_m_aWords.size()));
 
   foreach( Word* word , _m_aWords) {
     word->save(_writer);
