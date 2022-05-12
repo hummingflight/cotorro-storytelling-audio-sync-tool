@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
   a.setOrganizationDomain("https://hummingflight.com");
   a.setApplicationName("Cotorro");
   a.setApplicationDisplayName("Cotorro");
-  a.setApplicationVersion("0.1");
+  a.setApplicationVersion("0.2.0");
 
   Editor w;
   w.show();
