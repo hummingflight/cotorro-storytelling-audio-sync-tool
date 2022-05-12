@@ -8,7 +8,13 @@
 Version 0.1<br />
 Cotorro is a development tool created and mantained by HummingFlight S.A. Its main function is to synchronize the words of a text with audio clips, generally useful for digital books and subtitles.
 
-### Features
+## Requirements
+
+- Visual Studio version 17 (2022)
+- Qt v6.1.3
+- SFML v2.5.1
+
+## Features
 
 - Attach text content to audio clips.
 - Set the start and end position of a word at a specified point on the audio clip's timeline.
